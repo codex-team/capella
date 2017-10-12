@@ -1,5 +1,4 @@
 <?php
-require '../vendor/autoload.php';
 const FILTERS = array(
     'c' => 'crop',
     'r' => 'resize',
