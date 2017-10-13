@@ -2,9 +2,9 @@
 
 class ImageProcessing
 {
-    public $validExtensions = array('png','gif','jpeg');
+    private $validExtensions = array('png', 'gif', 'jpeg');
     public $imageExtension;
-    public $height,$width;
+    public $height, $width;
     public $imagePath = null;
 
     public $imagick;
@@ -14,27 +14,24 @@ class ImageProcessing
         $this->imagick = new Imagick();
     }
 
-    function __destruct()
-    {
-        $this->imagick = null;
-    }
-	
     /**
      *
-     * @param $extension extension which we want to valid
+     * @param {String} $extension we want to valid
      * @return bool
      */
-    function isValidExtension($extension)
+    private function isValidExtension($extension)
     {
         $extension = strtolower($extension);
-        for($i=0;$i<count($this->validExtensions);$i++)
-            if($this->validExtensions[$i] == $extension)
+        foreach ($this->validExtensions as $value){
+            if($value == $extension){
                 return true;
+			}
+		}
         return false;
     }
 
     /**
-     * @param $path path to image
+     * @param {String} $path path to image
      * @throws Exception
      */
     function readImage($path)
@@ -49,26 +46,26 @@ class ImageProcessing
     }
 
     /**
-     * @param $x start crop position
-     * @param $y start crop position
-     * @param $cropWidth
-     * @param $cropHeight
+     * @param {int} $x start crop position
+     * @param {int} $y start crop position
+     * @param {int} $cropWidth
+     * @param {int} $cropHeight
      */
-    function cropImage($x,$y,$cropWidth,$cropHeight)
+    function cropImage($x, $y, $cropWidth, $cropHeight)
     {
-        $this->imagick->cropImage($cropWidth,$cropHeight,$x,$y);
+        $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
     }
 
     /**
-     * @param $resizeWidth
-     * @param $resizeHeight
-     * @param $filter Refer to the list of filter constants
-     * @param $blur The blur factor where > 1 is blurry, < 1 is sharp.
-     * @param $fit
+     * @param {int} $resizeWidth
+     * @param {int} $resizeHeight
+     * @param {int} $filter Refer to the list of filter constants
+     * @param {int} $blur The blur factor where > 1 is blurry, < 1 is sharp.
+     * @param {bool} $fit
      */
     function resizeImage($resizeWidth,$resizeHeight,$filter,$blur,$fit = false)
     {
-        $this->imagick->resizeImage($resizeWidth,$resizeHeight,$filter,$blur,$fit);
+        $this->imagick->resizeImage($resizeWidth, $resizeHeight, $filter, $blur, $fit);
     }
 
     /**
@@ -76,24 +73,8 @@ class ImageProcessing
      */
     function echoImage()
     {
-        header('Content-Type: image');
+        header('Content-Type: image/'.$this->imageExtension);
         echo $this->imagick->getImageBlob();
     }
-	
-    /**
-     * create random string with $characters alphabet
-     * @param int $length
-     * @return string
-     */
-    function generateRandomName($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
 }
-
 ?>
