@@ -22,12 +22,7 @@ class ImageProcessing
     private function isValidExtension($extension)
     {
         $extension = strtolower($extension);
-        foreach ($this->validExtensions as $value){
-            if($value == $extension){
-                return true;
-			}
-		}
-        return false;
+        return in_array($extension, $this->validExtensions);
     }
 
     /**
