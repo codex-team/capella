@@ -2,21 +2,90 @@
 
 class ImageProcessing
 {
-    private $validExtensions = array('png', 'gif', 'jpeg');
     public $imageExtension;
     public $height, $width;
     public $imagePath = null;
 
-    public $imagick;
+    private $imagick;
 	
-    function __construct()
+	private $validExtensions = array('png', 'gif', 'jpeg');
+
+    public function __construct()
     {
         $this->imagick = new Imagick();
     }
 
     /**
+     * @param {String} $path local path to image
+     * @throws Exception
+     */
+    public function readImage($path)
+    {
+		$readResult = @$this->imagick->readImage($path);
+        if($readResult == false){
+            throw new Exception("Invalid image path.");
+        }
+        $this->imageExtension = $this->imagick->getImageFormat();
+        if(!$this->isValidExtension($this->imageExtension)) {
+            throw new Exception("Unsupported Extension");
+        }
+        $this->recalculateDimensions();
+    }
+
+    /**
+     * @param {int} $cropWidth
+     * @param {int} $cropHeight
+     * @param {int} null $x crop x
+     * @param {int} null $y crop y
+     */
+    public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
+    {
+        if($cropWidth == null || $cropHeight== null) {
+            throw new Exception("Uncorrected input dimensions");
+        }
+        if ($x == null && $y == null) {
+            $this->resizeImage(null, $cropHeight);
+            $x = $this->width / 2 - $cropWidth / 2;
+            $this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
+        }
+        else {
+            $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
+        }
+        $this->recalculateDimensions();
+    }
+
+    /**
+     * @param {int} $resizeWidth
+     * @param {int} $resizeHeight
+     */
+    public function resizeImage($resizeWidth, $resizeHeight)
+    {
+        if($resizeWidth == null && $resizeHeight == null) {
+            throw new Exception("Uncorrected input dimensions");
+        }
+        if($resizeWidth == null) {
+            $k = $resizeHeight / $this->height;
+            $this->imagick->scaleImage($this->width * $k, $resizeHeight);
+        }
+        else {
+            $k = $resizeWidth / $this->width;
+            $this->imagick->scaleImage($resizeWidth, $this->height * $k);
+        }
+        $this->recalculateDimensions();
+    }
+
+    /**
+     * output image in browser
+     */
+    public function echoImage()
+    {
+        header('Content-Type: image/'.$this->imageExtension);
+        echo $this->imagick->getImageBlob();
+    }
+		
+    /**
      *
-     * @param {String} $extension we want to valid
+     * @param {String} $extension we want to validate
      * @return bool
      */
     private function isValidExtension($extension)
@@ -26,50 +95,14 @@ class ImageProcessing
     }
 
     /**
-     * @param {String} $path path to image
-     * @throws Exception
+     * calculate image dimensions
      */
-    function readImage($path)
+    private function recalculateDimensions()
     {
-        if((@$this->imagick ->readImage($path)) == false){
-            throw new Exception("Invalid image path.");
-        }
-        $this->imageExtension = $this->imagick ->getImageFormat();
-        if(!$this->isValidExtension($this->imageExtension)) {
-            throw new Exception("Unsupported Extension");
-        }
-    }
-
-    /**
-     * @param {int} $x start crop position
-     * @param {int} $y start crop position
-     * @param {int} $cropWidth
-     * @param {int} $cropHeight
-     */
-    function cropImage($x, $y, $cropWidth, $cropHeight)
-    {
-        $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
-    }
-
-    /**
-     * @param {int} $resizeWidth
-     * @param {int} $resizeHeight
-     * @param {int} $filter Refer to the list of filter constants
-     * @param {int} $blur The blur factor where > 1 is blurry, < 1 is sharp.
-     * @param {bool} $fit
-     */
-    function resizeImage($resizeWidth,$resizeHeight,$filter,$blur,$fit = false)
-    {
-        $this->imagick->resizeImage($resizeWidth, $resizeHeight, $filter, $blur, $fit);
-    }
-
-    /**
-     * output image in browser
-     */
-    function echoImage()
-    {
-        header('Content-Type: image/'.$this->imageExtension);
-        echo $this->imagick->getImageBlob();
+        $this->width = $this->imagick->getImageWidth();
+        $this->height = $this->imagick->getImageHeight();
     }
 }
+
 ?>
+
