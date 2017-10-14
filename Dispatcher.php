@@ -30,17 +30,61 @@ class UriDispatcher
 
     /**
      * Parses all pairs param=paramContent from array and creates [$param => $paramContent]
-     * @param array $rawParams Dictionary of supported filters
-     * @return array
+     * @param $varBlock String block in format variable|type of parameter
+     * @param $paramString Raw string of parameters
+     * @param $delimiter Delimiter for current parameter
+     * @return array Pair "variable" => $variable, "value" => $value
      */
-    public function parseParamsData($rawParams)
+    private function getParamData($varBlock, $paramString, $delimiter = false)
     {
-        $params = array();
-        foreach ($rawParams as $rawParam)
-        {
-            $paramPair = explode('=', $rawParam);
-            $params[$paramPair[0]] = $paramPair[1];
+        $variable = explode('|', $varBlock)[0];
+        $type     = explode('|', $varBlock)[1];
+        if ($delimiter) {
+            $value = strstr($paramString, $delimiter, true);
+        } else {
+            $value = $paramString;
         }
+
+        settype($value, $type);
+        $param = array("variable" => $variable, "value" => $value);
+        return $param;
+    }
+
+    /**
+     * Parses string of parameters by pattern and returns all contained variables with values
+     * @param $filterId Filter index in raw filters list
+     * @return array All variables, contained in parameters, with values
+     */
+    private function parseParamsData($filterId)
+    {
+        $paramString    = $this->rawFilters[$filterId + 1];
+        $pattern        = $this->filterList[$this->rawFilters[$filterId]]['pattern'];
+
+        // Split raw paramString on alternate parts of variable blocks (variable|type) and values
+        $paramsParts    = preg_split("/[{}]+/", $pattern);
+
+        // Delete meaningless elements beyond variable blocks
+        $paramsParts    = array_slice($paramsParts, 1, -1);
+        $params         = array();
+        $paramsPartsCnt = count($paramsParts);
+
+        // Get all parameters data
+        for ($it = 0; $it < $paramsPartsCnt - 1; $it += 2) {
+            $delimiter = $paramsParts[$it + 1];
+
+            // Structure variable block + value
+            $paramData = $this->getParamData($paramsParts[$it],
+                $paramString, $paramsParts[$it + 1]);
+
+            // Cut processed part of raw parameters string
+            $paramString                    = substr(strstr($paramString, $delimiter), 1);
+            $params[$paramData["variable"]] = $paramData["value"];
+        }
+
+        // Process last element (with no delimiter)
+        $paramData = $this->getParamData(
+            $paramsParts[$paramsPartsCnt - 1], $paramString);
+        $params[$paramData["variable"]] = $paramData["value"];
         return $params;
     }
 
@@ -53,23 +97,22 @@ class UriDispatcher
         // Check if the filter exists
         if (array_key_exists($this->rawFilters[$filterId], $this->filterList)) {
 
-            $filter = $this->filterList[$this->rawFilters[$filterId]];
+            $filter = $this->filterList[$this->rawFilters[$filterId]]['title'];
 
             // "{id}/{filter_name}//{filter_name}/..." case check
             if (strlen($this->rawFilters[$filterId + 1]) > 0) {
 
-                // Get params with content from /{param1=param1Content}&{param2=param2Content}...
-                $rawParams = explode('&', $this->rawFilters[$filterId + 1]);
                 // Get structured params array
-                $params    = $this->parseParamsData($rawParams);
-                $data      = array('status' => 'Ok', 'filter' => $filter, 'params' => $params);
+                $params = $this->parseParamsData($filterId);
+                $data   = array('status' => 'Ok', 'filter' => $filter, 'params' => $params);
+
             } else {
                 $data = array('status' => 'Not enough info to ' . $filter, 'filter' => $filter);
             }
         } else {
             $data = array('status' => 'Filter syntax error');
         }
-        
+
         return $data;
     }
 
@@ -103,5 +146,3 @@ class UriDispatcher
         return $filtersData;
     }
 }
-
-?>

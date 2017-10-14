@@ -1,14 +1,13 @@
 <?php
 require 'Dispatcher.php';
-//Dictionary of supported filters
+// Dictionary of supported filters and their patterns
 const FILTERS = array(
-    'c' => 'crop',
-    'r' => 'resize',
+    'c' => array ('title' => 'crop', 'pattern' => '{w|int}x{h|int}&{x|int},{y|int}'),
+    'r' => array ('title' => 'resize', 'pattern' => '{w}x{h}'),
 );
 $uri = $_SERVER['REQUEST_URI'];
 
 $dispatcher  = new UriDispatcher($uri, FILTERS);
 $filtersData = $dispatcher->parseFilters();
 $imageData   = array('id' => $dispatcher->id, 'filters' => $filtersData);
-print_r($imageData);
 // Call image -> show($data);
