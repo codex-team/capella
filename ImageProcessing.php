@@ -2,13 +2,13 @@
 
 class ImageProcessing
 {
-    public $imageExtension;
+    public $extension;
     public $height, $width;
-    public $imagePath = null;
+    public $path = null;
 
     private $imagick;
-	
-	private $validExtensions = array('png', 'gif', 'jpeg');
+
+    private $validExtensions = array('png', 'gif', 'jpeg');
 
     public function __construct()
     {
@@ -21,12 +21,13 @@ class ImageProcessing
      */
     public function readImage($path)
     {
-		$readResult = @$this->imagick->readImage($path);
-        if($readResult == false){
+        $this->path = $path;
+        $readResult = @$this->imagick->readImage($path);
+        if(!$readResult){
             throw new Exception("Invalid image path.");
         }
-        $this->imageExtension = $this->imagick->getImageFormat();
-        if(!$this->isValidExtension($this->imageExtension)) {
+        $this->extension = $this->imagick->getImageFormat();
+        if(!$this->isValidExtension($this->extension)) {
             throw new Exception("Unsupported Extension");
         }
         $this->recalculateDimensions();
@@ -79,10 +80,10 @@ class ImageProcessing
      */
     public function echoImage()
     {
-        header('Content-Type: image/'.$this->imageExtension);
+        header('Content-Type: image/' . $this->extension);
         echo $this->imagick->getImageBlob();
     }
-		
+
     /**
      *
      * @param {String} $extension we want to validate
