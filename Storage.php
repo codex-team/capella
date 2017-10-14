@@ -4,70 +4,86 @@ require_once "vendor/aws/aws-autoloader.php";
 
 class Storage
 {
-    /**
-     * AWS s3 cloud storage params
-     */
-    const AWS_KEY = ""; //Amazon s3 cloud authorisation key
-    const AWS_SECRET_KEY = ""; //Amazon s3 cloud secret key
-    const AWS_S3_BUCKET = ""; //Amazon s3 bucket name
-    const AWS_S3_REGION = ""; //Amazon s3 bucket region
-    const AWS_S3_STORAGE_CLASS = ""; //Amazon s3 storage class
+    protected $S3Client;
 
     /**
-     *Upload initiator
+     * Storage constructor.
+     */
+    public function __construct()
+    {
+        require_once "config.php";
+
+        $this->S3Client = new \Aws\S3\S3Client([
+            "version" => "latest",
+            "region" => AWS_S3_REGION,
+            "credentials" => [
+                "key" => AWS_KEY,
+                "secret" => AWS_SECRET_KEY
+            ]
+        ]);
+    }
+
+    /**
+     * Get path to image function
+     *
+     * @param $imageId
+     * @return bool|string - false if file not exist, URL if file exist
+     */
+    public function getImage($imageId)
+    {
+        $imageUrl = "https://" . AWS_S3_BUCKET . ".s3.amazonaws.com/" . $imageId;
+        if (@fopen($imageUrl, "r")) {
+            return $imageUrl;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Upload initiator
      *
      * @param string $tmpFileName
-     * @return array
+     * @return string - uploaded image ID
      */
-    public function putObject($tmpFileName)
+    public function uploadImage($tmpFileName)
     {
-        return $this->uploadS3($tmpFileName);
+        return $this->uploadS3($tmpFileName, $this->generateImageId());
     }
 
     /**
      * Main AWS s3 uploader
      *
-     * @param string $tmpFileName
-     * @return array
+     * @param $tmpFileName
+     * @param $imageId
+     * @return string - uploaded image ID
      */
-    protected function uploadS3($tmpFileName)
+    protected function uploadS3($tmpFileName, $imageId)
     {
-        $imageId = $this->generateImageId(32) . date("dmyHis");
 
-        $S3Client = new \Aws\S3\S3Client([
-            "version" => "latest",
-            "region" => self::AWS_S3_REGION,
-            "credentials" => [
-                "key" => self::AWS_KEY,
-                "secret" => self::AWS_SECRET_KEY
-            ]
-        ]);
-
-        $result = $S3Client->putObject([
-            "Bucket" => self::AWS_S3_BUCKET,
+        $result = $this->S3Client->putObject([
+            "Bucket" => AWS_S3_BUCKET,
             "Key" => $imageId,
             "SourceFile" => $tmpFileName,
             "ACL" => "public-read",
-            "StorageClass" => self::AWS_S3_STORAGE_CLASS
+            "StorageClass" => AWS_S3_STORAGE_CLASS
         ]);
 
-        return ["imageId" => $imageId, "imageUrl" => $result['ObjectURL']];
+        return $imageId;
     }
 
     /**
-     * Random image ID generator
+     *  image ID generator
      *
-     * @param int $length
-     * @return string
+     * @return string - generated ID
      */
-    protected function generateImageId($length = 32)
+    protected function generateImageId()
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
+        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+            mt_rand( 0, 0xffff ),
+            mt_rand( 0, 0x0fff ) | 0x4000,
+            mt_rand( 0, 0x3fff ) | 0x8000,
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        );
     }
 }
