@@ -1,5 +1,27 @@
 <?php
 
+/**
+ * Class ImageProcessing
+ *
+ * @example create new class with image from path in constructor
+ * $image = new ImageProcessing("C:/Users/image.png");
+ *
+ * @example cropImage with coordinates
+ * $image->cropImage(100,100,0,10);
+ *
+ * @example cropImage by center coordinate
+ * $image->cropImage(100,100);
+ *
+ * @example resize image by height and width
+ * $image->resizeImage(100,null);
+ * $image->resizeImage(null,100);
+ * $image->resizeImage(100,100);
+ *
+ * @example getImageBlob returns the image sequence as a blob
+ * $image->getImageBlob();
+ *
+ */
+
 class ImageProcessing
 {
     public $extension;
@@ -11,33 +33,18 @@ class ImageProcessing
 
     private $validExtensions = array('png', 'gif', 'jpeg');
 
-    public function __construct()
+    /**
+     * ImageProcessing constructor.
+     * @param $path local path to image
+     */
+    public function __construct($path)
     {
         $this->imagick = new Imagick();
+        $this->readImage($path);
     }
 
     /**
-     * read image from local path
-     *
-     * @param {String} $path local path to image
-     * @throws Exception
-     */
-    public function readImage($path)
-    {
-        $this->path = $path;
-        $readResult = @$this->imagick->readImage($path);
-        if (!$readResult) {
-            throw new Exception("Invalid image path.");
-        }
-        $this->extension = $this->imagick->getImageFormat();
-        if (!$this->isValidExtension($this->extension)) {
-            throw new Exception("Unsupported Extension");
-        }
-        $this->recalculateDimensions();
-    }
-
-    /**
-     * crop image by dimensions with coordinats
+     * crop image by dimensions with coordinates
      *
      * @param {int} $cropWidth
      * @param {int} $cropHeight
@@ -113,5 +120,25 @@ class ImageProcessing
     {
         $this->width = $this->imagick->getImageWidth();
         $this->height = $this->imagick->getImageHeight();
+    }
+
+    /**
+     * read image from local path
+     *
+     * @param {String} $path local path to image
+     * @throws Exception
+     */
+    private function readImage($path)
+    {
+        $this->path = $path;
+        $readResult = @$this->imagick->readImage($path);
+        if (!$readResult) {
+            throw new Exception("Invalid image path.");
+        }
+        $this->extension = $this->imagick->getImageFormat();
+        if (!$this->isValidExtension($this->extension)) {
+            throw new Exception("Unsupported Extension");
+        }
+        $this->recalculateDimensions();
     }
 }
