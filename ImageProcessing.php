@@ -49,9 +49,17 @@ class ImageProcessing
             throw new Exception("Uncorrected input dimensions");
         }
         if ($x == null && $y == null) {
-            $this->resizeImage(null, $cropHeight);
-            $x = $this->width / 2 - $cropWidth / 2;
-            $this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
+			if($this->width > $this->height){
+				$this->resizeImage(null, $cropHeight);
+				$x = $this->width / 2 - $cropWidth / 2;
+				$this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
+			}
+			else{
+				
+				$this->resizeImage($cropWidth, null);
+				$y = $this->height / 2 - $cropHeight / 2;
+				$this->imagick->cropImage($cropWidth, $cropHeight, 0, $y);
+			}   
         }
         else {
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
@@ -110,6 +118,4 @@ class ImageProcessing
         $this->height = $this->imagick->getImageHeight();
     }
 }
-
 ?>
-
