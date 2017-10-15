@@ -3,7 +3,8 @@
 class ImageProcessing
 {
     public $extension;
-    public $height, $width;
+    public $height;
+    public $width;
     public $path = null;
 
     private $imagick;
@@ -16,8 +17,8 @@ class ImageProcessing
     }
 
     /**
-	 * read image from local path
-	 *
+     * read image from local path
+     *
      * @param {String} $path local path to image
      * @throws Exception
      */
@@ -25,19 +26,19 @@ class ImageProcessing
     {
         $this->path = $path;
         $readResult = @$this->imagick->readImage($path);
-        if(!$readResult){
+        if (!$readResult) {
             throw new Exception("Invalid image path.");
         }
         $this->extension = $this->imagick->getImageFormat();
-        if(!$this->isValidExtension($this->extension)) {
+        if (!$this->isValidExtension($this->extension)) {
             throw new Exception("Unsupported Extension");
         }
         $this->recalculateDimensions();
     }
 
     /**
-	 * crop image by dimensions with coordinats
-	 *
+     * crop image by dimensions with coordinats
+     *
      * @param {int} $cropWidth
      * @param {int} $cropHeight
      * @param {int} null $x crop x
@@ -45,44 +46,40 @@ class ImageProcessing
      */
     public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
     {
-        if($cropWidth == null || $cropHeight== null) {
+        if ($cropWidth == null || $cropHeight== null) {
             throw new Exception("Uncorrected input dimensions");
         }
         if ($x == null && $y == null) {
-			if($this->width > $this->height){
-				$this->resizeImage(null, $cropHeight);
-				$x = $this->width / 2 - $cropWidth / 2;
-				$this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
-			}
-			else{
-				
-				$this->resizeImage($cropWidth, null);
-				$y = $this->height / 2 - $cropHeight / 2;
-				$this->imagick->cropImage($cropWidth, $cropHeight, 0, $y);
-			}   
-        }
-        else {
+            if ($this->width > $this->height) {
+                $this->resizeImage(null, $cropHeight);
+                $x = $this->width / 2 - $cropWidth / 2;
+                $this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
+            } else {
+                $this->resizeImage($cropWidth, null);
+                $y = $this->height / 2 - $cropHeight / 2;
+                $this->imagick->cropImage($cropWidth, $cropHeight, 0, $y);
+            }
+        } else {
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
         }
         $this->recalculateDimensions();
     }
 
     /**
-	 * resize image with dimensions
-	 *
+     * resize image with dimensions
+     *
      * @param {int} $resizeWidth
      * @param {int} $resizeHeight
      */
     public function resizeImage($resizeWidth, $resizeHeight)
     {
-        if($resizeWidth == null && $resizeHeight == null) {
+        if ($resizeWidth == null && $resizeHeight == null) {
             throw new Exception("Uncorrected input dimensions");
         }
-        if($resizeWidth == null) {
+        if ($resizeWidth == null) {
             $k = $resizeHeight / $this->height;
             $this->imagick->scaleImage($this->width * $k, $resizeHeight);
-        }
-        else {
+        } else {
             $k = $resizeWidth / $this->width;
             $this->imagick->scaleImage($resizeWidth, $this->height * $k);
         }
@@ -99,7 +96,7 @@ class ImageProcessing
 
     /**
      * defines available image formats
-	 *
+     *
      * @param {String} $extension we want to validate
      * @return bool
      */
@@ -118,4 +115,3 @@ class ImageProcessing
         $this->height = $this->imagick->getImageHeight();
     }
 }
-?>
