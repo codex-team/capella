@@ -46,7 +46,7 @@ class UriDispatcher
 
             // "{id}/{filter_name}" only case check
             if ($rawFiltersCount == 1) {
-                $filtersData = [['status' => 'Not enough info']];
+                throw new Exception('Not enough info');
             }
 
             // Raw filters' data loop
@@ -76,12 +76,12 @@ class UriDispatcher
 
                 // Get structured params array
                 $params = $this->parseParamsData($filterId);
-                $data   = array('status' => 'Ok', 'filter' => $filter, 'params' => $params);
+                $data   = array('filter' => $filter, 'params' => $params);
             } else {
-                $data = array('status' => 'Not enough info to ' . $filter, 'filter' => $filter);
+                throw new Exception('Not enough info to ' . $filter);
             }
         } else {
-            $data = array('status' => 'Filter syntax error');
+            throw new Exception('Filter syntax error');
         }
 
         return $data;
