@@ -1,5 +1,0 @@
-# Ignore vendor dir
-vendor/
-
-# Ignore all config files
-config.php
