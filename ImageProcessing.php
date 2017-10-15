@@ -16,6 +16,8 @@ class ImageProcessing
     }
 
     /**
+	 * read image from local path
+	 *
      * @param {String} $path local path to image
      * @throws Exception
      */
@@ -34,6 +36,8 @@ class ImageProcessing
     }
 
     /**
+	 * crop image by dimensions with coordinats
+	 *
      * @param {int} $cropWidth
      * @param {int} $cropHeight
      * @param {int} null $x crop x
@@ -56,6 +60,8 @@ class ImageProcessing
     }
 
     /**
+	 * resize image with dimensions
+	 *
      * @param {int} $resizeWidth
      * @param {int} $resizeHeight
      */
@@ -78,14 +84,14 @@ class ImageProcessing
     /**
      * output image in browser
      */
-    public function echoImage()
+    public function getImageBlob()
     {
-        header('Content-Type: image/' . $this->extension);
-        echo $this->imagick->getImageBlob();
+        return $this->imagick->getImageBlob();
     }
 
     /**
-     *
+     * defines available image formats
+	 *
      * @param {String} $extension we want to validate
      * @return bool
      */
