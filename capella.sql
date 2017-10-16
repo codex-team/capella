@@ -34,13 +34,6 @@ CREATE TABLE `capella-storage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `capella-storage`
---
-
-INSERT INTO `capella-storage` (`id`, `dt_add`, `extension`, `ip`) VALUES
-('1', '2017-10-15 23:59:39', 'jpg', '::1');
-
---
 -- Индексы сохранённых таблиц
 --
 
