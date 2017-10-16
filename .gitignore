@@ -1,2 +1,2 @@
-lib/db/config.php
+#ignore .idea
 .idea/
