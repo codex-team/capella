@@ -29,6 +29,11 @@ class UriDispatcher
 
         // Dictionary of supported filters
         $this->filterList = $filterList;
+
+        /** {array} in format [['filter1' => $f1Title, 'params' => f1Params],
+         * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
+         */
+        $this->parsedFilters = $this->parseFilters();
     }
 
     /**
@@ -68,14 +73,16 @@ class UriDispatcher
     public function parseFilterData($filterId)
     {
         // Check if the filter exists
-        if (!array_key_exists($this->rawFilters[$filterId], $this->filterList))
+        if (!array_key_exists($this->rawFilters[$filterId], $this->filterList)) {
             throw new Exception('Filter syntax error');
+        }
 
         $filter = $this->filterList[$this->rawFilters[$filterId]]['title'];
 
         // "{id}/{filter_name}//{filter_name}/..." case check
-        if (strlen($this->rawFilters[$filterId + 1]) == 0)
+        if (strlen($this->rawFilters[$filterId + 1]) == 0) {
             throw new Exception('Not enough info to ' . $filter);
+        }
 
         // Get structured params array
         $params = $this->parseParamsData($filterId);

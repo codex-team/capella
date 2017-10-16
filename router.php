@@ -8,6 +8,5 @@ const FILTERS = array(
 $uri = $_SERVER['REQUEST_URI'];
 
 $dispatcher  = new UriDispatcher($uri, FILTERS);
-$filtersData = $dispatcher->parseFilters();
-$imageData   = array('id' => $dispatcher->id, 'filters' => $filtersData);
+$imageData   = array('id' => $dispatcher->id, 'filters' => $dispatcher->parsedFilters);
 // Call image -> show($data);
