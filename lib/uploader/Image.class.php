@@ -1,24 +1,34 @@
 <?php
+require_once('../AWS/Storage.php');
 
 class WrongFileSize extends Exception {}
+
 class WrongFileType extends Exception {}
 
-class Image {
+class AccessDenied extends Exception {}
+
+class Uploader {    #Абстрактный класс, в котором описываются допустимые расширения и максимальный размер, а так же методы проверки.
+
     const MAX_FILE_SIZE = 15*1024*1024*8; #15 МБ
-    const EXTENSIONS = array('image/jpg', 'image/png', 'image/jpeg', 'image/gif', 'jpg', 'png', 'jpeg', 'gif');
+    const EXTENSIONS = array(
+        'image/jpg',
+        'image/png',
+        'image/jpeg',
+        'image/gif'
+    );
 
     protected $fileSize;
     protected $fileExp;
     protected $filePath;
 
-    protected function checkExtension()
+    protected function checkExtension() #Проверка расширения
     {
         if (!in_array($this->fileExp, self::EXTENSIONS)) {
             throw new WrongFileType("Wrong file type.");
         }
     }
 
-    protected function checkSize()
+    protected function checkSize()  #Проверка размера
     {
         if ($this->fileSize > self::MAX_FILE_SIZE) {
             throw new WrongFileSize('The file is too big.');
@@ -26,19 +36,22 @@ class Image {
     }
 }
 
-
-class FileImage extends Image
+class FileUploader extends Uploader #Класс по работе с файлом.
 {
     public function __construct($img)
     {
-        if(isset($Img['type'])) {
-            $this->fileExp = $img['type'];
-        }
-        if(isset($_FILES['ImageFile']['size'])) {
-            $this->fileSize = $img['size'];
-        }
-        if(isset($_FILES['ImageFile']['tmp_name'])) {
-            $this->filePath = $img['tmp_name'];
+        if (is_uploaded_file($img['tmp_name'])) {
+            if (isset($img['type'])) {
+                $this->fileExp = mime_content_type($img['tmp_name']);
+            }
+            if (isset($_FILES['ImageFile']['size'])) {
+                $this->fileSize = $img['size'];
+            }
+            if (isset($_FILES['ImageFile']['tmp_name'])) {
+                $this->filePath = $img['tmp_name'];
+            }
+        } else {
+            throw new AccessDenied("Access denied. File wasn't uploaded");
         }
     }
 
@@ -46,7 +59,6 @@ class FileImage extends Image
     {
         $this->checkExtension();
         $this->checkSize();
-        require_once 'lib/AWS/Storage.php';
         $storage = new AWS_Storage();
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
@@ -54,15 +66,14 @@ class FileImage extends Image
     }
 }
 
-class LinkImage extends Image
+class LinkUploader extends Uploader #Класс по работе с ссылкой на файл.
 {
     private $fileName;
 
     public function __construct($url)
     {
         $this->fileName = basename($url['ImageLink']);
-        $this->fileExp = explode('.', $url['ImageLink']);
-        $this->fileExp = $this->fileExp[count($this->fileExp)-1];
+        $this->fileExp = mime_content_type($url);
         $this->fileSize = get_headers($url['ImageLink']);
         $this->fileSize = $this->fileSize['Content-Length'];
     }
@@ -73,7 +84,6 @@ class LinkImage extends Image
         $this->checkSize();
         file_put_contents($this->fileName, file_get_contents($_GET['ImageLink']));
         $this->filePath = realpath($this->fileName);
-        require_once('lib/AWS/Storage.php');
         $storage = new AWS_Storage();
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
