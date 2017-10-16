@@ -16,7 +16,7 @@ class UriDispatcher
      * @param {string} $uri URI to dispatch
      * @param {array} $filterList Dictionary of supported filters and patterns in format ['filterName' => ('title' => $title, 'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]')]
      */
-    public function __construct($uri = $_SERVER['REQUEST_URI'], $filterList)
+    public function __construct($uri, $filterList)
     {
         $this->path = rawurldecode($uri);
 
