@@ -14,9 +14,9 @@ class UriDispatcher
 
     /**
      * @param {string} $uri URI to dispatch
-     * @param {array} $filterList Dictionary of supported filters and patterns in format [c' => ('title' => $title, 'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]')]
+     * @param {array} $filterList Dictionary of supported filters and patterns in format ['filterName' => ('title' => $title, 'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]')]
      */
-    public function __construct($uri, $filterList)
+    public function __construct($uri = $_SERVER['REQUEST_URI'], $filterList)
     {
         $this->path = rawurldecode($uri);
 
@@ -33,7 +33,7 @@ class UriDispatcher
 
     /**
      * Parses raw filters list and returns formatted filters data array
-     * @return {array} in format [['status' => $f1Status,'filter1' => $f1Title, 'params' => f1Params],
+     * @return {array} in format [['filter1' => $f1Title, 'params' => f1Params],
      * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
      */
     public function parseFilters()
@@ -68,22 +68,18 @@ class UriDispatcher
     public function parseFilterData($filterId)
     {
         // Check if the filter exists
-        if (array_key_exists($this->rawFilters[$filterId], $this->filterList)) {
-            $filter = $this->filterList[$this->rawFilters[$filterId]]['title'];
-
-            // "{id}/{filter_name}//{filter_name}/..." case check
-            if (strlen($this->rawFilters[$filterId + 1]) > 0) {
-
-                // Get structured params array
-                $params = $this->parseParamsData($filterId);
-                $data   = array('filter' => $filter, 'params' => $params);
-            } else {
-                throw new Exception('Not enough info to ' . $filter);
-            }
-        } else {
+        if (!array_key_exists($this->rawFilters[$filterId], $this->filterList))
             throw new Exception('Filter syntax error');
-        }
 
+        $filter = $this->filterList[$this->rawFilters[$filterId]]['title'];
+
+        // "{id}/{filter_name}//{filter_name}/..." case check
+        if (strlen($this->rawFilters[$filterId + 1]) == 0)
+            throw new Exception('Not enough info to ' . $filter);
+
+        // Get structured params array
+        $params = $this->parseParamsData($filterId);
+        $data   = array('filter' => $filter, 'params' => $params);
         return $data;
     }
 
