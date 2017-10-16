@@ -4,14 +4,15 @@
 </form>
 
 <?php
-if(isset($_FILES['ImageFile'])) {
-    if (empty($_FILES['ImageFile']['name'])) {
-        echo "Please, select a file.";
-    } else {
-        require_once ('FileImage.class.php');
-        $New_File = new FileImage();
-        $New_File->__construct();
-        echo $New_File->upload();
+require_once ('Image.class.php');
+if(is_uploaded_file($_FILES['ImageFile']['tmp_name'])) {
+    $NewFile = new FileImage($_FILES['ImageFile']);
+    try {
+        $NewFile->upload();
+    } catch (WrongFileType $e) {
+        echo $e->getMessage();
+    } catch (WrongFileSize $e) {
+        echo $e->getMessage();
     }
 }
 ?>
@@ -23,10 +24,14 @@ if(isset($_FILES['ImageFile'])) {
 
 <?php
 if(!empty($_GET['ImageLink']) and isset($_GET['LinkSubm'])) {
-    require_once ('ImageLink.class.php');
-    $New_File = new LinkImage();
-    $New_File->__construct();
-    echo $New_File->upload();
+    $NewFile = new LinkImage($_GET['ImageLink']);
+    try {
+        $NewFile->upload();
+    } catch (WrongFileType $e) {
+        echo $e->getMessage();
+    } catch (WrongFileSize $e) {
+        echo $e->getMessage();
+    }
 }
 elseif (empty($_GET['ImageLink']) and isset($_GET['LinkSubm'])) {
     echo "Please, enter a link.";
