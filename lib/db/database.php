@@ -1,9 +1,16 @@
 <?php
+
 require_once "config.php";
 
 /**
  * Class DatabaseWorker
- *
+ * Example of usage:
+ * $database = new DatabaseWorker();
+ * $database->query('INSERT INTO ' . $database_name . ' (id,extension,ip) VALUES (:id,:extension,:ip)');
+ * $database->bind(':id', $id);
+ * $database->bind(':extension', $extension);
+ * $database->bind(':ip', $ip);
+ * $database->execute();
  */
 class DatabaseWorker
 {
