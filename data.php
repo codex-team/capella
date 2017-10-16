@@ -1,5 +1,5 @@
 <?php 
-require_once('database.php'); 
+require_once('database.php');
 /*using of class:
 database in real example
 */
@@ -13,4 +13,3 @@ $database->bind(':id', $id);
 $database->bind(':extension', $extension);
 $database->bind(':ip', $ip);
 $database->execute();
-?>

@@ -1,12 +1,12 @@
 <?php
 
-class DatabaseWorker{
-	//initialization of our database(mysql or maybe another database)
-	private $host = 'localhost'; //or any other host name
+class DatabaseWorker
+{
+    //initialization of our database(mysql or maybe another database)
+    private $host = 'localhost'; //or any other host name
     private $user = 'root'; //or any user name
     private $pass = ''; // or any passwd
     private $dbname = 'capella'; //or any database name
-    
     private $dbh;
     private $error;
     private $stmt;
@@ -21,12 +21,11 @@ class DatabaseWorker{
             PDO::ATTR_ERRMODE       => PDO::ERRMODE_EXCEPTION
             );
         // Create a new PDO instanace
-        try{
+        try {
             $this->dbh = new PDO($dsn, $this->user, $this->passs, $options);
         }
         // Catch any errors
-        catch(PDOException $e){
-
+        catch (PDOException $e) {
             $this->error = $e->getMessage();
             echo 'Подключение не удалось: ' . $this->error;
         }
@@ -56,30 +55,25 @@ class DatabaseWorker{
         }
         $this->stmt->bindValue($param, $value, $type);
     }
-  //executing a database
+    //executing a database
     public function execute()
     {
         return $this->stmt->execute();
     }
     /*ip of user*/
-    function getUserIP()
+    public function getUserIP()
     {
         $client  = @$_SERVER['HTTP_CLIENT_IP'];
         $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
         $remote  = $_SERVER['REMOTE_ADDR'];
 
-        if(filter_var($client, FILTER_VALIDATE_IP)) {
+        if (filter_var($client, FILTER_VALIDATE_IP)) {
             $ip = $client;
-        }
-        elseif(filter_var($forward, FILTER_VALIDATE_IP))  {
+        } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
             $ip = $forward;
-        }
-        else  {
+        } else {
             $ip = $remote;
         }
         return $ip;
     }
 }
-
-
-
