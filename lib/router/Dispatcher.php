@@ -124,12 +124,8 @@ class UriDispatcher
     {
         $paramString = $this->rawFilters[$filterId + 1];
         $pattern     = $this->filterList[$this->rawFilters[$filterId]]['pattern'];
-
         // Separate main pattern parts from additional
         $patternParts = preg_split("/[[^\]]/", $pattern);
-
-        // Delete meaningless elements beyond variable blocks
-        array_pop($patternParts);
         $params = array();
         for ($partIt = 0; strlen($paramString) > 0 && $partIt < count($patternParts); $partIt++) {
 
@@ -159,7 +155,6 @@ class UriDispatcher
         if ($paramsParts[0] !== '') {
             $paramString = substr($paramString, strlen($paramsParts[0]));
         }
-
         // Delete meaningless elements beyond variable blocks
         $paramsParts = array_slice($paramsParts, 1, -1);
 
