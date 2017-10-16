@@ -38,6 +38,7 @@ class UriDispatcher
 
     /**
      * Parses raw filters list and returns formatted filters data array
+     * @throws Not enough info to parse filters
      * @return {array} in format [['filter1' => $f1Title, 'params' => f1Params],
      * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
      */
@@ -69,6 +70,7 @@ class UriDispatcher
     /**
      * Parses raw filters element and returns formatted filter data dictionary
      * @param $filterId Filter index in raw filters list
+     * @throws Errors of formatting and info in uri
      */
     public function parseFilterData($filterId)
     {
