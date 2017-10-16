@@ -1,8 +1,27 @@
 <?php
 
 /**
- * Class UriDispatcher
- */
+* Class UriDispatcher
+*
+* Example usage:
+* $dispatcher = new UriDispatcher($uri, FILTERS);
+* $imageData  = array(
+*    'id'      => $dispatcher->id,
+*    'filters' => $dispatcher->parsedFilters,
+* );
+* where 'filters' are returned in format 
+*[
+*  [
+*      'filter1' => $f1Title, 
+*      'params' => f1Params
+*  ],
+*  [
+*      'status' => $f2Status,
+*      'filter1' => $f2Title, 
+*      'params' => f2Params
+*  ]
+*]
+*/
 class UriDispatcher
 {
     public $path;
@@ -14,7 +33,11 @@ class UriDispatcher
 
     /**
      * @param {string} $uri URI to dispatch
-     * @param {array} $filterList Dictionary of supported filters and patterns in format ['filterName' => ('title' => $title, 'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]')]
+     * @param {array} $filterList Dictionary of supported filters and patterns in format 
+     * ['filterName' => (
+     *   'title' => $title, 
+     *   'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]'
+     * )]
      */
     public function __construct($uri, $filterList)
     {
@@ -148,8 +171,11 @@ class UriDispatcher
             $delimiter = $paramsParts[$it + 1];
 
             // Structure variable block + value
-            $paramData = $this->getParamData($paramsParts[$it],
-                $paramString, $paramsParts[$it + 1]);
+            $paramData = $this->getParamData(
+                $paramsParts[$it],
+                $paramString,
+                $paramsParts[$it + 1]
+            );
 
             // Cut processed part of raw parameters string
             $paramString                    = substr(strstr($paramString, $delimiter), strlen($delimiter));
@@ -158,10 +184,16 @@ class UriDispatcher
 
         // Process last element (with no delimiter)
         $paramData = $this->getParamData(
-            $paramsParts[$paramsPartsCnt - 1], $paramString);
+            $paramsParts[$paramsPartsCnt - 1],
+            $paramString
+        );
         $params[$paramData["variable"]] = $paramData["value"];
         $paramString                    = substr($paramString, strlen($paramData["value"]));
-        return $paramsPart              = array("paramString" => $paramString, "params" => $params);
+        $paramsPart                     = array(
+            "paramString" => $paramString,
+            "params"      => $params,
+        );
+        return $paramsPart;
     }
 
     /**
@@ -183,7 +215,10 @@ class UriDispatcher
 
         // Change type from string to certain
         settype($value, $type);
-        $param = array("variable" => $variable, "value" => $value);
+        $param = array(
+            "variable" => $variable,
+            "value"    => $value,
+        );
         return $param;
     }
 }
