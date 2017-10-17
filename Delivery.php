@@ -7,6 +7,8 @@ class Delivery
 
 	private $imgURL;
 	private $img;
+	private $imgWithFilters;
+	private $memcacheObj;
 
 	/**
 	* @param {string} Image ID
@@ -14,8 +16,15 @@ class Delivery
 	* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
 	*/
 	public function __construct($imgID, $filters) {
-		$imgURL = $this->getFileById($imgID);
-		$imgURL = $this->acceptFilters($imgURL, $filters);
+		$memcacheObj = new Memcache;
+		$memcacheObj->connect('127.0.0.1', 11211) or die('Memcache not connect');
+		
+		$cacheImg = $memcacheObj->get('our_var');
+		if(!empty($cacheImg)) $imgWithFilters = $cacheImg;
+		else {
+			$imgURL = $this->getFileById($imgID);
+			$imgURL = $this->acceptFilters($imgURL, $filters);
+		}
 	}
 
 	/**
@@ -44,6 +53,9 @@ class Delivery
 	 * Output image in browser
 	 */
 	public function returnImage() {
-		$img->getImageBlob();
+		if(!empty($imgWithFilters)) return $imgWithFilters;
+		$imgWithFilters = $img->getImageBlob();
+        $memcacheObj->set('var_key', $imgWithFilters, MEMCACHE_COMPRESSED, 60*60);
+		return $imgWithFilters;
 	}
 }
