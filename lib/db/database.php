@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Class DatabaseWorker
  * Example of usage:
@@ -16,20 +15,21 @@ class DatabaseWorker
 {
     /**
      * @var PDO
-     * $dbh-variable to work with PDO queries to database
-     * $stmt-variable of query statement
+     * $dbh-database handler
+     * $sth-statement handler
      */
     private $dbh;
-    private $stmt;
+    private $sth;
 
     /**
      * DatabaseWorker constructor.
      */
     public function __construct()
     {
-//      // Including configuration file
+
+        // Including configuration file
         include "config.php";
-        // Set DSN for PDO connection
+        // Set DSN(Data Source Name) for PDO connection
         $dsn = 'mysql:host=' . $config['dbhost'] . ';dbname=' . $config['dbname'];
         // Set options for PDO connection
         $options = array(
@@ -45,7 +45,7 @@ class DatabaseWorker
      */
     public function query($query)
     {
-        $this->stmt = $this->dbh->prepare($query);
+        $this->sth = $this->dbh->prepare($query);
     }
 
     /**
@@ -68,15 +68,15 @@ class DatabaseWorker
                     $type = PDO::PARAM_STR;
             }
         }
-        $this->stmt->bindValue($param, $value, $type);
+        $this->sth->bindValue($param, $value, $type);
     }
 
     /**
-     * executing a database
+     * Execution of result to a database
      */
     public function execute()
     {
-        return $this->stmt->execute();
+        return $this->sth->execute();
     }
 
     /**
