@@ -38,7 +38,7 @@ class Delivery
 
     /**
      * @param {string} $string
-     * @return hash
+     * @return {string} hash
      */
     function keyGenerate($string) {
         return hash('sha256', $string);
@@ -46,17 +46,18 @@ class Delivery
 
     /**
     * @param {string} $imgURL
-    * @param {array} $filters
-    * @example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
+    * @param {array} $filters -- [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
     */
     function acceptFilters($imgURL, $filters) {
         $this->img = new ImageProcessing($imgURL);
         foreach ($filters as $filter) {
-            if ($filter->title == 'crop') {
-                $this->img->cropImage($filter->params->w, $filter->params->h, $filter->params->x, $filter->params->y);
-            }
-            elseif ($filter->title == 'resize') {
-                $this->img->resizeImage($filter->params->w, $filter->params->h);
+            switch ($filter['filter1']) {
+                case 'crop':
+                    $this->img->cropImage($filter[params][w], $filter[params][h], $filter[params][x], $filter[params][y]);
+                    break;
+                case 'resize':
+                    $this->img->resizeImage($filter[params][w], $filter[params][h]);
+                    break;
             }
         }
     }
