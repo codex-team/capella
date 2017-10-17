@@ -9,28 +9,28 @@ class Delivery
 	private $img;
 
 	/**
-		* @param {string} Image ID
-		* @param {array} $filters
-		* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
-		*/
+	* @param {string} Image ID
+	* @param {array} $filters
+	* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
+	*/
 	public function __construct($imgID, $filters) {
 		$imgURL = $this->getFileById($imgID);
 		$imgURL = $this->acceptFilters($imgURL, $filters);
 	}
 
 	/**
-		* @param {string} Image ID
-		*/
+	* @param {string} Image ID
+	*/
 	function getFileById($imgID)
 	{
 		return (new AWS_Storage())->getImage($imgID);
 	}
 
 	/**
-		* @param {string} $imgURL
-		* @param {array} $filters
-		* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
-		*/
+	* @param {string} $imgURL
+	* @param {array} $filters
+	* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
+	*/
 	function acceptFilters($imgURL, $filters) {
 		$img = new ImageProcessing();
 		$img->readImage($imgURL);
@@ -43,7 +43,7 @@ class Delivery
 	/**
 	 * Output image in browser
 	 */
-	function returnImage() {
+	public function returnImage() {
 		$img->getImageBlob();
 	}
 }
