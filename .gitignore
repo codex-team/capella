@@ -6,3 +6,6 @@ upload/
 
 # Ignore all config files
 config.php
+
+# Ignore dev env
+.idea/

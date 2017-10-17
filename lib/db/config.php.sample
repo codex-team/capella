@@ -1,0 +1,8 @@
+<?php
+$config = array(
+    'dbhost' => 'localhost', //host of database
+    'dbuser' => 'root', //user of database
+    'dbpassword' => '', //password of database
+    'dbname' => 'capella' //name of database
+);
+?>
