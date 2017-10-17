@@ -7,10 +7,13 @@ class WrongFileType extends Exception {}
 
 class AccessDenied extends Exception {}
 
-class Uploader {    #Абстрактный класс, в котором описываются допустимые расширения и максимальный размер, а так же методы проверки.
+/**
+ * Parent class, witch describes acceptable extension, file size and methods that check these parameters.
+ */
+class Uploader {
 
     const MAX_FILE_SIZE = 15*1024*1024*8; #15 МБ
-    const EXTENSIONS = array(   #Допустимые MIME-типы
+    const EXTENSIONS = array(   #Acceptable MIME-types
         'image/jpg',
         'image/png',
         'image/jpeg',
@@ -21,14 +24,14 @@ class Uploader {    #Абстрактный класс, в котором опи
     protected $fileExt;
     protected $filePath;
 
-    protected function checkExtension() #Проверка расширения
+    protected function checkExtension() #Cheks extension
     {
         if (!in_array($this->fileExt, self::EXTENSIONS)) {
             throw new WrongFileType("Wrong file type.");
         }
     }
 
-    protected function checkSize()  #Проверка размера
+    protected function checkSize()  #Cheks file size
     {
         if ($this->fileSize > self::MAX_FILE_SIZE) {
             throw new WrongFileSize('The file is too big.');
@@ -37,7 +40,19 @@ class Uploader {    #Абстрактный класс, в котором опи
 }
 
 /**
- * Класс по работе с файлом.
+ * Class to work with a file
+ *
+ * Example usage:
+ * try {
+ *     $NewFile = new FileUploader($_FILES['ImageFile']);
+ *     $NewFile->upload();
+ * } catch (AccessDenied $e) {
+ *     echo $e->getMessage();
+ * } catch (WrongFileType $e) {
+ *     echo $e->getMessage();
+ * } catch (WrongFileSize $e) {
+ *     echo $e->getMessage();
+ * }
  */
 class FileUploader extends Uploader
 {
@@ -60,10 +75,10 @@ class FileUploader extends Uploader
 
     public function upload()
     {
-        $this->checkExtension();    #Проверяем
+        $this->checkExtension();    #Checking
         $this->checkSize();
 
-        $storage = new AWS_Storage();   #Загружаем на облако
+        $storage = new AWS_Storage();   #Uploading to cloud
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
         return $imgURI;
@@ -71,7 +86,17 @@ class FileUploader extends Uploader
 }
 
 /**
- * Класс по работе с ссылкой на файл.
+ * Class to work with a link
+ *
+ * Example usage:
+ *$NewFile = new LinkUploader($_GET['ImageLink']);
+ * try {
+ *     $NewFile->upload();
+ * } catch (WrongFileType $e) {
+ *     echo $e->getMessage();
+ * } catch (WrongFileSize $e) {
+ *     echo $e->getMessage();
+ * }
  */
 class LinkUploader extends Uploader
 {
@@ -87,17 +112,17 @@ class LinkUploader extends Uploader
 
     public function upload()
     {
-        $this->checkExtension(); #Проверяем
+        $this->checkExtension(); #Checking
         $this->checkSize();
 
-        file_put_contents($this->fileName, file_get_contents($_GET['ImageLink'])); #Сохраняем
+        file_put_contents($this->fileName, file_get_contents($_GET['ImageLink'])); #Saving file
         $this->filePath = realpath($this->fileName);
 
-        $storage = new AWS_Storage();   #Загружаем на облако
+        $storage = new AWS_Storage();   #Uploading to cloud
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
 
-        unlink($this->filePath);    #Удаляем
+        unlink($this->filePath);    #Delete saved file
         return $imgURI;
     }
 }
