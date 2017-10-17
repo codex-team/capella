@@ -34,7 +34,7 @@ class Delivery
     /**
     * @param {string} $imgURL
     * @param {array} $filters
-    * example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
+    * @example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
     */
     function acceptFilters($imgURL, $filters) {
         $img = new ImageProcessing();
