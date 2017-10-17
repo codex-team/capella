@@ -17,7 +17,7 @@ class UploadByLink extends Uploader
 {
     public function __construct($url)
     {
-        $headers = get_headers($url);
+        $headers = get_headers($url, 1);
 
         $this->fileName = basename($url);
         $this->fileSize = $headers['Content-Length'];
