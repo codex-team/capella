@@ -36,22 +36,25 @@ class Uploader {    #Абстрактный класс, в котором опи
     }
 }
 
-class FileUploader extends Uploader #Класс по работе с файлом.
+/**
+ * Класс по работе с файлом.
+ */
+class FileUploader extends Uploader
 {
     public function __construct($img)
     {
         if (!is_uploaded_file($img['tmp_name'])) {
             throw new AccessDenied("Access denied. File wasn't uploaded");
-        } else {
-            if (isset($img['type'])) {
-                $this->fileExt = mime_content_type($img['tmp_name']);
-            }
-            if (isset($_FILES['ImageFile']['size'])) {
-                $this->fileSize = $img['size'];
-            }
-            if (isset($_FILES['ImageFile']['tmp_name'])) {
-                $this->filePath = $img['tmp_name'];
-            }
+        }
+
+        if (isset($img['type'])) {
+            $this->fileExt = mime_content_type($img['tmp_name']);
+        }
+        if (isset($_FILES['ImageFile']['size'])) {
+            $this->fileSize = $img['size'];
+        }
+        if (isset($_FILES['ImageFile']['tmp_name'])) {
+            $this->filePath = $img['tmp_name'];
         }
     }
 
@@ -67,7 +70,10 @@ class FileUploader extends Uploader #Класс по работе с файло�
     }
 }
 
-class LinkUploader extends Uploader #Класс по работе с ссылкой на файл.
+/**
+ * Класс по работе с ссылкой на файл.
+ */
+class LinkUploader extends Uploader
 {
     private $fileName;
 
