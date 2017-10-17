@@ -1,10 +1,4 @@
-<<<<<<< database
 #ignore .idea
 .idea/
-=======
-# Ignore vendor dir
-vendor/
-
 # Ignore all config files
 config.php
->>>>>>> master
