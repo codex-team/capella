@@ -1,5 +1,7 @@
 <?php
 
+namespace Router;
+
 /**
 * Class UriDispatcher
 *
@@ -9,20 +11,20 @@
 *    'id'      => $dispatcher->id,
 *    'filters' => $dispatcher->parsedFilters,
 * );
-* where 'filters' are returned in format 
+* where 'filters' are returned in format
 *[
 *  [
-*      'filter1' => $f1Title, 
+*      'filter1' => $f1Title,
 *      'params' => f1Params
 *  ],
 *  [
 *      'status' => $f2Status,
-*      'filter1' => $f2Title, 
+*      'filter1' => $f2Title,
 *      'params' => f2Params
 *  ]
 *]
 */
-class UriDispatcher
+class Dispatcher
 {
     public $path;
     public $filterList;
@@ -33,9 +35,9 @@ class UriDispatcher
 
     /**
      * @param {string} $uri URI to dispatch
-     * @param {array} $filterList Dictionary of supported filters and patterns in format 
+     * @param {array} $filterList Dictionary of supported filters and patterns in format
      * ['filterName' => (
-     *   'title' => $title, 
+     *   'title' => $title,
      *   'pattern' => '{$varName|$varType}$delimiter{$varName|$varType}[$additionalParameters]'
      * )]
      */

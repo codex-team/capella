@@ -1,5 +1,7 @@
 <?php
 
+namespace AWS;
+
 /**
  * AWS Storage class
  *
@@ -7,7 +9,7 @@
  * require_once 'lib/AWS/Storage.php';
  *
  * @example Create new class
- * $storage = new AWS_Storage();
+ * $storage = new \AWS\Storage();
  *
  * @example Upload image and get it's ID
  * $imgID = $storage->uploadImage('nice-pic.png');
@@ -18,7 +20,7 @@
  * @example Show image uri
  * echo $imgURI;
  */
-class AWS_Storage
+class Storage
 {
     protected $S3Client;
 
