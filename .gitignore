@@ -5,5 +5,5 @@ vendor/
 config.php
 
 #IDE files ignore
-.idea/workspace.xml
+.idea/
 
