@@ -1,4 +1,11 @@
-#ignore .idea
-.idea/
+# Ignore vendor dir
+vendor/
+
+# Ignore upload dir
+upload/
+
 # Ignore all config files
 config.php
+
+# Ignore dev env
+.idea/
