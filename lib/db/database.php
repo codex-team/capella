@@ -82,6 +82,22 @@ class DatabaseWorker
     }
 
     /**
+     * Fetching the array result of select
+     */
+    public function fetchAll()
+    {
+        return $this->sth->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Fetching result of select
+     */
+    public function fetch()
+    {
+        return $this->sth->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Getting a IP of user
      */
     public function getUserIP()
