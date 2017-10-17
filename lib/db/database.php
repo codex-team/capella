@@ -14,6 +14,11 @@
 
 class DatabaseWorker
 {
+    /**
+     * @var PDO
+     * $dbh-variable to work with PDO queries to database
+     * $stmt-variable of query statement
+     */
     private $dbh;
     private $stmt;
 
