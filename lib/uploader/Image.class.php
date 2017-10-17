@@ -10,7 +10,7 @@ class AccessDenied extends Exception {}
 class Uploader {    #Абстрактный класс, в котором описываются допустимые расширения и максимальный размер, а так же методы проверки.
 
     const MAX_FILE_SIZE = 15*1024*1024*8; #15 МБ
-    const EXTENSIONS = array(
+    const EXTENSIONS = array(   #Допустимые MIME-типы
         'image/jpg',
         'image/png',
         'image/jpeg',
@@ -18,12 +18,12 @@ class Uploader {    #Абстрактный класс, в котором опи
     );
 
     protected $fileSize;
-    protected $fileExp;
+    protected $fileExt;
     protected $filePath;
 
     protected function checkExtension() #Проверка расширения
     {
-        if (!in_array($this->fileExp, self::EXTENSIONS)) {
+        if (!in_array($this->fileExt, self::EXTENSIONS)) {
             throw new WrongFileType("Wrong file type.");
         }
     }
@@ -40,9 +40,11 @@ class FileUploader extends Uploader #Класс по работе с файло�
 {
     public function __construct($img)
     {
-        if (is_uploaded_file($img['tmp_name'])) {
+        if (!is_uploaded_file($img['tmp_name'])) {
+            throw new AccessDenied("Access denied. File wasn't uploaded");
+        } else {
             if (isset($img['type'])) {
-                $this->fileExp = mime_content_type($img['tmp_name']);
+                $this->fileExt = mime_content_type($img['tmp_name']);
             }
             if (isset($_FILES['ImageFile']['size'])) {
                 $this->fileSize = $img['size'];
@@ -50,16 +52,15 @@ class FileUploader extends Uploader #Класс по работе с файло�
             if (isset($_FILES['ImageFile']['tmp_name'])) {
                 $this->filePath = $img['tmp_name'];
             }
-        } else {
-            throw new AccessDenied("Access denied. File wasn't uploaded");
         }
     }
 
     public function upload()
     {
-        $this->checkExtension();
+        $this->checkExtension();    #Проверяем
         $this->checkSize();
-        $storage = new AWS_Storage();
+
+        $storage = new AWS_Storage();   #Загружаем на облако
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
         return $imgURI;
@@ -73,21 +74,24 @@ class LinkUploader extends Uploader #Класс по работе с ссылк�
     public function __construct($url)
     {
         $this->fileName = basename($url['ImageLink']);
-        $this->fileExp = mime_content_type($url);
+        $this->fileExt = mime_content_type($url);
         $this->fileSize = get_headers($url['ImageLink']);
         $this->fileSize = $this->fileSize['Content-Length'];
     }
 
     public function upload()
     {
-        $this->checkExtension();
+        $this->checkExtension(); #Проверяем
         $this->checkSize();
-        file_put_contents($this->fileName, file_get_contents($_GET['ImageLink']));
+
+        file_put_contents($this->fileName, file_get_contents($_GET['ImageLink'])); #Сохраняем
         $this->filePath = realpath($this->fileName);
-        $storage = new AWS_Storage();
+
+        $storage = new AWS_Storage();   #Загружаем на облако
         $imgID = $storage->uploadImage($this->filePath);
         $imgURI = $storage->getImage($imgID);
-        unlink($this->filePath);
+
+        unlink($this->filePath);    #Удаляем
         return $imgURI;
     }
 }
