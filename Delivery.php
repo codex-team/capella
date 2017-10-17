@@ -9,30 +9,26 @@ class Delivery
 	private $img;
 	private $imgWithFilters;
 	private $memcacheObj;
+	private $imgID;
+	private $filters;
 
 	/**
 	* @param {string} Image ID
 	* @param {array} $filters
 	* example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
 	*/
-	public function __construct($imgID, $filters) {
+	public function __construct($imgID1, $filters1) {
+		$imgID = $imgID1;
+		$filters = $filters1;
 		$memcacheObj = new Memcache;
 		$memcacheObj->connect('127.0.0.1', 11211) or die('Memcache not connect');
 		
-		$cacheImg = $memcacheObj->get('our_var');
+		$cacheImg = $memcacheObj->get(md5($imgID+implode($filters)));
 		if(!empty($cacheImg)) $imgWithFilters = $cacheImg;
 		else {
-			$imgURL = $this->getFileById($imgID);
+			$imgURL = (new AWS_Storage())->getImage($imgID);
 			$imgURL = $this->acceptFilters($imgURL, $filters);
 		}
-	}
-
-	/**
-	* @param {string} Image ID
-	*/
-	function getFileById($imgID)
-	{
-		return (new AWS_Storage())->getImage($imgID);
 	}
 
 	/**
@@ -50,12 +46,12 @@ class Delivery
 	}
 
 	/**
-	 * Output image in browser
-	 */
+	* Output image in browser
+	*/
 	public function returnImage() {
 		if(!empty($imgWithFilters)) return $imgWithFilters;
 		$imgWithFilters = $img->getImageBlob();
-        $memcacheObj->set('var_key', $imgWithFilters, MEMCACHE_COMPRESSED, 60*60);
+        $memcacheObj->set(md5($imgID+implode($filters)), $imgWithFilters, MEMCACHE_COMPRESSED, 60*60);
 		return $imgWithFilters;
 	}
 }
