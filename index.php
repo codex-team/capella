@@ -7,6 +7,6 @@ require_once "lib/autoload.php";
 /**
  * Main page
  */
-require_once "Uploader.php";
+require_once "uploaderForm.php";
 
 ?>
