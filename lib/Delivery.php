@@ -12,6 +12,7 @@ class Delivery
     private $memcacheObj;
     private $imgID;
     private $filters;
+    private $imgKey;
 
     /**
     * @param {string} Image ID
@@ -19,19 +20,28 @@ class Delivery
     * @example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
     */
     public function __construct($imgID1, $filters1) {
-        $imgID = $imgID1;
-        $filters = $filters1;
-        $memcacheObj = new Memcache;
-        $memcacheObj->connect(MEMCACHE_HOST, MEMCACHE_PORT) or die('Memcache not connect');
+        $this->imgID = $imgID1;
+        $this->filters = $filters1;
+        $this->memcacheObj = new Memcache;
+        $this->memcacheObj->connect(MEMCACHE_HOST, MEMCACHE_PORT) or die('Memcache not connect');
+        $this->imgKey = $this->keyGenerate($this->imgID+implode($this->filters));
         
-        $cacheImg = $memcacheObj->get(md5($imgID+implode($filters)));
+        $cacheImg = $this->memcacheObj->get($this->imgKey);
         if(!empty($cacheImg)) {
-            $imgWithFilters = $cacheImg;
+            $this->imgWithFilters = $cacheImg;
         }
         else {
-            $imgURL = (new AWS_Storage())->getImage($imgID);
-            $imgURL = $this->acceptFilters($imgURL, $filters);
+            $this->imgURL = (new AWS_Storage())->getImage( $this->imgID);
+            $this->imgURL = $this->acceptFilters($this->imgURL,  $this->filters);
         }
+    }
+
+    /**
+     * @param {string} $string
+     * @return hash
+     */
+    function keyGenerate($string) {
+        return hash('sha256', $string);
     }
 
     /**
@@ -40,14 +50,13 @@ class Delivery
     * @example [[0] => ('title' => $title, 'params' => ('w' => $w, 'h' => $h[, 'x' => $x, 'y' => $y]))]
     */
     function acceptFilters($imgURL, $filters) {
-        $img = new ImageProcessing();
-        $img->readImage($imgURL);
+        $this->img = new ImageProcessing($imgURL);
         foreach ($filters as $filter) {
             if ($filter->title == 'crop') {
-                $img->cropImage($filter->params->w, $filter->params->h, $filter->params->x, $filter->params->y);
+                $this->img->cropImage($filter->params->w, $filter->params->h, $filter->params->x, $filter->params->y);
             }
             elseif ($filter->title == 'resize') {
-                $img->resizeImage($filter->params->w, $filter->params->h);
+                $this->img->resizeImage($filter->params->w, $filter->params->h);
             }
         }
     }
@@ -56,11 +65,11 @@ class Delivery
     * Output image in browser
     */
     public function returnImage() {
-        if(!empty($imgWithFilters)) {
-            return $imgWithFilters;
+        if(!empty($this->imgWithFilters)) {
+            return $this->imgWithFilters;
         }
-        $imgWithFilters = $img->getImageBlob();
-        $memcacheObj->set(md5($imgID+implode($filters)), $imgWithFilters, MEMCACHE_COMPRESSED, 60*60);
-        return $imgWithFilters;
+        $this->imgWithFilters = $this->img->getImageBlob();
+        $this->memcacheObj->set($this->imgKey, $this->imgWithFilters, MEMCACHE_COMPRESSED, 60*60);
+        return $this->imgWithFilters;
     }
 }
