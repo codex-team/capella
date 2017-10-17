@@ -1,6 +1,5 @@
 <?php
 
-require_once "config.php";
 
 /**
  * Class DatabaseWorker
@@ -11,14 +10,10 @@ require_once "config.php";
  * $database->bind(':extension', $extension);
  * $database->bind(':ip', $ip);
  * $database->execute();
- */
+ *//**/
+
 class DatabaseWorker
 {
-    //parameters of connection
-    private $host = HOST; //or any other host name
-    private $user = USER; //or any user name
-    private $pass = PASS; // or any passwd
-    private $dbname = DBNAME; //or any database name
     private $dbh;
     private $stmt;
 
@@ -27,15 +22,17 @@ class DatabaseWorker
      */
     public function __construct()
     {
+//      // Including configuration file
+        include "config.php";
         // Set DSN for PDO connection
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
+        $dsn = 'mysql:host=' . $config['dbhost'] . ';dbname=' . $config['dbname'];
         // Set options for PDO connection
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
         // Create a new PDO instanace
-        $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        $this->dbh = new PDO($dsn, $config['dbuser'], $config['dbpassword'], $options);
     }
 
     /**
