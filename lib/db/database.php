@@ -29,8 +29,10 @@ class DatabaseWorker
 
         // Including configuration file
         include "config.php";
+
         // Set DSN(Data Source Name) for PDO connection
         $dsn = 'mysql:host=' . $config['dbhost'] . ';dbname=' . $config['dbname'];
+
         // Set options for PDO connection
         $options = array(
             PDO::ATTR_PERSISTENT => true,
