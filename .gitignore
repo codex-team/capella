@@ -3,6 +3,7 @@ vendor/
 
 # Ignore all config files
 config.php
+
 #IDE files ignore
 .idea/workspace.xml
 
