@@ -18,7 +18,7 @@ class UploadFile extends Uploader
     public function __construct($img)
     {
         if (!is_uploaded_file($img['tmp_name'])) {
-            throw new Exception("Access denied. File wasn't uploaded");
+            throw new \Exception("Access denied. File wasn't uploaded");
         }
 
         if (isset($img['type'])) {
@@ -43,7 +43,7 @@ class UploadFile extends Uploader
 
         // Save temp file
         $filename = Uploader::saveFileToUploadDir($this->filePath);
-        
+
         $imgURI = Uploader::uploadToCloud($filename);
 
         // Delete temp file
