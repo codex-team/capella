@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `capella-storage` (
-  `id` varchar(11) NOT NULL,
+  `id` varchar(50) NOT NULL,
   `dt_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extension` varchar(6) NOT NULL,
   `ip` varchar(30) NOT NULL
