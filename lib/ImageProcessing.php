@@ -91,13 +91,20 @@ class ImageProcessing
             throw new Exception('Uncorrected input dimensions');
         }
 
-        if ($resizeWidth > $resizeHeight || !$resizeWidth) {
+        $aspectRatio = $this->height / $this->width;
+
+        if ($aspectRatio * $resizeWidth > $resizeHeight || $resizeWidth == 0) {
+
             $this->imagick->scaleImage(0, $resizeHeight);
+
         } else {
+
             $this->imagick->scaleImage($resizeWidth, 0);
+
         }
 
         $this->recalculateDimensions();
+
     }
 
     /**
