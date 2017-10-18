@@ -79,8 +79,8 @@ class Processing
         }
 
         $type = 'image/' . strtolower($imageProcessing->extension);
-        $length = $imageProcessing->getImageLength();
         $blob = $imageProcessing->getImageBlob();
+        $length = strlen($blob);
 
         \HTTP\Response::data($blob, $type, $length);
     }
