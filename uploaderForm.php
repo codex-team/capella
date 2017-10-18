@@ -13,9 +13,10 @@
 
       } else {
 
+          $uploader = new \Uploader\Uploader();
+
           try {
-              $newFile = new \Uploader\UploadFile($_FILES['ImageFile']);
-              echo $newFile->upload();
+              echo $uploader->uploadFile($_FILES['ImageFile']);
           } catch (Exception $e) {
               echo $e->getMessage();
           }
@@ -35,9 +36,9 @@
 
     if ( !empty($_GET['ImageLink']) && isset($_GET['LinkSubm']) ) {
 
-        $NewFile = new \Uploader\UploadByLink($_GET['ImageLink']);
+        $uploader = new \Uploader\Uploader();
         try {
-            echo $NewFile->upload($_GET['ImageLink']);
+            echo $uploader->uploadLink($_GET['ImageLink']);
         } catch (Exception $e) {
             echo $e->getMessage();
         }

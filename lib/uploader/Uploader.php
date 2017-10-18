@@ -25,10 +25,7 @@ class Uploader
     // protected $filePath;
     // protected $fileName;
 
-    public function __construct($data)
-    {
-        
-    }
+    public function __construct() {}
 
     /**
      * Check extension
@@ -91,8 +88,31 @@ class Uploader
         return $imgURI;
     }
 
-    protected function uploadFile()
+    protected function upload($file)
     {
-        # code...
+        // Copy temp file to upload dir
+        $filepath = Uploader::saveFileToUploadDir($file);
+
+        // Upload file and get its ID
+        $imgURI = Uploader::uploadToCloud($filepath);
+
+        // Delete temp file
+        unlink($filepath);
+
+        return $imgURI;
+    }
+
+    public function uploadFile($data)
+    {
+        // TODO check for size and type
+
+        return $this->upload($data['tmp_name']);
+    }
+
+    public function uploadLink($url)
+    {
+        // TODO check for size and type
+
+        return $this->upload($url);
     }
 }

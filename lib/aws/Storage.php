@@ -66,7 +66,7 @@ class Storage
      */
     public function uploadImage($tmpFileName)
     {
-        $label = \Methods::generateImageId();
+        $label = \Methods::generateId();
 
         return $this->uploadS3($tmpFileName, $label);
     }

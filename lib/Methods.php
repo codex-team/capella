@@ -7,7 +7,7 @@ class Methods
      *
      * @return string - generated ID
      */
-    public static function generateImageId()
+    public static function generateId()
     {
         return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
