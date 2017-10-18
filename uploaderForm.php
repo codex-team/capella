@@ -37,7 +37,7 @@
 
         $NewFile = new \Uploader\UploadByLink($_GET['ImageLink']);
         try {
-            echo $NewFile->upload();
+            echo $NewFile->upload($_GET['ImageLink']);
         } catch (Exception $e) {
             echo $e->getMessage();
         }

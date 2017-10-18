@@ -36,29 +36,15 @@ class UploadFile extends Uploader
         $this->fileName = $img['name'];
     }
 
-    private function saveFile()
-    {
-        $ext = pathinfo($this->fileName, PATHINFO_EXTENSION);
-
-        $name = $this::UPLOAD_DIR . uniqid() . '.' . $ext;
-
-        move_uploaded_file($this->filePath, $name);
-
-        return $name;
-    }
-
     public function upload()
     {
         $this->checkExtension();
         $this->checkSize();
 
         // Save temp file
-        $filename = $this->saveFile();
-
-        // Upload to cloud
-        $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($filename, $filename);
-        $imgURI = $storage->getImage($imgID);
+        $filename = Uploader::saveFileToUploadDir($this->filePath);
+        
+        $imgURI = Uploader::uploadToCloud($filename);
 
         // Delete temp file
         unlink($filename);

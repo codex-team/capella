@@ -23,35 +23,17 @@ class UploadByLink extends Uploader
         $this->fileSize = $headers['Content-Length'];
     }
 
-    private function saveFile()
-    {
-        $name = $this::UPLOAD_DIR . uniqid();
-
-        file_put_contents($name, file_get_contents($_GET['ImageLink']));
-
-        $this->fileMimeType = mime_content_type($name);
-        $ext = basename($this->fileMimeType);
-
-        $newName = $name.'.'.$ext;
-        rename($name, $newName);
-        $name = $newName;
-
-        $this->filePath = realpath($name);
-    }
-
-    public function upload()
+    public function upload($url)
     {
         $this->checkSize();
 
         // Save file
-        $this->saveFile();
+        $this->filePath = Uploader::saveFileToUploadDir($url);
 
-        $this->checkExtension();
+        // $this->checkExtension();
 
         // Upload to cloud
-        $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($this->filePath);
-        $imgURI = $storage->getImage($imgID);
+        $imgURI = Uploader::uploadToCloud($this->filePath);
 
         // Delete saved file
         unlink($this->filePath);
