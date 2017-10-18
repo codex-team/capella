@@ -104,7 +104,6 @@ class ImageProcessing
         }
 
         $this->recalculateDimensions();
-
     }
 
     /**
@@ -118,7 +117,8 @@ class ImageProcessing
     /**
      * @return int - image size in bytes
      */
-    public function getImageLength() {
+    public function getImageLength()
+    {
         return $this->imagick->getImageLength();
     }
 

@@ -10,7 +10,6 @@ namespace Controller;
  */
 class Processing
 {
-
     const FILTERS = array(
         'crop' => array(
             'title' => 'crop',
@@ -33,7 +32,6 @@ class Processing
 
     public function __construct($requestUri)
     {
-
         $storage = new \AWS\Storage();
 
         $dispatcher = new \Router\Dispatcher($requestUri, self::FILTERS);
@@ -48,7 +46,6 @@ class Processing
         }
 
         $imageProcessing = new \ImageProcessing($imageUrl);
-
 
         foreach ($filters as $filter) {
 
@@ -86,7 +83,5 @@ class Processing
         $blob = $imageProcessing->getImageBlob();
 
         \HTTP\Response::data($blob, $type, $length);
-
     }
-
 }
