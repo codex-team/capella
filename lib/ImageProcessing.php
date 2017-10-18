@@ -116,6 +116,13 @@ class ImageProcessing
     }
 
     /**
+     * @return int - image size in bytes
+     */
+    public function getImageLength() {
+        return $this->imagick->getImageLength();
+    }
+
+    /**
      * defines available image formats
      *
      * @param {String} $extension we want to validate

@@ -18,6 +18,27 @@ class Response
 
     }
 
+    /**
+     * Echo data to the page
+     *
+     * @param $data
+     * @param null|MIME-type $type - MIME type og data
+     * @param null|int $length - size of data
+     */
+    public static function data($data, $type=null, $length=null) {
+
+        if ($type) {
+            header("Content-Type: $type");
+        }
+
+        if ($length) {
+            header("Content-Length: $length");
+        }
+
+        echo $data;
+
+    }
+
     private static function response($code, $status) {
 
         header("HTTP/1.0 $code $status");

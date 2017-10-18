@@ -81,9 +81,11 @@ class Processing
 
         }
 
-        header('Content-Type: image/' . strtolower($imageProcessing->extension));
+        $type = 'image/' . strtolower($imageProcessing->extension);
+        $length = $imageProcessing->getImageLength();
+        $blob = $imageProcessing->getImageBlob();
 
-        echo $imageProcessing->getImageBlob();
+        \HTTP\Response::data($blob, $type, $length);
 
     }
 
