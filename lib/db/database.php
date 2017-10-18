@@ -93,7 +93,7 @@ class DatabaseWorker
      */
     public function fetchAll()
     {
-        return $this->sth->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -101,7 +101,7 @@ class DatabaseWorker
      */
     public function fetch()
     {
-        return $this->sth->fetch(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
