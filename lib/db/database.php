@@ -1,53 +1,59 @@
 <?php
 
+namespace DB;
+
 /**
  * Class DatabaseWorker
- * Example of usage:
- * $database = new DatabaseWorker();
+ *
+ * @example
+ * $database = new \DB\DatabaseWorker();
  * $database->query('INSERT INTO ' . $database_name . ' (id,extension,ip) VALUES (:id,:extension,:ip)');
  * $database->bind(':id', $id);
  * $database->bind(':extension', $extension);
  * $database->bind(':ip', $ip);
  * $database->execute();
- *//**/
-
+ */
 class DatabaseWorker
 {
     /**
      * @var PDO
-     * $dbh-database handler
-     * $sth-statement handler
+     * $statementHandler-statement handler
      */
-    private $dbh;
-    private $sth;
+    private $databaseHandler;
+    private $statementHandler;
 
     /**
-     * DatabaseWorker constructor.
+     * DatabaseWorker constructor
      */
     public function __construct()
     {
-
         // Including configuration file
         include "config.php";
 
-        // Set DSN(Data Source Name) for PDO connection
-        $dsn = 'mysql:host=' . $config['dbhost'] . ';dbname=' . $config['dbname'];
+        // Set DSN (Data Source Name) for PDO connection
+        $dataSourceName = 'mysql:host=' . $config['host'] . ';dbname=' . $config['name'];
 
         // Set options for PDO connection
         $options = array(
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
+
         // Create a new PDO instanace
-        $this->dbh = new PDO($dsn, $config['dbuser'], $config['dbpassword'], $options);
+        $this->databaseHandler = new PDO(
+            $dataSourceName,
+            $config['user'],
+            $config['password'],
+            $options
+        );
     }
 
     /**
-     * Query to database.
+     * Query to database
      */
     public function query($query)
     {
-        $this->sth = $this->dbh->prepare($query);
+        $this->statementHandler = $this->databaseHandler->prepare($query);
     }
 
     /**
@@ -70,7 +76,8 @@ class DatabaseWorker
                     $type = PDO::PARAM_STR;
             }
         }
-        $this->sth->bindValue($param, $value, $type);
+
+        $this->statementHandler->bindValue($param, $value, $type);
     }
 
     /**
@@ -78,7 +85,7 @@ class DatabaseWorker
      */
     public function execute()
     {
-        return $this->sth->execute();
+        return $this->statementHandler->execute();
     }
 
     /**
@@ -86,7 +93,7 @@ class DatabaseWorker
      */
     public function fetchAll()
     {
-        return $this->sth->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -94,7 +101,7 @@ class DatabaseWorker
      */
     public function fetch()
     {
-        return $this->sth->fetch(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -102,9 +109,10 @@ class DatabaseWorker
      */
     public function getUserIP()
     {
-        $client = @$_SERVER['HTTP_CLIENT_IP'];
+        $client  = @$_SERVER['HTTP_CLIENT_IP'];
         $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-        $remote = $_SERVER['REMOTE_ADDR'];
+        $remote  = $_SERVER['REMOTE_ADDR'];
+
         if (filter_var($client, FILTER_VALIDATE_IP)) {
             $ip = $client;
         } elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
@@ -112,6 +120,7 @@ class DatabaseWorker
         } else {
             $ip = $remote;
         }
+
         return $ip;
     }
 }
