@@ -18,7 +18,7 @@ class UploadFile extends Uploader
     public function __construct($img)
     {
         if (!is_uploaded_file($img['tmp_name'])) {
-            throw new Exception("Access denied. File wasn't uploaded");
+            throw new \Exception("Access denied. File wasn't uploaded");
         }
 
         if (isset($img['type'])) {
@@ -57,7 +57,7 @@ class UploadFile extends Uploader
 
         // Upload to cloud
         $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($filename, $filename);
+        $imgID = $storage->uploadImage($filename);
         $imgURI = $storage->getImage($imgID);
 
         // Delete temp file

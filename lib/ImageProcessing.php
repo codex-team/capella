@@ -57,15 +57,19 @@ class ImageProcessing
             throw new Exception("Uncorrected input dimensions");
         }
         if ($x == null && $y == null) {
+
             if ($this->width > $this->height) {
-                $this->resizeImage(null, $cropHeight);
+                $this->resizeImage(0, $cropHeight);
+
                 $x = $this->width / 2 - $cropWidth / 2;
                 $this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
             } else {
-                $this->resizeImage($cropWidth, null);
+                $this->resizeImage($cropWidth, 0);
+
                 $y = $this->height / 2 - $cropHeight / 2;
                 $this->imagick->cropImage($cropWidth, $cropHeight, 0, $y);
             }
+
         } else {
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
         }
@@ -77,19 +81,28 @@ class ImageProcessing
      *
      * @param {int} $resizeWidth
      * @param {int} $resizeHeight
+     *
+     * @throws Exception
+     *
      */
     public function resizeImage($resizeWidth, $resizeHeight)
     {
-        if ($resizeWidth == null && $resizeHeight == null) {
-            throw new Exception("Uncorrected input dimensions");
+        if (!$resizeWidth && !$resizeHeight) {
+            throw new Exception('Uncorrected input dimensions');
         }
-        if ($resizeWidth == null) {
-            $k = $resizeHeight / $this->height;
-            $this->imagick->scaleImage($this->width * $k, $resizeHeight);
+
+        $aspectRatio = $this->height / $this->width;
+
+        if ($aspectRatio * $resizeWidth > $resizeHeight || $resizeWidth == 0) {
+
+            $this->imagick->scaleImage(0, $resizeHeight);
+
         } else {
-            $k = $resizeWidth / $this->width;
-            $this->imagick->scaleImage($resizeWidth, $this->height * $k);
+
+            $this->imagick->scaleImage($resizeWidth, 0);
+
         }
+
         $this->recalculateDimensions();
     }
 
@@ -99,6 +112,14 @@ class ImageProcessing
     public function getImageBlob()
     {
         return $this->imagick->getImageBlob();
+    }
+
+    /**
+     * @return int - image size in bytes
+     */
+    public function getImageLength()
+    {
+        return $this->imagick->getImageLength();
     }
 
     /**
