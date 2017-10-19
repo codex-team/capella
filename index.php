@@ -1,12 +1,31 @@
 <?php
 
+/** Autoload vendor */
 require_once "vendor/autoload.php";
 
-require_once "lib/autoload.php";
+/** Autoload classes */
+require_once "src/autoload.php";
+
 
 /**
- * Main page
+ * Router
  */
-require_once "uploaderForm.php";
+$requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
+
+if (trim($requestUri, '/') == '') {
+
+    /** Main page */
+    require_once "src/form.php";
+
+} else {
+
+    try {
+        $processing = new \Controller\Processing($requestUri);
+    } catch (Exception $e) {
+        echo $e;
+        \HTTP\Response::InternalServerError();
+    }
+
+}
 
 ?>

@@ -3,27 +3,36 @@
 namespace Router;
 
 /**
-* Class UriDispatcher
-*
-* Example usage:
-* $dispatcher = new UriDispatcher($uri, FILTERS);
-* $imageData  = array(
-*    'id'      => $dispatcher->id,
-*    'filters' => $dispatcher->parsedFilters,
-* );
-* where 'filters' are returned in format
-*[
-*  [
-*      'filter1' => $f1Title,
-*      'params' => f1Params
-*  ],
-*  [
-*      'status' => $f2Status,
-*      'filter1' => $f2Title,
-*      'params' => f2Params
-*  ]
-*]
-*/
+ * Class UriDispatcher
+ *
+ * @example set filter dictionary
+ * const FILTERS = array(
+ *     'c' => array(
+ *         'title' => 'crop',
+ *         'pattern' => '{w|int}x{h|int}[&{x|int},{y|int}]'
+ *     ),
+ *     'r' => array(
+ *         'title' => 'resize',
+ *         'pattern' => '{w}x{h}'
+ *     ),
+ * );
+ *
+ * @example parse uri
+ * $dispatcher = new \Router\Dispatcher($uri, FILTERS);
+ * $imageData  = array(
+ *    'id'      => $dispatcher->id,
+ *    'filters' => $dispatcher->parsedFilters,
+ * );
+ *
+ * @example 'filters' are returned in format
+ * array(
+ *     array(
+ *         "filter" => string(),
+ *         "params" => array()
+ *     ),
+ *     ...
+ * )
+ */
 class Dispatcher
 {
     public $path;
@@ -43,10 +52,10 @@ class Dispatcher
      */
     public function __construct($uri, $filterList)
     {
-        $this->path = rawurldecode($uri);
+        $this->path = trim(rawurldecode($uri), '/');
 
         // Splits path into parts, cutting the first '/' for elements purity
-        $this->pathParts = explode('/', substr($this->path, 1));
+        $this->pathParts = explode('/', $this->path);
         $this->id        = $this->pathParts[0];
 
         // Slices filters and additional parameters list from pathParts
@@ -63,7 +72,9 @@ class Dispatcher
 
     /**
      * Parses raw filters list and returns formatted filters data array
-     * @throws Not enough info to parse filters
+     *
+     * @throws \Exception
+     *
      * @return {array} in format [['filter1' => $f1Title, 'params' => f1Params],
      * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
      */
@@ -71,13 +82,13 @@ class Dispatcher
     {
         $rawFiltersCount = count($this->rawFilters);
         if ($rawFiltersCount == 0) {
-            $filtersData = false;
+            $filtersData = array();
         } else {
             $filtersData = array();
 
             // "{id}/{filter_name}" only case check
             if ($rawFiltersCount == 1) {
-                throw new Exception('Not enough info');
+                throw new \Exception('Not enough info');
             }
 
             // Raw filters' data loop
@@ -94,21 +105,21 @@ class Dispatcher
 
     /**
      * Parses raw filters element and returns formatted filter data dictionary
-     * @param $filterId Filter index in raw filters list
-     * @throws Errors of formatting and info in uri
+     * @param $filterId - Filter index in raw filters list
+     * @throws \Exception
      */
     public function parseFilterData($filterId)
     {
         // Check if the filter exists
         if (!array_key_exists($this->rawFilters[$filterId], $this->filterList)) {
-            throw new Exception('Filter syntax error');
+            throw new \Exception('Filter syntax error');
         }
 
         $filter = $this->filterList[$this->rawFilters[$filterId]]['title'];
 
         // "{id}/{filter_name}//{filter_name}/..." case check
         if (strlen($this->rawFilters[$filterId + 1]) == 0) {
-            throw new Exception('Not enough info to ' . $filter);
+            throw new \Exception('Not enough info to ' . $filter);
         }
 
         // Get structured params array
@@ -119,7 +130,7 @@ class Dispatcher
 
     /**
      * Parses string of parameters by pattern and returns all contained variables with values
-     * @param $filterId Filter index in raw filters list
+     * @param $filterId - Filter index in raw filters list
      * @return {array} All variables, contained in parameters, with values
      */
     private function parseParamsData($filterId)
