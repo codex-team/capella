@@ -61,14 +61,13 @@ class Storage
     /**
      * Upload initiator
      *
-     * @param string $tmpFileName
-     * @return string - uploaded image ID
+     * @param {string} $filepath      path to file to upload
+     * @param {string} $label         name of file stored in cloud
+     * @return {string}               uploaded image ID
      */
-    public function uploadImage($tmpFileName)
+    public function uploadImage($filepath, $label)
     {
-        $label = \Methods::generateId();
-
-        return $this->uploadS3($tmpFileName, $label);
+        return $this->uploadS3($filepath, $label);
     }
 
     /**

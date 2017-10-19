@@ -59,18 +59,18 @@ class Uploader
      * Save file to uploads dir
      *
      * @param $filepath     path to the file or url
-     * @return $name        saved file name
+     * @return $path        path to saved file
      */
     protected function saveFileToUploadDir($filepath)
     {
         // Generate filename
-        $name = Uploader::UPLOAD_DIR . uniqid();
+        $path = Uploader::UPLOAD_DIR . \Methods::generateId();
 
         // Save file to uploads dir
-        file_put_contents($name, file_get_contents($filepath));
+        file_put_contents($path, file_get_contents($filepath));
 
         // Get MIME-type from file
-        $mimeType = mime_content_type($name);
+        $mimeType = mime_content_type($path);
         $ext = end(explode('/', $mimeType));
 
         if ( ! $this->isValidMimeType($mimeType) ) {
@@ -78,23 +78,24 @@ class Uploader
         };
 
         // Add extension from MIME-type
-        $newName = $name.'.'.$ext;
-        rename($name, $newName);
-        $name = $newName;
+        $newPath = $path.'.'.$ext;
+        rename($path, $newPath);
+        $path = $newPath;
 
-        return $name;
+        return $path;
     }
 
     /**
      * Upload file to cloud and return capella url
      *
      * @param $filepath     path to file
+     * @param $label        name of file
      * @return $imgURI
      */
-    protected function uploadToCloud($filepath)
+    protected function uploadToCloud($filepath, $label)
     {
         $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($filepath);
+        $imgID = $storage->uploadImage($filepath, $label);
 
         // TODO insert file info to database
 
@@ -127,9 +128,10 @@ class Uploader
 
         // Copy temp file to upload dir
         $filepath = $this->saveFileToUploadDir($file);
+        $label = explode('.', basename($filepath))[0];
 
         // Upload file and get its ID
-        $imgURI = $this->uploadToCloud($filepath);
+        $imgURI = $this->uploadToCloud($filepath, $label);
 
         // Delete temp file
         unlink($filepath);
