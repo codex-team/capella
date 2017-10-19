@@ -24,7 +24,10 @@ class Uploader
     // protected $filePath;
     // protected $fileName;
 
-    public function __construct() {}
+    public function __construct()
+    {
+        mkdir(self::UPLOAD_DIR);
+    }
 
     /**
      * Check extension
