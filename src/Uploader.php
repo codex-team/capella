@@ -58,8 +58,12 @@ class Uploader
     /**
      * Save file to uploads dir
      *
-     * @param $filepath     path to the file or url
-     * @return $path        path to saved file
+     * @param $filepath - path to the file or url
+     *
+     * @throws Exception
+     *
+     * @return string - path to saved file
+     *
      */
     protected function saveFileToUploadDir($filepath)
     {
@@ -71,7 +75,7 @@ class Uploader
 
         // Get MIME-type from file
         $mimeType = mime_content_type($path);
-        $ext = end(explode('/', $mimeType));
+        $ext = explode('/', $mimeType)[0];
 
         if ( ! $this->isValidMimeType($mimeType) ) {
             throw new \Exception("Wrong file type");
@@ -88,9 +92,9 @@ class Uploader
     /**
      * Upload file to cloud and return capella url
      *
-     * @param $filepath     path to file
-     * @param $label        name of file
-     * @return $imgURI
+     * @param $filepath - path to file
+     * @param $label - name of file
+     * @return string - img url
      */
     protected function uploadToCloud($filepath, $label)
     {

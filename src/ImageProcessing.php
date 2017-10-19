@@ -35,7 +35,7 @@ class ImageProcessing
     /**
      * ImageProcessing constructor
      *
-     * @param $path local path to image
+     * @param string $path - local path to image
      */
     public function __construct($path)
     {
@@ -46,10 +46,12 @@ class ImageProcessing
     /**
      * Crop image by dimensions with coordinates
      *
-     * @param {int} $cropWidth
-     * @param {int} $cropHeight
-     * @param {int} null $x crop x
-     * @param {int} null $y crop y
+     * @param int $cropWidth
+     * @param int $cropHeight
+     * @param int|null $x - crop x
+     * @param int|null $y - crop y
+     *
+     * @throws Exception
      */
     public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
     {
@@ -59,18 +61,17 @@ class ImageProcessing
 
         if ($x == null || $y == null) {
 
-            if ($this->width > $this->height) {
-                $this->resizeImage(0, $cropHeight);
-            } else {
-                $this->resizeImage($cropWidth, 0);
-            }
 
-            // echo var_dump($cropWidth, $cropHeight);
-            //
-            // $x = $this->width / 2 - $cropWidth / 2;
-            // $y = $this->height / 2 - $cropHeight / 2;
-            //
-            // $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
+            $ratio = max($cropHeight / $this->height, $cropWidth / $this->width);
+
+            $this->imagick->scaleImage($ratio * $this->width, $ratio * $this->height);
+
+            $this->recalculateDimensions();
+
+            $x = $this->width / 2 - $cropWidth / 2;
+            $y = $this->height / 2 - $cropHeight / 2;
+
+            $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
 
         } else {
 
@@ -95,27 +96,21 @@ class ImageProcessing
             throw new Exception('Uncorrected input dimensions');
         }
 
-        // $ratioHeight = $resizeHeight ? $resizeHeight / $this->height : 1;
-        // $ratioWidth  = $resizeWidth  ? $resizeWidth  / $this->width  : 1;
-        //
-        // // Resize by the smallest ratio
-        // if ($ratioHeight > $ratioWidth) {
-        //
-        //     $this->imagick->scaleImage($this->width * $ratioWidth, 0);
-        //
-        // } else {
-        //
-        //     $this->imagick->scaleImage(0, $this->height * $ratioHeight);
-        //
-        // }
+        if ($resizeWidth == 0) {
 
-        // $aspectRatio = $this->height / $this->width;
-        //
-        // if ($aspectRatio * $resizeWidth > $resizeHeight || $resizeWidth == 0) {
-        //     $this->imagick->scaleImage(0, $resizeHeight);
-        // } else {
-        //     $this->imagick->scaleImage($resizeWidth, 0);
-        // }
+            $this->imagick->scaleImage(0, $resizeHeight);
+
+        } elseif ($resizeHeight == 0) {
+
+            $this->imagick->scaleImage($resizeWidth, 0);
+
+        } else {
+
+            $ratio = min($resizeHeight / $this->height, $resizeWidth / $this->width);
+
+            $this->imagick->scaleImage($ratio * $this->width, $ratio * $this->height);
+
+        }
 
         $this->recalculateDimensions();
     }
@@ -123,7 +118,7 @@ class ImageProcessing
     /**
      * Get image blob
      *
-     * @return {string} blob image
+     * @return string - blob image
      */
     public function getImageBlob()
     {
@@ -133,7 +128,7 @@ class ImageProcessing
     /**
      * Defines available image formats
      *
-     * @param {String} $extension we want to validate
+     * @param string $extension - we want to validate
      * @return bool
      */
     private function isValidExtension($extension)

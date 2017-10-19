@@ -5,7 +5,7 @@ vendor/
 upload/
 
 # Ignore all config files
-config.php
+src/aws/config.php
 
 # Ignore dev env
 .idea/
