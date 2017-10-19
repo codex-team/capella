@@ -65,10 +65,12 @@ class ImageProcessing
                 $this->resizeImage($cropWidth, 0);
             }
 
-            $x = $this->width / 2 - $cropWidth / 2;
-            $y = $this->height / 2 - $cropHeight / 2;
-
-            $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
+            // echo var_dump($cropWidth, $cropHeight);
+            //
+            // $x = $this->width / 2 - $cropWidth / 2;
+            // $y = $this->height / 2 - $cropHeight / 2;
+            //
+            // $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
 
         } else {
 
@@ -93,19 +95,27 @@ class ImageProcessing
             throw new Exception('Uncorrected input dimensions');
         }
 
-        $ratioHeight = $resizeHeight ? $resizeHeight / $this->height : 1;
-        $ratioWidth  = $resizeWidth  ? $resizeWidth  / $this->width  : 1;
+        // $ratioHeight = $resizeHeight ? $resizeHeight / $this->height : 1;
+        // $ratioWidth  = $resizeWidth  ? $resizeWidth  / $this->width  : 1;
+        //
+        // // Resize by the smallest ratio
+        // if ($ratioHeight > $ratioWidth) {
+        //
+        //     $this->imagick->scaleImage($this->width * $ratioWidth, 0);
+        //
+        // } else {
+        //
+        //     $this->imagick->scaleImage(0, $this->height * $ratioHeight);
+        //
+        // }
 
-        // Resize by the smallest ratio
-        if ($ratioHeight > $ratioWidth) {
-
-            $this->imagick->scaleImage($this->width * $ratioWidth, 0);
-
-        } else {
-
-            $this->imagick->scaleImage(0, $this->height * $ratioHeight);
-
-        }
+        // $aspectRatio = $this->height / $this->width;
+        //
+        // if ($aspectRatio * $resizeWidth > $resizeHeight || $resizeWidth == 0) {
+        //     $this->imagick->scaleImage(0, $resizeHeight);
+        // } else {
+        //     $this->imagick->scaleImage($resizeWidth, 0);
+        // }
 
         $this->recalculateDimensions();
     }
