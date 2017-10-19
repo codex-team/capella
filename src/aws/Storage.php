@@ -47,9 +47,10 @@ class Storage
      * @param $imageId
      * @return bool|string - false if file not exist, URL if file exist
      */
-    public function getImage($imageId)
+    public function getImageURL($imageId)
     {
         $imageUrl = "https://" . AWS_S3_BUCKET . ".s3.amazonaws.com/" . $imageId;
+
         if (@fopen($imageUrl, "r")) {
             return $imageUrl;
         } else {
@@ -60,12 +61,13 @@ class Storage
     /**
      * Upload initiator
      *
-     * @param string $tmpFileName
-     * @return string - uploaded image ID
+     * @param {string} $filepath      path to file to upload
+     * @param {string} $label         name of file stored in cloud
+     * @return {string}               uploaded image ID
      */
-    public function uploadImage($tmpFileName)
+    public function uploadImage($filepath, $label)
     {
-        return $this->uploadS3($tmpFileName, $this->generateImageId());
+        return $this->uploadS3($filepath, $label);
     }
 
     /**
@@ -86,21 +88,5 @@ class Storage
         ]);
 
         return $imageId;
-    }
-
-    /**
-     * Image ID generator
-     *
-     * @return string - generated ID
-     */
-    protected function generateImageId()
-    {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0x0fff ) | 0x4000,
-            mt_rand( 0, 0x3fff ) | 0x8000,
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-        );
     }
 }

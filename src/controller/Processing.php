@@ -7,6 +7,23 @@ namespace Controller;
  *
  * Get image by passed id, process it with passed filters and returns it on page
  *
+ * @example get full size image
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee
+ *
+ * @example resize filter
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/resize/100x100
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/r/100x100
+ *
+ * @example centered crop filter
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/c/300x100
+ *
+ * @example crop filter with specified coordinates
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60
+ *
+ * @example usage of two composed filters
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100/resize/50x50
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/c/300x100&40,60/r/1000x1000
  */
 class Processing
 {
@@ -39,7 +56,7 @@ class Processing
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
-        $imageUrl = $storage->getImage($imageId);
+        $imageUrl = $storage->getImageURL($imageId);
 
         if (!$imageUrl) {
             \HTTP\Response::NotFound();
