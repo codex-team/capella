@@ -59,6 +59,12 @@ class ImageProcessing
 
         if ($x == null || $y == null) {
 
+            if ($this->width > $this->height) {
+                $this->resizeImage(0, $cropHeight);
+            } else {
+                $this->resizeImage($cropWidth, 0);
+            }
+
             $x = $this->width / 2 - $cropWidth / 2;
             $y = $this->height / 2 - $cropHeight / 2;
 
