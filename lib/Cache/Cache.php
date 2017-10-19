@@ -25,7 +25,7 @@ class Cache
      */
     public function __construct()
     {
-        require_once "config.php";
+        $config = include "config.php";
         $this->memcacheObj = new Memcache;
         $this->memcacheObj->connect($config['memcacheHost'], $config['port']) or die('Memcache not connect');
     }

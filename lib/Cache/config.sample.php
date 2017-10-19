@@ -1,6 +1,6 @@
 <?php
 
-$config = array(
+return array(
     'memcacheHost'      => 'localhost',
     'memcachePort'      => '11211',
 );
