@@ -9,10 +9,10 @@
  * $cache = new Cache();
  *
  * @example Get object by name
- * $imgID = $cache->getObj($imgID+implode($filters));
+ * $imgID = $cache->getObj($key);
  *
  * @example Put object
- * $cache->putObj($img, $imgID+implode($filters));
+ * $cache->putObj($img, $key);
  */
 
 class Cache {
@@ -55,7 +55,7 @@ class Cache {
     }
 
     /**
-     * Put object
+     * Delete object
      * @param Object name
      */
     public function deleteObj($key) {
