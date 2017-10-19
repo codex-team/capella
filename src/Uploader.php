@@ -126,10 +126,10 @@ class Uploader
         };
 
         // Copy temp file to upload dir
-        $filepath = Uploader::saveFileToUploadDir($file);
+        $filepath = $this->saveFileToUploadDir($file);
 
         // Upload file and get its ID
-        $imgURI = Uploader::uploadToCloud($filepath);
+        $imgURI = $this->uploadToCloud($filepath);
 
         // Delete temp file
         unlink($filepath);
