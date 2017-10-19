@@ -25,17 +25,13 @@ namespace Router;
  * );
  *
  * @example 'filters' are returned in format
- * [
- *   [
- *       'filter1' => $f1Title,
- *       'params' => f1Params
- *   ],
- *   [
- *       'status' => $f2Status,
- *       'filter1' => $f2Title,
- *       'params' => f2Params
- *   ]
- * ]
+ * array(
+ *     array(
+ *         "filter" => string(),
+ *         "params" => array()
+ *     ),
+ *     ...
+ * )
  */
 class Dispatcher
 {
@@ -72,6 +68,9 @@ class Dispatcher
          * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
          */
         $this->parsedFilters = $this->parseFilters();
+
+        echo var_dump($this->parsedFilters);
+        die();
     }
 
     /**
