@@ -4,7 +4,7 @@
 require_once "vendor/autoload.php";
 
 /** Autoload classes */
-require_once "lib/autoload.php";
+require_once "src/autoload.php";
 
 
 /**
@@ -15,7 +15,7 @@ $requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
 if (trim($requestUri, '/') == '') {
 
     /** Main page */
-    require_once "lib/form.php";
+    require_once "src/form.php";
 
 } else {
 
