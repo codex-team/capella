@@ -3,7 +3,7 @@
 require 'database.php';
 include "config.php"
 
-$database = new DatabaseWorker();
+$database = new \DB\DatabaseWorker();
 $database_name = 'capella-storage';
 $database->query("SELECT * FROM `".$database_name."`");
 $database->execute();
