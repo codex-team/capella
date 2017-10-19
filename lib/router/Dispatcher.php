@@ -68,9 +68,6 @@ class Dispatcher
          * ['status' => $f2Status,'filter1' => $f2Title, 'params' => f2Params]]
          */
         $this->parsedFilters = $this->parseFilters();
-
-        echo var_dump($this->parsedFilters);
-        die();
     }
 
     /**

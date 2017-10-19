@@ -9,7 +9,9 @@ class Uploader
 {
     const MAX_FILE_SIZE = 15 * 1024*1024*8;  // 15MB
 
-    // Acceptable MIME-types
+    /**
+     * Acceptable MIME-types
+     */
     const MIME_TYPES = array(
         'image/jpg',
         'image/png',
@@ -17,12 +19,10 @@ class Uploader
         'image/gif'
     );
 
+    /**
+     * Temp files directory
+     */
     const UPLOAD_DIR = 'upload/';
-
-    // protected $fileSize;
-    // protected $fileMimeType;
-    // protected $filePath;
-    // protected $fileName;
 
     public function __construct()
     {
@@ -103,6 +103,14 @@ class Uploader
         return $imgURI;
     }
 
+    /**
+     * Check and upload image
+     *
+     * @param {string} $file      path to image
+     * @param {string} $size      image size
+     * @param {string} $mime      image mime-type
+     * @return {string}           uploaded image uri
+     */
     protected function upload($file, $size, $mime)
     {
         if ( !$file || !$size || !$mime) {
@@ -129,6 +137,12 @@ class Uploader
         return $imgURI;
     }
 
+    /**
+     * Public function for file uploading via POST form-data
+     *
+     * @param {array} $data       image file from $_FILES
+     * @return {string}           uploaded image uri
+     */
     public function uploadFile($data)
     {
         if (!is_uploaded_file($data['tmp_name'])) {
@@ -140,6 +154,12 @@ class Uploader
         return $this->upload($data['tmp_name'], $data['size'], $mime);
     }
 
+    /**
+     * Public function for uploading image by url
+     *
+     * @param {string} $url       path to image
+     * @return {string}           uploaded image uri
+     */
     public function uploadLink($url)
     {
         // Get link info

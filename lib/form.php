@@ -1,6 +1,6 @@
 <form method="post" action="" enctype="multipart/form-data">
     <input type="file" name="ImageFile"/>
-    <input type="submit" name="FileSubm" value="Accept"/>
+    <input type="submit" name="FileSubm" value="Upload"/>
 </form>
 
 <?php
@@ -30,7 +30,7 @@
 
 <form method="post" action="">
     <input type="text" name="ImageLink"/>
-    <input type="submit" name="LinkSubm" value="Accept"/>
+    <input type="submit" name="LinkSubm" value="Upload"/>
 </form>
 
 <?php
