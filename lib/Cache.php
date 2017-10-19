@@ -49,9 +49,17 @@ class Cache {
      * @param Object
      * @param {string} Object name
      */
-    public function putObj($obj, $key)
+    public function putObj($obj, $key, $timeOfLife = 60 * 60)
     {
-        $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, 60 * 60);
+        $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, $timeOfLife);
+    }
+
+    /**
+     * Put object
+     * @param Object name
+     */
+    public function deleteObj($key) {
+        $this->memcacheObj->delete($key);
     }
 }
 ?>
