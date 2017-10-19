@@ -15,8 +15,8 @@
  * $cache->putObj($img, $key);
  */
 
-class Cache {
-
+class Cache
+{
     const MEMCACHE_HOST = 'localhost';
     const MEMCACHE_PORT =  '11211';
 
@@ -25,27 +25,33 @@ class Cache {
     /**
      * Cache constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->memcacheObj = new Memcache;
-        $this->memcacheObj->connect(MEMCACHE_HOST, MEMCACHE_PORT) or die('Memcache not connect');
+        $this->memcacheObj->connect(self::MEMCACHE_HOST, self::MEMCACHE_PORT) or die('Memcache not connect');
     }
 
     /**
      * Get object
+     *
      * @param {string} Object name
      * @return if success return object else return 0
      */
-    public function getObj($key) {
+    public function getObj($key)
+    {
         $cacheObj = $this->memcacheObj->get($key);
+
         if(!empty($cacheObj)) {
             return $cacheObj;
         }
-        return 0;
+
+        return null;
     }
 
 
     /**
      * Put object
+     *
      * @param Object
      * @param {string} Object name
      */
@@ -56,6 +62,7 @@ class Cache {
 
     /**
      * Delete object
+     * 
      * @param Object name
      */
     public function deleteObj($key) {
