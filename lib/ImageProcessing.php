@@ -95,11 +95,11 @@ class ImageProcessing
 
         if ($aspectRatio * $resizeWidth > $resizeHeight || $resizeWidth == 0) {
 
-            $this->imagick->scaleImage(0, $resizeHeight);
+            $this->imagick->scaleImage(0, $this->height);
 
         } else {
 
-            $this->imagick->scaleImage($resizeWidth, 0);
+            $this->imagick->scaleImage($this->width, 0);
 
         }
 
