@@ -31,21 +31,12 @@ class Cache {
     }
 
     /**
-     * Key generate
-     * @param {string} Generate key
-     * @return Hash
-     */
-    function keyGenerate($string) {
-        return hash('sha256', $string);
-    }
-
-    /**
      * Get object
      * @param {string} Object name
      * @return if success return object else return 0
      */
-    public function getObj($objName) {
-        $cacheObj = $this->memcacheObj->get(keyGenerate($objName));
+    public function getObj($key) {
+        $cacheObj = $this->memcacheObj->get($key);
         if(!empty($cacheObj)) {
             return $cacheObj;
         }
@@ -58,9 +49,9 @@ class Cache {
      * @param Object
      * @param {string} Object name
      */
-    public function putObj($obj, $objName)
+    public function putObj($obj, $key)
     {
-        $this->memcacheObj->set(keyGenerate($objName), $obj, MEMCACHE_COMPRESSED, 60 * 60);
+        $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, 60 * 60);
     }
 }
 ?>
