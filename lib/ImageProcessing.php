@@ -6,10 +6,10 @@
  * @example create new class with image from path in constructor
  * $image = new ImageProcessing("C:/Users/image.png");
  *
- * @example cropImage with coordinates
+ * @example crop image with coordinates
  * $image->cropImage(100,100,0,10);
  *
- * @example cropImage by center coordinate
+ * @example crop image by center coordinate
  * $image->cropImage(100,100);
  *
  * @example resize image by height and width
@@ -19,7 +19,6 @@
  *
  * @example getImageBlob returns the image sequence as a blob
  * $image->getImageBlob();
- *
  */
 
 class ImageProcessing
@@ -34,7 +33,8 @@ class ImageProcessing
     private $validExtensions = array('png', 'gif', 'jpeg');
 
     /**
-     * ImageProcessing constructor.
+     * ImageProcessing constructor
+     *
      * @param $path local path to image
      */
     public function __construct($path)
@@ -44,7 +44,7 @@ class ImageProcessing
     }
 
     /**
-     * crop image by dimensions with coordinates
+     * Crop image by dimensions with coordinates
      *
      * @param {int} $cropWidth
      * @param {int} $cropHeight
@@ -56,34 +56,30 @@ class ImageProcessing
         if ($cropWidth == null || $cropHeight== null) {
             throw new Exception("Uncorrected input dimensions");
         }
-        if ($x == null && $y == null) {
 
-            if ($this->width > $this->height) {
-                $this->resizeImage(0, $cropHeight);
+        if ($x == null || $y == null) {
 
-                $x = $this->width / 2 - $cropWidth / 2;
-                $this->imagick->cropImage($cropWidth, $cropHeight, $x, 0);
-            } else {
-                $this->resizeImage($cropWidth, 0);
+            $x = $this->width / 2 - $cropWidth / 2;
+            $y = $this->height / 2 - $cropHeight / 2;
 
-                $y = $this->height / 2 - $cropHeight / 2;
-                $this->imagick->cropImage($cropWidth, $cropHeight, 0, $y);
-            }
+            $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
 
         } else {
+
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
+
         }
+
         $this->recalculateDimensions();
     }
 
     /**
-     * resize image with dimensions
+     * Resize image with dimensions
      *
      * @param {int} $resizeWidth
      * @param {int} $resizeHeight
      *
      * @throws Exception
-     *
      */
     public function resizeImage($resizeWidth, $resizeHeight)
     {
@@ -109,7 +105,9 @@ class ImageProcessing
     }
 
     /**
-     * output image in browser
+     * Get image blob
+     *
+     * @return {string} blob image
      */
     public function getImageBlob()
     {
@@ -117,15 +115,7 @@ class ImageProcessing
     }
 
     /**
-     * @return int - image size in bytes
-     */
-    public function getImageLength()
-    {
-        return $this->imagick->getImageLength();
-    }
-
-    /**
-     * defines available image formats
+     * Defines available image formats
      *
      * @param {String} $extension we want to validate
      * @return bool
@@ -133,11 +123,12 @@ class ImageProcessing
     private function isValidExtension($extension)
     {
         $extension = strtolower($extension);
+
         return in_array($extension, $this->validExtensions);
     }
 
     /**
-     * calculate image dimensions
+     * Calculate image dimensions
      */
     private function recalculateDimensions()
     {
@@ -146,7 +137,7 @@ class ImageProcessing
     }
 
     /**
-     * read image from local path
+     * Read image from local path
      *
      * @param {String} $path local path to image
      * @throws Exception
@@ -154,14 +145,17 @@ class ImageProcessing
     private function readImage($path)
     {
         $this->path = $path;
+
         $readResult = @$this->imagick->readImage($path);
         if (!$readResult) {
-            throw new Exception("Invalid image path.");
+            throw new Exception("Invalid image path");
         }
+
         $this->extension = $this->imagick->getImageFormat();
         if (!$this->isValidExtension($this->extension)) {
             throw new Exception("Unsupported Extension");
         }
+
         $this->recalculateDimensions();
     }
 }
