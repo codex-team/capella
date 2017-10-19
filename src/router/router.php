@@ -10,7 +10,7 @@ const FILTERS = array(
     ),
     'r' => array(
         'title'   => 'resize',
-        'pattern' => '{w}x{h}',
+        'pattern' => '{w|int}x{h|int}',
     ),
 );
 
