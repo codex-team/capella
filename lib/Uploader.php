@@ -1,6 +1,5 @@
 <?php
 
-namespace Uploader;
 
 /**
  * Parent class, witch describes acceptable extension,
@@ -30,21 +29,25 @@ class Uploader
     /**
      * Check extension
      */
-    protected function checkExtension()
+    protected function isValidMimeType($mime)
     {
-        if ( !in_array($this->fileMimeType, self::MIME_TYPES) ) {
-            throw new \Exception("Wrong file type");
+        if ( ! in_array($mime, self::MIME_TYPES) ) {
+            return false;
         }
+
+        return true;
     }
 
     /**
      * Check file size
      */
-    protected function checkSize()
+    protected function isValidSize($size)
     {
-        if ($this->fileSize > self::MAX_FILE_SIZE) {
-            throw new \Exception('The file is too big');
+        if ( (int) $size > self::MAX_FILE_SIZE ) {
+            return false;
         }
+
+        return true;
     }
 
     /**
@@ -64,6 +67,10 @@ class Uploader
         // Get MIME-type from file
         $mimeType = mime_content_type($name);
         $ext = basename($mimeType);
+
+        if ( ! $this->isValidMimeType($mimeType) ) {
+            throw new \Exception("Wrong file type");
+        };
 
         // Add extension from MIME-type
         $newName = $name.'.'.$ext;
@@ -88,8 +95,20 @@ class Uploader
         return $imgURI;
     }
 
-    protected function upload($file)
+    protected function upload($file, $size, $mime)
     {
+        if ( !$file || !$size || !$mime) {
+            throw new \Exception('File is damaged');
+        };
+
+        if ( ! $this->isValidSize($size) ) {
+            throw new \Exception('The file is too big');
+        };
+
+        if ( ! $this->isValidMimeType($mime) ) {
+            throw new \Exception("Wrong file type");
+        };
+
         // Copy temp file to upload dir
         $filepath = Uploader::saveFileToUploadDir($file);
 
@@ -104,15 +123,23 @@ class Uploader
 
     public function uploadFile($data)
     {
-        // TODO check for size and type
+        if (!is_uploaded_file($data['tmp_name'])) {
+            throw new \Exception("File is missing");
+        }
 
-        return $this->upload($data['tmp_name']);
+        $mime = mime_content_type($data['tmp_name']);
+
+        return $this->upload($data['tmp_name'], $data['size'], $mime);
     }
 
     public function uploadLink($url)
     {
-        // TODO check for size and type
+        // Get link info
+        $headers = get_headers($url, 1);
 
-        return $this->upload($url);
+        $size = $headers['Content-Length'];
+        $mime = $headers['Content-Type'];
+
+        return $this->upload($url, $size, $mime);
     }
 }
