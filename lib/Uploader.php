@@ -26,7 +26,9 @@ class Uploader
 
     public function __construct()
     {
-        mkdir(self::UPLOAD_DIR);
+        if (!file_exists(self::UPLOAD_DIR)) {
+            mkdir(self::UPLOAD_DIR);
+        }
     }
 
     /**
@@ -84,7 +86,7 @@ class Uploader
     }
 
     /**
-     * Upload file to cloud and return url
+     * Upload file to cloud and return capella url
      *
      * @param $filepath     path to file
      * @return $imgURI
@@ -93,7 +95,10 @@ class Uploader
     {
         $storage = new \AWS\Storage();
         $imgID = $storage->uploadImage($filepath);
-        $imgURI = $storage->getImageURL($imgID);
+
+        // TODO insert file info to database
+
+        $imgURI = \Methods::getImageUri($imgID);
 
         return $imgURI;
     }
