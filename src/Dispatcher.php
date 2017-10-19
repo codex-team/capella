@@ -1,7 +1,5 @@
 <?php
 
-namespace Router;
-
 /**
  * Class UriDispatcher
  *

@@ -77,7 +77,7 @@ class Processing
     {
       $storage = new \AWS\Storage();
 
-      $dispatcher = new \Router\Dispatcher($requestUri, self::FILTERS);
+      $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
 
       $imageId = $dispatcher->id;
       $filters = $dispatcher->parsedFilters;
