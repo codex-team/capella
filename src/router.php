@@ -15,7 +15,7 @@ if (trim($requestUri, '/') == '') {
     try {
         $processing = new \Controller\Processing($requestUri);
     } catch (Exception $e) {
-        echo $e;
+        \Hawk\HawkCatcher::catchException($e);
         \HTTP\Response::InternalServerError();
     }
 
