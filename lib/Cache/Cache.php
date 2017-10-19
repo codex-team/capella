@@ -12,13 +12,11 @@
  * $imgID = $cache->getObj($key);
  *
  * @example Put object
- * $cache->putObj($img, $key);
+ * $cache->putObj($img, $key, $time);
  */
 
 class Cache
 {
-    const MEMCACHE_HOST = 'localhost';
-    const MEMCACHE_PORT =  '11211';
 
     private $memcacheObj;
 
@@ -27,15 +25,16 @@ class Cache
      */
     public function __construct()
     {
+        require_once "config.php";
         $this->memcacheObj = new Memcache;
-        $this->memcacheObj->connect(self::MEMCACHE_HOST, self::MEMCACHE_PORT) or die('Memcache not connect');
+        $this->memcacheObj->connect($config['memcacheHost'], $config['port']) or die('Memcache not connect');
     }
 
     /**
      * Get object
      *
      * @param {string} Object name
-     * @return if success return object else return 0
+     * @return if success return object else return null
      */
     public function getObj($key)
     {
@@ -53,7 +52,8 @@ class Cache
      * Put object
      *
      * @param Object
-     * @param {string} Object name
+     * @param {string} $imageId Object name
+     * @param {integer} $timeOfLife time of var life
      */
     public function putObj($obj, $key, $timeOfLife = 60 * 60)
     {
