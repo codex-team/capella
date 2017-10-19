@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'memcacheHost'      => 'localhost',
-    'memcachePort'      => '11211',
+    'host' => 'localhost',
+    'port' => '11211',
 );

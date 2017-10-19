@@ -21,11 +21,16 @@ class Response
     /**
      * Echo data to the page
      *
-     * @param $data
-     * @param null|MIME-type $type - MIME type og data
-     * @param null|int $length - size of data
+     * @param array $imageData
+     *    $imageData['type'] string - image mime-type
+     *    $imageData['blob'] string - blob image
+     *    $imageData['length'] int - image size
      */
-    public static function data($data, $type=null, $length=null) {
+    public static function data($imageData)
+    {
+        $blob = $imageData['blob'];
+        $type = $imageData['type'];
+        $length = $imageData['length'];
 
         if ($type) {
             header("Content-Type: $type");
@@ -35,8 +40,7 @@ class Response
             header("Content-Length: $length");
         }
 
-        echo $data;
-
+        echo $blob;
     }
 
     private static function response($code, $status) {

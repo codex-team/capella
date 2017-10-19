@@ -1,18 +1,21 @@
 <?php
+
+namespace Cache;
+
 /**
  * Cache class
  *
- * @example Require Storage.php
- * require_once 'lib/Cache.php';
+ * @example create new class
+ * $cache = new \Cache\Cache();
  *
- * @example Create new class
- * $cache = new Cache();
+ * @example set object
+ * $cache->set($key, $data[, $exp]);
  *
- * @example Get object by name
- * $imgID = $cache->getObj($key);
+ * @example get object
+ * $data = $cache->get($key);
  *
- * @example Put object
- * $cache->putObj($img, $key, $time);
+ * @example delete object
+ * $cache->delete($key);
  */
 
 class Cache
@@ -26,8 +29,9 @@ class Cache
     public function __construct()
     {
         $config = include "config.php";
-        $this->memcacheObj = new Memcache;
-        $this->memcacheObj->connect($config['memcacheHost'], $config['port']) or die('Memcache not connect');
+
+        $this->memcacheObj = new \Memcache();
+        $this->memcacheObj->connect($config['host'], $config['port']) or die('Memcache not connect');
     }
 
     /**
@@ -36,7 +40,7 @@ class Cache
      * @param {string} Object name
      * @return if success return object else return null
      */
-    public function getObj($key)
+    public function get($key)
     {
         $cacheObj = $this->memcacheObj->get($key);
 
@@ -49,23 +53,24 @@ class Cache
 
 
     /**
-     * Put object
+     * Set object
      *
      * @param Object
      * @param {string} $imageId Object name
      * @param {integer} $timeOfLife time of var life
      */
-    public function putObj($obj, $key, $timeOfLife = 60 * 60)
+    public function set($key, $obj, $timeOfLife = 60 * 60)
     {
         $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, $timeOfLife);
     }
 
     /**
      * Delete object
-     * 
+     *
      * @param Object name
      */
-    public function deleteObj($key) {
+    public function delete($key)
+    {
         $this->memcacheObj->delete($key);
     }
 }

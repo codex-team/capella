@@ -12,18 +12,15 @@ namespace Controller;
  *
  * @example resize filter
  *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/resize/100x100
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/r/100x100
  *
- * @example centered crop filter
+ * @example crop filter
  *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/c/300x100
  *
  * @example crop filter with specified coordinates
  *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60
  *
  * @example usage of two composed filters
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100/resize/50x50
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/c/300x100&40,60/r/1000x1000
+ *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60/resize/1000x1000
  */
 class Processing
 {
@@ -35,70 +32,105 @@ class Processing
         'resize' => array(
             'title' => 'resize',
             'pattern' => '{width|int}x{height|int}'
-        ),
-        'c' => array(
-            'title' => 'crop',
-            'pattern' => '{width|int}x{height|int}[&{x|int},{y|int}]'
-        ),
-        'r' => array(
-            'title' => 'resize',
-            'pattern' => '{width|int}x{height|int}'
         )
     );
 
 
     public function __construct($requestUri)
     {
-        $storage = new \AWS\Storage();
+        $cache = new \Cache\Cache();
+        $cacheKey = $this->getCacheKey($requestUri);
 
-        $dispatcher = new \Router\Dispatcher($requestUri, self::FILTERS);
+        // Trying to get cached image
+        $imageData = $cache->get($cacheKey);
 
-        $imageId = $dispatcher->id;
-        $filters = $dispatcher->parsedFilters;
-
-        $imageUrl = $storage->getImageURL($imageId);
-
-        if (!$imageUrl) {
-            \HTTP\Response::NotFound();
+        // If no cached image then create it
+        if ( !$imageData ) {
+            $imageData = $this->returnImage($requestUri);
+            $cache->set($cacheKey, $imageData);
         }
 
-        $imageProcessing = new \ImageProcessing($imageUrl);
+        \HTTP\Response::data($imageData);
+    }
 
-        foreach ($filters as $filter) {
+    /**
+     * Get cache key by uri
+     *
+     * @param string $uri - request uri
+     * @return string - cache key
+     */
+    protected function getCacheKey($uri)
+    {
+        return md5($uri);
+    }
 
-            switch ($filter['filter']) {
+    /**
+     * Return image data by requestUri
+     *
+     * @param string $requestUri
+     * @return array - image data
+     *        $imageData['type'] string - image mime-type
+     *        $imageData['blob'] string - blob image
+     *        $imageData['length'] int - image size
+     */
+    protected function returnImage($requestUri)
+    {
+      $storage = new \AWS\Storage();
 
-                case 'crop':
+      $dispatcher = new \Router\Dispatcher($requestUri, self::FILTERS);
 
-                    $params = $filter['params'];
+      $imageId = $dispatcher->id;
+      $filters = $dispatcher->parsedFilters;
 
-                    $width = $params['width'];
-                    $height = $params['height'];
-                    $x = isset($params['x']) ? $params['x'] : null;
-                    $y = isset($params['y']) ? $params['y'] : null;
+      $imageUrl = $storage->getImageURL($imageId);
 
-                    $imageProcessing->cropImage($width, $height, $x, $y);
+      if (!$imageUrl) {
+          \HTTP\Response::NotFound();
+      }
 
-                    break;
+      $imageProcessing = new \ImageProcessing($imageUrl);
 
-                case 'resize':
+      foreach ($filters as $filter) {
 
-                    $params = $filter['params'];
+          switch ($filter['filter']) {
 
-                    $width = $params['width'];
-                    $height = $params['height'];
+              case 'crop':
 
-                    $imageProcessing->resizeImage($width, $height);
+                  $params = $filter['params'];
 
-                    break;
-            }
+                  $width = $params['width'];
+                  $height = $params['height'];
+                  $x = isset($params['x']) ? $params['x'] : null;
+                  $y = isset($params['y']) ? $params['y'] : null;
 
-        }
+                  $imageProcessing->cropImage($width, $height, $x, $y);
 
-        $type = 'image/' . strtolower($imageProcessing->extension);
-        $blob = $imageProcessing->getImageBlob();
-        $length = strlen($blob);
+                  break;
 
-        \HTTP\Response::data($blob, $type, $length);
+              case 'resize':
+
+                  $params = $filter['params'];
+
+                  $width = $params['width'];
+                  $height = $params['height'];
+
+                  $imageProcessing->resizeImage($width, $height);
+
+                  break;
+          }
+
+      }
+
+      $type = 'image/' . strtolower($imageProcessing->extension);
+      $blob = $imageProcessing->getImageBlob();
+      $length = strlen($blob);
+
+      $imageData = array(
+          'type'    => $type,
+          'blob'    => $blob,
+          'length'  => $length
+      );
+
+      return $imageData;
     }
 }
