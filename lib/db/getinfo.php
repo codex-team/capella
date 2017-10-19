@@ -4,10 +4,10 @@ require 'database.php';
 include "config.php"
 
 $database = new DatabaseWorker();
-$database->query("SELECT * FROM `".$config["database_name"]."`");
+$database_name = 'capella-storage';
+$database->query("SELECT * FROM `".$database_name."`");
 $database->execute();
 $resopnse = $database->fetchAll();
-$database_name = 'capella-storage';
 $response_array = array();
 $index = 0;
 echo "<table border=1><tr><td><p>ID</p></td><td>DT_ADD</td><td>EXTENSION</td><td>IP</td></tr>";
