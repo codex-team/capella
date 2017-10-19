@@ -3,27 +3,40 @@
 namespace Router;
 
 /**
-* Class UriDispatcher
-*
-* Example usage:
-* $dispatcher = new UriDispatcher($uri, FILTERS);
-* $imageData  = array(
-*    'id'      => $dispatcher->id,
-*    'filters' => $dispatcher->parsedFilters,
-* );
-* where 'filters' are returned in format
-*[
-*  [
-*      'filter1' => $f1Title,
-*      'params' => f1Params
-*  ],
-*  [
-*      'status' => $f2Status,
-*      'filter1' => $f2Title,
-*      'params' => f2Params
-*  ]
-*]
-*/
+ * Class UriDispatcher
+ *
+ * @example set filter dictionary
+ * const FILTERS = array(
+ *     'c' => array(
+ *         'title' => 'crop',
+ *         'pattern' => '{w|int}x{h|int}[&{x|int},{y|int}]'
+ *     ),
+ *     'r' => array(
+ *         'title' => 'resize',
+ *         'pattern' => '{w}x{h}'
+ *     ),
+ * );
+ *
+ * @example parse uri
+ * $dispatcher = new \Router\Dispatcher($uri, FILTERS);
+ * $imageData  = array(
+ *    'id'      => $dispatcher->id,
+ *    'filters' => $dispatcher->parsedFilters,
+ * );
+ *
+ * @example 'filters' are returned in format
+ * [
+ *   [
+ *       'filter1' => $f1Title,
+ *       'params' => f1Params
+ *   ],
+ *   [
+ *       'status' => $f2Status,
+ *       'filter1' => $f2Title,
+ *       'params' => f2Params
+ *   ]
+ * ]
+ */
 class Dispatcher
 {
     public $path;
