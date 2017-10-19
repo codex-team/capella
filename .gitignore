@@ -9,3 +9,6 @@ config.php
 
 # Ignore dev env
 .idea/
+
+# Ignore environment settings
+.env

@@ -1,31 +1,11 @@
 <?php
 
-/** Autoload vendor */
-require_once "vendor/autoload.php";
-
-/** Autoload classes */
-require_once "src/autoload.php";
-
+/**
+ * Set the full path to the docroot
+ */
+define('DOCROOT', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
 /**
- * Router
+ * Bootstrap the application
  */
-$requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
-
-if (trim($requestUri, '/') == '') {
-
-    /** Main page */
-    require_once "src/form.php";
-
-} else {
-
-    try {
-        $processing = new \Controller\Processing($requestUri);
-    } catch (Exception $e) {
-        echo $e;
-        \HTTP\Response::InternalServerError();
-    }
-
-}
-
-?>
+require DOCROOT.'src/bootstrap.php';

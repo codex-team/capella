@@ -31,7 +31,7 @@ class Cache
         $config = include "config.php";
 
         $this->memcacheObj = new \Memcache();
-        $this->memcacheObj->connect($config['host'], $config['port']) or die('Memcache not connect');
+        $this->memcacheObj->connect($config['host'], $config['port']) or die('Memcache is not connected');
     }
 
     /**

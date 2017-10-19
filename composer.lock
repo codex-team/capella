@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a56f23005e97fc1ef84dd95d7f89f11",
+    "content-hash": "9092ef7e5adea77ba7a2a6e561720734",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -85,6 +85,39 @@
                 "sdk"
             ],
             "time": "2017-10-18T18:46:11+00:00"
+        },
+        {
+            "name": "codex-team/hawk.php",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codex-team/hawk.php.git",
+                "reference": "e5a9ca49b4b6701b829b91060c82169e88cfbf94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/e5a9ca49b4b6701b829b91060c82169e88cfbf94",
+                "reference": "e5a9ca49b4b6701b829b91060c82169e88cfbf94",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/Hawk.php"
+                ],
+                "psr-4": {
+                    "Hawk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP errors Catcher module for Hawk.so",
+            "time": "2017-09-28T21:22:14+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -371,6 +404,56 @@
                 "response"
             ],
             "time": "2016-08-06T14:39:51+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2016-09-01T10:05:43+00:00"
         }
     ],
     "packages-dev": [],
