@@ -5,17 +5,30 @@ namespace HTTP;
 
 class Response
 {
+    private static function response($code, $status)
+    {
+        header("HTTP/1.0 $code $status");
+        header("HTTP/1.1 $code $status");
+        header("Status: $code $status");
 
-    public static function NotFound() {
+        echo $status;
 
-        self::response(404, 'Not Found');
-
+        die();
     }
 
-    public static function InternalServerError() {
+    public static function NotFound()
+    {
+        self::response(404, 'Not Found');
+    }
 
+    public static function MethodNotAllowed()
+    {
+        self::response(405, 'Method Not Allowed');
+    }
+
+    public static function InternalServerError()
+    {
         self::response(500, 'Internal Server Error');
-
     }
 
     /**
@@ -42,14 +55,4 @@ class Response
 
         echo $blob;
     }
-
-    private static function response($code, $status) {
-
-        header("HTTP/1.0 $code $status");
-        header("HTTP/1.1 $code $status");
-        header("Status: $code $status");
-        die();
-
-    }
-
 }
