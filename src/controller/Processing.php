@@ -38,30 +38,16 @@ class Processing
 
     public function __construct($requestUri)
     {
-        $cache = new \Cache\Cache();
-        $cacheKey = $this->getCacheKey($requestUri);
-
         // Trying to get cached image
-        $imageData = $cache->get($cacheKey);
+        $imageData = \Methods::cache()->get($requestUri);
 
         // If no cached image then create it
         if ( !$imageData ) {
             $imageData = $this->returnImage($requestUri);
-            $cache->set($cacheKey, $imageData);
+            \Methods::cache()->set($requestUri, $imageData);
         }
 
         \HTTP\Response::data($imageData);
-    }
-
-    /**
-     * Get cache key by uri
-     *
-     * @param string $uri - request uri
-     * @return string - cache key
-     */
-    protected function getCacheKey($uri)
-    {
-        return md5($uri);
     }
 
     /**

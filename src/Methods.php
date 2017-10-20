@@ -52,4 +52,14 @@ class Methods
 
         return $protocol.$domain;
     }
+
+    /**
+     * Return cache class
+     */
+    public static function cache()
+    {
+        $cache = new \Cache\Cache();
+
+        return $cache;
+    }
 }

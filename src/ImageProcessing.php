@@ -157,10 +157,25 @@ class ImageProcessing
     {
         $this->path = $path;
 
-        $readResult = @$this->imagick->readImage($path);
-        if (!$readResult) {
-            throw new Exception("Invalid image path");
+        // Trying to get cached image
+        $blob = \Methods::cache()->get($this->path);
+
+        // If no cached image then create it
+        if ( !$blob ) {
+
+            $readResult = @$this->imagick->readImage($path);
+
+            if (!$readResult) {
+                throw new Exception("Invalid image path");
+            }
+
+            $blob = $this->imagick->getImageBlob();
+
+            \Methods::cache()->set($this->path, $blob);
+
         }
+
+        $this->imagick->readImageBlob($blob);
 
         $this->extension = $this->imagick->getImageFormat();
         if (!$this->isValidExtension($this->extension)) {
