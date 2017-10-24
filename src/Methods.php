@@ -38,18 +38,28 @@ class Methods
     public static function getDomainAndProtocol()
     {
         if ( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
-          isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
 
-          $protocol = 'https://';
+            $protocol = 'https://';
 
         } else {
 
-          $protocol = 'http://';
+            $protocol = 'http://';
 
         }
 
         $domain = $_SERVER['SERVER_NAME'];
 
         return $protocol.$domain;
+    }
+
+    /**
+     * Return cache class
+     */
+    public static function cache()
+    {
+        $cache = new \Cache\Cache();
+
+        return $cache;
     }
 }

@@ -1,39 +1,37 @@
-<form method="post" action="" enctype="multipart/form-data">
-    <input type="file" name="ImageFile"/>
-    <input type="submit" name="FileSubm" value="Upload"/>
-</form>
-
 <?php
 
-  if ( isset($_FILES['ImageFile']) ) {
+/**
+ * Detect POST request
+ */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      if ( empty($_FILES['ImageFile']['name']) ) {
+  /**
+   * Upload file
+   */
+    if ( isset($_FILES['ImageFile']) ) {
 
-          echo "Please, select a file.";
+        if ( empty($_FILES['ImageFile']['name']) ) {
 
-      } else {
+            echo "Please, select a file.";
 
-          $uploader = new \Uploader();
+        } else {
 
-          try {
-              $link = $uploader->uploadFile($_FILES['ImageFile']);
-              echo '<a href="'.$link.'">'.$link.'</a>';
-          } catch (Exception $e) {
-              echo $e->getMessage();
-          }
+            $uploader = new \Uploader();
 
-      }
+            try {
+                $link = $uploader->uploadFile($_FILES['ImageFile']);
+                echo '<a href="'.$link.'">'.$link.'</a>';
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
 
-  }
+        }
 
-?>
+    }
 
-<form method="post" action="">
-    <input type="text" name="ImageLink"/>
-    <input type="submit" name="LinkSubm" value="Upload"/>
-</form>
-
-<?php
+    /**
+     * Upload by link
+     */
 
     if ( !empty($_POST['ImageLink']) && isset($_POST['LinkSubm']) ) {
 
@@ -51,4 +49,8 @@
 
     }
 
-?>
+} else {
+
+    \HTTP\Response::MethodNotAllowed();
+
+}
