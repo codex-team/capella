@@ -61,62 +61,62 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-      $storage = new \AWS\Storage();
+        $storage = new \AWS\Storage();
 
-      $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
+        $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
 
-      $imageId = $dispatcher->id;
-      $filters = $dispatcher->parsedFilters;
+        $imageId = $dispatcher->id;
+        $filters = $dispatcher->parsedFilters;
 
-      $imageUrl = $storage->getImageURL($imageId);
+        $imageUrl = $storage->getImageURL($imageId);
 
-      if (!$imageUrl) {
-          \HTTP\Response::NotFound();
-      }
+        if (!$imageUrl) {
+            \HTTP\Response::NotFound();
+        }
 
-      $imageProcessing = new \ImageProcessing($imageUrl);
+        $imageProcessing = new \ImageProcessing($imageUrl);
 
-      foreach ($filters as $filter) {
+        foreach ($filters as $filter) {
 
-          switch ($filter['filter']) {
+            switch ($filter['filter']) {
 
-              case 'crop':
+                case 'crop':
 
-                  $params = $filter['params'];
+                    $params = $filter['params'];
 
-                  $width = $params['width'];
-                  $height = $params['height'];
-                  $x = isset($params['x']) ? $params['x'] : null;
-                  $y = isset($params['y']) ? $params['y'] : null;
+                    $width = $params['width'];
+                    $height = $params['height'];
+                    $x = isset($params['x']) ? $params['x'] : null;
+                    $y = isset($params['y']) ? $params['y'] : null;
 
-                  $imageProcessing->cropImage($width, $height, $x, $y);
+                    $imageProcessing->cropImage($width, $height, $x, $y);
 
-                  break;
+                    break;
 
-              case 'resize':
+                case 'resize':
 
-                  $params = $filter['params'];
+                    $params = $filter['params'];
 
-                  $width = $params['width'];
-                  $height = $params['height'];
+                    $width = $params['width'];
+                    $height = $params['height'];
 
-                  $imageProcessing->resizeImage($width, $height);
+                    $imageProcessing->resizeImage($width, $height);
 
-                  break;
-          }
+                    break;
+            }
 
-      }
+        }
 
-      $type = 'image/' . strtolower($imageProcessing->extension);
-      $blob = $imageProcessing->getImageBlob();
-      $length = strlen($blob);
+        $type = 'image/' . strtolower($imageProcessing->extension);
+        $blob = $imageProcessing->getImageBlob();
+        $length = strlen($blob);
 
-      $imageData = array(
-          'type'    => $type,
-          'blob'    => $blob,
-          'length'  => $length
-      );
+        $imageData = array(
+            'type'    => $type,
+            'blob'    => $blob,
+            'length'  => $length
+        );
 
-      return $imageData;
+        return $imageData;
     }
 }
