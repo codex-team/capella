@@ -1,4 +1,7 @@
 module.exports = () => {
+
     const appDiv = document.getElementById('app');
-    appDiv.innerHTML = "Hello from Capella";
+
+    appDiv.innerHTML = 'Hello from Capella';
+
 };

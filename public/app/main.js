@@ -1,5 +1,17 @@
-const f = require('./dirToRename/fileToChange');
+const f = require('./js/dirToRename/fileToChange');
 
-window.onload = () => {
-    f();
-};
+require('./css/main.css');
+
+module.exports = (() => {
+
+    const init = () => {
+
+        f();
+
+    };
+
+    return {
+        init
+    };
+
+})();
