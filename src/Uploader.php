@@ -98,12 +98,13 @@ class Uploader
      */
     protected function uploadToCloud($filepath, $label)
     {
-        $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($filepath, $label);
+        /** TODO return to get image from cloud */
+        // $storage = new \AWS\Storage();
+        // $label = $storage->uploadImage($filepath, $label);
 
         // TODO insert file info to database
 
-        $imgURI = \Methods::getImageUri($imgID);
+        $imgURI = \Methods::getImageUri($label);
 
         return $imgURI;
     }
@@ -132,13 +133,15 @@ class Uploader
 
         // Copy temp file to upload dir
         $filepath = $this->saveFileToUploadDir($file);
-        $label = explode('.', basename($filepath))[0];
+        // $label = explode('.', basename($filepath))[0];
+        $label = basename($filepath);
+
 
         // Upload file and get its ID
         $imgURI = $this->uploadToCloud($filepath, $label);
 
         // Delete temp file
-        unlink($filepath);
+        // unlink($filepath);
 
         return $imgURI;
     }

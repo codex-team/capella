@@ -65,7 +65,7 @@ class Storage
      *
      * @param {string} $filepath      path to file to upload
      * @param {string} $label         name of file stored in cloud
-     * @return {string}               uploaded image ID
+     * @return {string}               uploaded image label
      */
     public function uploadImage($filepath, $label)
     {
