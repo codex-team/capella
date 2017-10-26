@@ -24,19 +24,21 @@ class Storage
 {
     protected $S3Client;
 
+    protected $config;
+
     /**
      * Storage constructor
      */
     public function __construct()
     {
-        require_once "config.php";
+        $this->config = include "config.php";
 
         $this->S3Client = new \Aws\S3\S3Client([
             "version" => "latest",
-            "region" => AWS_S3_REGION,
+            "region" => $this->config['AWS_S3_REGION'],
             "credentials" => [
-                "key" => AWS_KEY,
-                "secret" => AWS_SECRET_KEY
+                "key" => $this->config['AWS_KEY'],
+                "secret" => $this->config['AWS_SECRET_KEY']
             ]
         ]);
     }
@@ -49,7 +51,7 @@ class Storage
      */
     public function getImageURL($imageId)
     {
-        $imageUrl = "https://" . AWS_S3_BUCKET . ".s3.amazonaws.com/" . $imageId;
+        $imageUrl = "https://" . $this->config['AWS_S3_BUCKET'] . ".s3.amazonaws.com/" . $imageId;
 
         if (@fopen($imageUrl, "r")) {
             return $imageUrl;
@@ -80,11 +82,11 @@ class Storage
     protected function uploadS3($tmpFileName, $imageId)
     {
         $result = $this->S3Client->putObject([
-            "Bucket" => AWS_S3_BUCKET,
+            "Bucket" => $this->config['AWS_S3_BUCKET'],
             "Key" => $imageId,
             "SourceFile" => $tmpFileName,
             "ACL" => "public-read",
-            "StorageClass" => AWS_S3_STORAGE_CLASS
+            "StorageClass" => $this->config['AWS_S3_STORAGE_CLASS']
         ]);
 
         return $imageId;
