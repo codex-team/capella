@@ -75,7 +75,7 @@ class Uploader
 
         // Get MIME-type from file
         $mimeType = mime_content_type($path);
-        $ext = explode('/', $mimeType)[0];
+        $ext = explode('/', $mimeType)[1];
 
         if ( ! $this->isValidMimeType($mimeType) ) {
             throw new \Exception("Wrong file type");
