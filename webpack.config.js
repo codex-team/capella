@@ -18,7 +18,7 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader'
+                    use: ['css-loader', 'postcss-loader']
                 })
             }
         ]
@@ -31,6 +31,9 @@ module.exports = {
         aggregateTimeOut: 100
     },
     devtool: NODE_ENV === 'development' ? 'source-map' : false,
+
+    watch: true,
+
     plugins: [
         new ExtractTextPlugin('bundle.css')
     ]

@@ -1,3 +1,6 @@
-body {
-    background-color: red;
-}
+@import url('normalize.css');
+@import url('variables.css');
+/**
+ * Pages
+ */
+@import url('pages/index.css');
