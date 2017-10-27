@@ -98,12 +98,13 @@ class Uploader
      */
     protected function uploadToCloud($filepath, $label)
     {
-        $storage = new \AWS\Storage();
-        $imgID = $storage->uploadImage($filepath, $label);
+        /** TODO return to get image from cloud */
+        // $storage = new \AWS\Storage();
+        // $label = $storage->uploadImage($filepath, $label);
 
         // TODO insert file info to database
 
-        $imgURI = \Methods::getImageUri($imgID);
+        $imgURI = \Methods::getImageUri($label);
 
         return $imgURI;
     }
@@ -119,26 +120,28 @@ class Uploader
     protected function upload($file, $size, $mime)
     {
         if ( !$file || !$size || !$mime) {
-            throw new \Exception('File is damaged');
+            throw new \Exception('Source is damaged');
         };
 
         if ( ! $this->isValidSize($size) ) {
-            throw new \Exception('The file is too big');
+            throw new \Exception('Source is too big');
         };
 
         if ( ! $this->isValidMimeType($mime) ) {
-            throw new \Exception("Wrong file type");
+            throw new \Exception("Wrong source mime-type");
         };
 
         // Copy temp file to upload dir
         $filepath = $this->saveFileToUploadDir($file);
-        $label = explode('.', basename($filepath))[0];
+        // $label = explode('.', basename($filepath))[0];
+        $label = basename($filepath);
+
 
         // Upload file and get its ID
         $imgURI = $this->uploadToCloud($filepath, $label);
 
         // Delete temp file
-        unlink($filepath);
+        // unlink($filepath);
 
         return $imgURI;
     }
@@ -169,7 +172,7 @@ class Uploader
     public function uploadLink($url)
     {
         // Get link info
-        $headers = get_headers($url, 1);
+        $headers = @get_headers($url, 1);
 
         $size = $headers['Content-Length'];
         $mime = $headers['Content-Type'];

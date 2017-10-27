@@ -56,7 +56,7 @@ class ImageProcessing
     public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
     {
         if ($cropWidth == null || $cropHeight== null) {
-            throw new Exception("Uncorrected input dimensions");
+            throw new \Exception("Uncorrected input dimensions");
         }
 
         if ($x == null || $y == null) {
@@ -93,7 +93,7 @@ class ImageProcessing
     public function resizeImage($resizeWidth, $resizeHeight)
     {
         if (!$resizeWidth && !$resizeHeight) {
-            throw new Exception('Uncorrected input dimensions');
+            throw new \Exception('Uncorrected input dimensions');
         }
 
         if ($resizeWidth == 0) {
@@ -166,7 +166,7 @@ class ImageProcessing
             $readResult = @$this->imagick->readImage($path);
 
             if (!$readResult) {
-                throw new Exception("Invalid image path");
+                throw new \Exception("Invalid image path");
             }
 
             $blob = $this->imagick->getImageBlob();
@@ -179,7 +179,7 @@ class ImageProcessing
 
         $this->extension = $this->imagick->getImageFormat();
         if (!$this->isValidExtension($this->extension)) {
-            throw new Exception("Unsupported Extension");
+            throw new \Exception("Unsupported Extension");
         }
 
         $this->recalculateDimensions();

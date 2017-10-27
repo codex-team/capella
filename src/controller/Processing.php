@@ -61,14 +61,15 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-        $storage = new \AWS\Storage();
-
         $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
-
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
-        $imageUrl = $storage->getImageURL($imageId);
+        /** TODO return to get image from cloud */
+        // $storage = new \AWS\Storage();
+        // $imageUrl = $storage->getImageURL($imageId);
+
+        $imageUrl = 'upload/'.$imageId;
 
         if (!$imageUrl) {
             \HTTP\Response::NotFound();
