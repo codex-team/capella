@@ -2,6 +2,9 @@
 
 namespace Controller;
 
+/**
+ * Class for processing uploading form or AJAX upload
+ */
 class Form
 {
     public function __construct() {
@@ -30,6 +33,9 @@ class Form
 
     }
 
+    /**
+     * Function processed uploading file
+     */
     protected function uploadFile() {
 
         if ( empty($_FILES['file']['name']) ) {
@@ -56,6 +62,9 @@ class Form
 
     }
 
+    /**
+     * Function processed uploading by link
+     */
     protected function uploadLink() {
 
         if ( empty($_POST['link']) ) {
@@ -82,6 +91,11 @@ class Form
 
     }
 
+    /**
+     * Show result on page with image link
+     *
+     * @param string $link
+     */
     protected function returnImageLink($link) {
 
         if (\Methods::isAjax()) {
