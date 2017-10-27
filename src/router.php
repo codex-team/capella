@@ -28,7 +28,7 @@ switch ($alias) {
     default:
         try {
             $processing = new \Controller\Processing($requestUri);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             \Hawk\HawkCatcher::catchException($e);
             \HTTP\Response::InternalServerError();
         }

@@ -11,29 +11,40 @@ class Response
         header("HTTP/1.1 $code $status");
         header("Status: $code $status");
 
-        echo $status;
+        if (\Methods::isAjax()) {
+
+            echo json_encode(array(
+                'code' => $code,
+                'status' => $status
+            ));
+
+        } else {
+
+            echo $status;
+
+        }
 
         die();
     }
 
-    public static function BadRequest()
+    public static function BadRequest($status = 'Bad Request')
     {
-        self::response(400, 'Bad Request');
+        self::response(400, $status);
     }
 
-    public static function NotFound()
+    public static function NotFound($status = 'Not Found')
     {
-        self::response(404, 'Not Found');
+        self::response(404, $status);
     }
 
-    public static function MethodNotAllowed()
+    public static function MethodNotAllowed($status = 'Method Not Allowed')
     {
-        self::response(405, 'Method Not Allowed');
+        self::response(405, $status);
     }
 
-    public static function InternalServerError()
+    public static function InternalServerError($status = 'Internal Server Error')
     {
-        self::response(500, 'Internal Server Error');
+        self::response(500, $status);
     }
 
     /**
@@ -59,5 +70,19 @@ class Response
         }
 
         echo $blob;
+    }
+
+    /**
+     * Show AJAX response
+     *
+     * @param array $data
+     * @return string json encoded data
+     */
+    public static function ajax($data)
+    {
+        echo json_encode(array(
+          'code' => '200',
+          'data' => $data
+        ));
     }
 }

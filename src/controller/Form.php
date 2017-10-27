@@ -18,14 +18,13 @@ class Form
 
             } else {
 
-                // File or link is missing
-                $this->BadRequest();
+                \HTTP\Response::BadRequest();
 
             }
 
         } else {
 
-            return $this->MethodNotAllowed();
+            \HTTP\Response::MethodNotAllowed();
 
         }
 
@@ -35,8 +34,7 @@ class Form
 
         if ( empty($_FILES['file']['name']) ) {
 
-            // File is missing
-            $this->BadRequest();
+            \HTTP\Response::BadRequest('File is missing');
 
         } else {
 
@@ -48,10 +46,9 @@ class Form
 
                 $this->returnImageLink($link);
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
-                // echo $e->getMessage();
-                $this->InternalServerError();
+                \HTTP\Response::InternalServerError($e->getMessage());
 
             }
 
@@ -63,8 +60,7 @@ class Form
 
         if ( empty($_POST['link']) ) {
 
-            // Link is missing
-            $this->BadRequest();
+            \HTTP\Response::BadRequest('Link is missing');
 
         } else {
 
@@ -76,10 +72,9 @@ class Form
 
                 $this->returnImageLink($link);
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
 
-                // echo $e->getMessage();
-                $this->InternalServerError();
+                \HTTP\Response::InternalServerError($e->getMessage());
 
             }
 
@@ -91,65 +86,13 @@ class Form
 
         if (\Methods::isAjax()) {
 
-            \Methods::ajaxResponse(array(
-                'code' => '200',
-                'url' => $link,
+            \HTTP\Response::ajax(array(
+                'url' => $link
             ));
 
         } else {
 
             echo '<a href="'.$link.'">'.$link.'</a>';
-
-        }
-
-    }
-
-    protected function MethodNotAllowed() {
-
-        if (\Methods::isAjax()) {
-
-            \Methods::ajaxResponse(array(
-                'code' => '405',
-                'error' => 'Method Not Allowed'
-            ));
-
-        } else {
-
-            \HTTP\Response::MethodNotAllowed();
-
-        }
-
-    }
-
-    protected function BadRequest() {
-
-        if (\Methods::isAjax()) {
-
-            \Methods::ajaxResponse(array(
-                'code' => '400',
-                'error' => 'Bad Request'
-            ));
-
-        } else {
-
-            \HTTP\Response::BadRequest();
-
-        }
-
-    }
-
-    protected function InternalServerError() {
-
-        if (\Methods::isAjax()) {
-
-            \Methods::ajaxResponse(array(
-                'code' => '500',
-                'error' => 'Internal Server Error'
-            ));
-
-        } else {
-
-            \HTTP\Response::InternalServerError();
 
         }
 

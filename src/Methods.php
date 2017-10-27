@@ -73,14 +73,4 @@ class Methods
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
     }
 
-    /**
-     * Show AJAX response
-     *
-     * @param array $data
-     * @return string json encoded data
-     */
-    public static function ajaxResponse($data)
-    {
-        echo json_encode($data);
-    }
 }
