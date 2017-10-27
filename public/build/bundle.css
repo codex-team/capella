@@ -480,7 +480,7 @@ template {
     right: 0;
 }
 
-.capella-area {
+.capella {
     width: 1380px;
     height: 700px;
     position: absolute;
@@ -494,65 +494,66 @@ template {
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
     color: #b59bda;
+
 }
 
-.capella-contents {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%,-50%);
-            transform: translate(-50%,-50%);
+.capella__contents {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+    }
+
+.capella__title {
+        margin-top: 10px;
+        margin-bottom: 100px;
+        font-size: 31px;
+        color: #fff;
+        letter-spacing: 5px;
+        -webkit-font-feature-settings: "c2sc";
+                font-feature-settings: "c2sc";
+        font-variant: small-caps;
+    }
+
+.capella__button {
+        display: inline-block;
+        background: #6c0bd1;
+        margin-top: 35px;
+        padding: 0 30px;
+        border-radius: 25px;
+        color: #fff;
+        line-height: 51px;
+        vertical-align: middle;
+        cursor: pointer
+    }
+
+.capella__button::before {
+  content: url(/public/app/img/instagram-logo.svg);
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  margin-right: 15px;
 }
 
-.capella-title {
-    margin-top: 10px;
-    margin-bottom: 100px;
-    font-size: 31px;
-    color: #fff;
-    letter-spacing: 5px;
-    -webkit-font-feature-settings: "c2sc";
-            font-feature-settings: "c2sc";
-    font-variant: small-caps;
+.capella__button:hover {
+  background: #6004c0;
 }
 
-.capella-btn {
-    display: inline-block;
-    background: #6c0bd1;
-    margin-top: 35px;
-    padding: 0 30px;
-    border-radius: 25px;
-    color: #fff;
-    line-height: 51px;
-    vertical-align: middle;
-    cursor: pointer;
-}
+.capella__input {
+        border-color: transparent;
+        background: transparent;
+        -webkit-appearance: none;
+        border-bottom: 2px solid #B59BDA;
+        margin-top: 40px;
+        padding-bottom: 10px;
+        text-align: center;
+        outline: none;
+        color: #fff
+    }
 
-.capella-btn:hover {
-    background: #6004c0;
-}
-
-.capella-btn::before {
-    content: url(/public/app/img/instagram-logo.svg);
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-    margin-right: 15px;
-}
-
-.capella-input {
-    border-color: transparent;
-    background: transparent;
-    -webkit-appearance: none;
-    border-bottom: 2px solid #B59BDA;
-    margin-top: 40px;
-    padding-bottom: 10px;
-    text-align: center;
-    outline: none;
-    color: #fff;
-}
-
-.capella-input::-webkit-input-placeholder {
-    color: #b59bda;
+.capella__input::-webkit-input-placeholder {
+  color: #b59bda;
 }
 
 /**
@@ -567,7 +568,7 @@ template {
     .capella-background {
         padding: 15px;
     }
-    .capella-area {
+    .capella {
         width: 100%;
         height: 100%;
         position: initial;
@@ -575,11 +576,13 @@ template {
                 transform: none;
         font-size: 17px;
     }
-    .capella-title {
-        margin-bottom: 50px;
-    }
-    .capella-btn {
-        padding: 0 20px;
-    }
+
+        .capella__title {
+            margin-bottom: 50px;
+        }
+
+        .capella__btn {
+            padding: 0 20px;
+        }
 }
 /*# sourceMappingURL=bundle.css.map*/

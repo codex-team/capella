@@ -19,13 +19,13 @@
 </head>
 <body>
 <div class="capella-background">
-    <div class="capella-area">
-        <div class="capella-contents">
+    <div class="capella">
+        <div class="capella__contents">
             <img src="../public/app/img/Logo.png">
-            <div class="capella-title">capella</div>
+            <div class="capella__title">capella</div>
             <p>Upload file directly using drag & drop or clipboard.<br>You will instantly get link to your file.</p>
-            <a class="capella-btn">Select picture</a><br>
-            <input class="capella-input" type="text" name="" placeholder="Paste the URL">
+            <a class="capella__button">Select picture</a><br>
+            <input class="capella__input" type="text" name="" placeholder="Paste the URL">
         </div>
     </div>
 </div>
