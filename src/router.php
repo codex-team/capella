@@ -19,7 +19,7 @@ switch ($alias) {
      * Uploader uri
      */
     case 'upload':
-        require_once DOCROOT."src/form.php";
+        new \Controller\Form();
         break;
 
     /**

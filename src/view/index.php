@@ -1,12 +1,12 @@
 <div>file</div>
 <form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="ImageFile"/>
-    <input type="submit" name="FileSubm" value="Upload"/>
+    <input type="file" name="file"/>
+    <input type="submit" value="Upload"/>
 </form>
 
 
 <div>link</div>
 <form method="post" action="/upload">
-    <input type="text" name="ImageLink"/>
-    <input type="submit" name="LinkSubm" value="Upload"/>
+    <input type="text" name="link"/>
+    <input type="submit" value="Upload"/>
 </form>

@@ -16,6 +16,11 @@ class Response
         die();
     }
 
+    public static function BadRequest()
+    {
+        self::response(400, 'Bad Request');
+    }
+
     public static function NotFound()
     {
         self::response(404, 'Not Found');
