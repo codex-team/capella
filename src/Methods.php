@@ -48,9 +48,9 @@ class Methods
 
         }
 
-        $domain = $_SERVER['SERVER_NAME'];
+        $host = $_SERVER['HTTP_HOST'];
 
-        return $protocol.$domain;
+        return $protocol.$host;
     }
 
     /**
