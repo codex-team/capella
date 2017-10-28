@@ -32,6 +32,10 @@ class Processing
         'resize' => array(
             'title' => 'resize',
             'pattern' => '{width|int}[x{height|int}]'
+        ),
+        'pixelize' => array(
+            'title' => 'pixelize',
+            'pattern' => '{pixels|int}'
         )
     );
 
@@ -102,6 +106,16 @@ class Processing
                     $height = $params['height'];
 
                     $imageProcessing->resizeImage($width, $height);
+
+                    break;
+
+                case 'pixelize':
+
+                    $params = $filter['params'];
+
+                    $pixels = $params['pixels'];
+
+                    $imageProcessing->pixelizeImage($pixels);
 
                     break;
             }
