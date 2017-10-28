@@ -106,7 +106,7 @@ class Form
 
         } else {
 
-            echo '<a href="'.$link.'">'.$link.'</a>';
+            echo $link;
 
         }
 
