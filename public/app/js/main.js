@@ -1,5 +1,5 @@
-var codex = {};
+const capella = {};
 
-// codex.ajax = require('./modules/ajax');
+capella.ajax = require('codex.ajax');
 
-module.exports = codex;
+module.exports = capella;

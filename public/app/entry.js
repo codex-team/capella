@@ -1,6 +1,6 @@
 /**
-* Require CSS build
-*/
+ * Require CSS build
+ */
 require('./css/main.css');
 
-require('./js/main.js');
+module.exports = require('./js/main.js');
