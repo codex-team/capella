@@ -14,12 +14,12 @@
                 <p>Upload file directly using drag & drop or clipboard.<br>You will instantly get link to your file.</p>
                 <form method="post" action="/upload" enctype="multipart/form-data">
                     <label for="ImageFile" class="capella__button">Select picture</label>
-                    <input id="ImageFile" type="file" name="ImageFile" hidden="true"/>
-                    <input type="submit" name="FileSubm" value="Upload" hidden="true"/>
+                    <input id="ImageFile" type="file" name="file" hidden="true"/>
+                    <input type="submit" value="Upload" hidden="true"/>
                 </form>
                 <form method="post" action="/upload" autocomplete="off">
-                    <input class="capella__input" type="text" name="ImageLink" placeholder="Paste the URL"/>
-                    <input type="submit" name="LinkSubm" value="Upload" hidden="true"/>
+                    <input class="capella__input" type="text" name="link" placeholder="Paste the URL"/>
+                    <input type="submit" value="Upload" hidden="true"/>
                 </form>
             </div>
         </div>
