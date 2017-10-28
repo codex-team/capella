@@ -27,11 +27,11 @@ class Processing
     const FILTERS = array(
         'crop' => array(
             'title' => 'crop',
-            'pattern' => '{width|int}x{height|int}[&{x|int},{y|int}]'
+            'pattern' => '{width|int}[x{height|int}[&{x|int},{y|int}]]'
         ),
         'resize' => array(
             'title' => 'resize',
-            'pattern' => '{width|int}x{height|int}'
+            'pattern' => '{width|int}[x{height|int}]'
         )
     );
 

@@ -55,12 +55,17 @@ class ImageProcessing
      */
     public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
     {
-        if ($cropWidth == null || $cropHeight== null) {
+        if ($cropWidth == null && $cropHeight == null) {
             throw new \Exception("Uncorrected input dimensions");
         }
 
-        if ($x == null || $y == null) {
+        if ($cropWidth == null) {
+            $cropWidth = $cropHeight;
+        } elseif ($cropHeight == null) {
+            $cropHeight = $cropWidth;
+        }
 
+        if ($x == null || $y == null) {
 
             $ratio = max($cropHeight / $this->height, $cropWidth / $this->width);
 
