@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.36.29",
+            "version": "3.36.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "210958295921f0004d0fdc38bc9aefe33ef2a3de"
+                "reference": "adc4e9928730cb65b9b7914084cbf1d8c988419a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/210958295921f0004d0fdc38bc9aefe33ef2a3de",
-                "reference": "210958295921f0004d0fdc38bc9aefe33ef2a3de",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/adc4e9928730cb65b9b7914084cbf1d8c988419a",
+                "reference": "adc4e9928730cb65b9b7914084cbf1d8c988419a",
                 "shasum": ""
             },
             "require": {
@@ -84,20 +84,20 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2017-10-18T18:46:11+00:00"
+            "time": "2017-10-26T20:45:00+00:00"
         },
         {
             "name": "codex-team/hawk.php",
-            "version": "1.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codex-team/hawk.php.git",
-                "reference": "e5a9ca49b4b6701b829b91060c82169e88cfbf94"
+                "reference": "90fb5815b7dc4d3e46b67c1d15332e1289e2c631"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/e5a9ca49b4b6701b829b91060c82169e88cfbf94",
-                "reference": "e5a9ca49b4b6701b829b91060c82169e88cfbf94",
+                "url": "https://api.github.com/repos/codex-team/hawk.php/zipball/90fb5815b7dc4d3e46b67c1d15332e1289e2c631",
+                "reference": "90fb5815b7dc4d3e46b67c1d15332e1289e2c631",
                 "shasum": ""
             },
             "require": {
@@ -117,7 +117,7 @@
                 "MIT"
             ],
             "description": "PHP errors Catcher module for Hawk.so",
-            "time": "2017-09-28T21:22:14+00:00"
+            "time": "2017-10-25T22:29:26+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
