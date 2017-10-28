@@ -13,4 +13,3 @@ config.php
 # Ignore environment settings
 .env
 node_modules/
-public/app/img/.DS_Store

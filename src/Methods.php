@@ -48,9 +48,9 @@ class Methods
 
         }
 
-        $domain = $_SERVER['SERVER_NAME'];
+        $host = $_SERVER['HTTP_HOST'];
 
-        return $protocol.$domain;
+        return $protocol.$host;
     }
 
     /**
@@ -62,4 +62,15 @@ class Methods
 
         return $cache;
     }
+
+    /**
+     * Check for AJAX request
+     *
+     * @return boolean
+     */
+    public static function isAjax()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
+    }
+
 }

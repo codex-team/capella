@@ -27,11 +27,15 @@ class Processing
     const FILTERS = array(
         'crop' => array(
             'title' => 'crop',
-            'pattern' => '{width|int}x{height|int}[&{x|int},{y|int}]'
+            'pattern' => '{width|int}[x{height|int}[&{x|int},{y|int}]]'
         ),
         'resize' => array(
             'title' => 'resize',
-            'pattern' => '{width|int}x{height|int}'
+            'pattern' => '{width|int}[x{height|int}]'
+        ),
+        'pixelize' => array(
+            'title' => 'pixelize',
+            'pattern' => '{pixels|int}'
         )
     );
 
@@ -61,14 +65,15 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-        $storage = new \AWS\Storage();
-
         $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
-
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
-        $imageUrl = $storage->getImageURL($imageId);
+        /** TODO return to get image from cloud */
+        // $storage = new \AWS\Storage();
+        // $imageUrl = $storage->getImageURL($imageId);
+
+        $imageUrl = 'upload/'.$imageId;
 
         if (!$imageUrl) {
             \HTTP\Response::NotFound();
@@ -101,6 +106,16 @@ class Processing
                     $height = $params['height'];
 
                     $imageProcessing->resizeImage($width, $height);
+
+                    break;
+
+                case 'pixelize':
+
+                    $params = $filter['params'];
+
+                    $pixels = $params['pixels'];
+
+                    $imageProcessing->pixelizeImage($pixels);
 
                     break;
             }

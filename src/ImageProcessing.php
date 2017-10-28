@@ -6,16 +6,8 @@
  * @example create new class with image from path in constructor
  * $image = new ImageProcessing("C:/Users/image.png");
  *
- * @example crop image with coordinates
- * $image->cropImage(100,100,0,10);
- *
- * @example crop image by center coordinate
- * $image->cropImage(100,100);
- *
- * @example resize image by height and width
- * $image->resizeImage(100,null);
- * $image->resizeImage(null,100);
- * $image->resizeImage(100,100);
+ * @example use filters
+ * $image->resizeImage(400,300);
  *
  * @example getImageBlob returns the image sequence as a blob
  * $image->getImageBlob();
@@ -46,6 +38,13 @@ class ImageProcessing
     /**
      * Crop image by dimensions with coordinates
      *
+     * @example crop image with coordinates
+     * $image->cropImage(100,100,0,10);
+     *
+     * @example crop image by center coordinate
+     * $image->cropImage(200,150);
+     * $image->cropImage(100);
+     *
      * @param int $cropWidth
      * @param int $cropHeight
      * @param int|null $x - crop x
@@ -53,14 +52,19 @@ class ImageProcessing
      *
      * @throws Exception
      */
-    public function cropImage($cropWidth, $cropHeight, $x = null, $y = null)
+    public function cropImage($cropWidth, $cropHeight = null, $x = null, $y = null)
     {
-        if ($cropWidth == null || $cropHeight== null) {
-            throw new Exception("Uncorrected input dimensions");
+        if ($cropWidth == null && $cropHeight == null) {
+            throw new \Exception("Incorrect input dimensions");
+        }
+
+        if ($cropWidth == null) {
+            $cropWidth = $cropHeight;
+        } elseif ($cropHeight == null) {
+            $cropHeight = $cropWidth;
         }
 
         if ($x == null || $y == null) {
-
 
             $ratio = max($cropHeight / $this->height, $cropWidth / $this->width);
 
@@ -85,15 +89,19 @@ class ImageProcessing
     /**
      * Resize image with dimensions
      *
+     * @example resize image by height and width
+     * $image->resizeImage(400,300);
+     * $image->resizeImage(100);
+     *
      * @param {int} $resizeWidth
      * @param {int} $resizeHeight
      *
      * @throws Exception
      */
-    public function resizeImage($resizeWidth, $resizeHeight)
+    public function resizeImage($resizeWidth, $resizeHeight = 0)
     {
         if (!$resizeWidth && !$resizeHeight) {
-            throw new Exception('Uncorrected input dimensions');
+            throw new \Exception('Incorrect input dimensions');
         }
 
         if ($resizeWidth == 0) {
@@ -113,6 +121,37 @@ class ImageProcessing
         }
 
         $this->recalculateDimensions();
+    }
+
+    /**
+     * Pixelize image
+     *
+     * @example pixelize image by pixels count
+     * $image->pixelizeImage(15);
+     *
+     * @param {int} $pixels
+     *
+     * @throws Exception
+     */
+    public function pixelizeImage($pixels)
+    {
+        if (!$pixels) {
+            throw new \Exception('Uncorrect ratio');
+        }
+
+        if ($this->width > $this->height) {
+
+            $ratio = $this->width / $pixels;
+            $this->resizeImage($this->width / $ratio, 0);
+            $this->resizeImage($this->width * $ratio, 0);
+
+        } else {
+
+            $ratio = $this->height / $pixels;
+            $this->resizeImage(0, $this->height / $ratio);
+            $this->resizeImage(0, $this->height * $ratio);
+
+        }
     }
 
     /**
@@ -166,7 +205,7 @@ class ImageProcessing
             $readResult = @$this->imagick->readImage($path);
 
             if (!$readResult) {
-                throw new Exception("Invalid image path");
+                throw new \Exception("Invalid image path");
             }
 
             $blob = $this->imagick->getImageBlob();
@@ -179,7 +218,7 @@ class ImageProcessing
 
         $this->extension = $this->imagick->getImageFormat();
         if (!$this->isValidExtension($this->extension)) {
-            throw new Exception("Unsupported Extension");
+            throw new \Exception("Unsupported Extension");
         }
 
         $this->recalculateDimensions();
