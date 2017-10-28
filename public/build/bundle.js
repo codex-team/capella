@@ -70,41 +70,31 @@
 "use strict";
 
 
-var f = __webpack_require__(1);
+/**
+* Require CSS build
+*/
+__webpack_require__(1);
 
 __webpack_require__(2);
 
-module.exports = function () {
-
-    var init = function init() {
-
-        f();
-    };
-
-    return {
-        init: init
-    };
-}();
-
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = function () {
+var codex = {};
 
-    var appDiv = document.getElementById('app');
+// codex.ajax = require('./modules/ajax');
 
-    appDiv.innerHTML = 'Hello from Capella';
-};
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
+module.exports = codex;
 
 /***/ })
 /******/ ]);

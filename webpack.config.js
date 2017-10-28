@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 module.exports = {
-    entry: './public/app/main.js',
+    entry: './public/app/entry.js',
     module: {
         rules: [
             {
