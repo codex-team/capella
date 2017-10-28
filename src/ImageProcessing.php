@@ -55,7 +55,7 @@ class ImageProcessing
     public function cropImage($cropWidth, $cropHeight = null, $x = null, $y = null)
     {
         if ($cropWidth == null && $cropHeight == null) {
-            throw new \Exception("Uncorrected input dimensions");
+            throw new \Exception("Incorrect input dimensions");
         }
 
         if ($cropWidth == null) {
@@ -101,7 +101,7 @@ class ImageProcessing
     public function resizeImage($resizeWidth, $resizeHeight = 0)
     {
         if (!$resizeWidth && !$resizeHeight) {
-            throw new \Exception('Uncorrected input dimensions');
+            throw new \Exception('Incorrect input dimensions');
         }
 
         if ($resizeWidth == 0) {
