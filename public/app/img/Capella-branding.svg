@@ -1,0 +1,16 @@
+<svg width="178" height="32" viewBox="0 -2 179 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <text id="b" font-family="Helvetica" font-size="31" letter-spacing="5.045" fill="#FFF">
+      <tspan x="0" y="114">CAPELLA</tspan>
+    </text>
+    <filter x="-3.9%" y="-13.5%" width="107.7%" height="137.8%" id="a">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" in="shadowBlurOuter1"/>
+    </filter>
+  </defs>
+  <g transform="translate(3 -90)" fill="#FFF" fill-rule="evenodd">
+    <use filter="url(#a)" xlink:href="#b"/>
+    <use xlink:href="#b"/>
+  </g>
+</svg>

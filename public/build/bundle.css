@@ -469,8 +469,7 @@ template {
  */
 
 .capella-background {
-    background-color:  #222233;
-    background-image: linear-gradient(to bottom, rgba(18,12,24,0.85) 0%,rgba(18,12,24,0.85) 100%), url(/public/app/img/Bg-overlay.png);
+    background: url(/public/app/img/Bg-overlay.jpg);
     background-size: cover;
     text-align: center;
     position: fixed;
@@ -493,6 +492,8 @@ template {
             transform: translate(-50%,-50%);
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
+    line-height: 1.5em;
+    font-family: Helvetica;
     color: #b59bda;
 
 }
@@ -505,15 +506,13 @@ template {
                 transform: translate(-50%,-50%);
     }
 
+.capella__contents p {
+            max-width: 430px;
+        }
+
 .capella__title {
-        margin-top: 10px;
-        margin-bottom: 100px;
-        font-size: 31px;
-        color: #fff;
-        letter-spacing: 5px;
-        -webkit-font-feature-settings: "c2sc";
-                font-feature-settings: "c2sc";
-        font-variant: small-caps;
+        margin-top: 16px;
+        margin-bottom: 86px;
     }
 
 .capella__button {
@@ -533,7 +532,8 @@ template {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
-  margin-right: 15px;
+  margin-right: 10px;
+  margin-left: -5px;
 }
 
 .capella__button:hover {
@@ -549,6 +549,8 @@ template {
         padding-bottom: 10px;
         text-align: center;
         outline: none;
+        font-family: Helvetica;
+        font-size: 16px;
         color: #fff
     }
 
@@ -567,10 +569,12 @@ template {
     */
     .capella-background {
         padding: 15px;
+        overflow-y:scroll;
+        overflow-x:hidden;
     }
     .capella {
         width: 100%;
-        height: 100%;
+        height: auto;
         position: initial;
         -webkit-transform: none;
                 transform: none;
@@ -584,5 +588,18 @@ template {
         .capella__button {
             padding: 0 20px;
         }
+
+        .capella__contents {
+            position: initial;
+            margin-top: 80px;
+            margin-bottom: 80px;
+            padding: 0 10px;
+            -webkit-transform: none;
+                    transform: none;
+        }
+
+            .capella__contents p {
+                margin: 0 auto;
+            }
 }
 /*# sourceMappingURL=bundle.css.map*/

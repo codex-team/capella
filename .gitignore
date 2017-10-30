@@ -13,3 +13,4 @@ config.php
 # Ignore environment settings
 .env
 node_modules/
+.DS_Store
