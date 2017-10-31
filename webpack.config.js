@@ -27,30 +27,32 @@ const useModule = {
   rules: [
     {
       test: /.js$/,
+      exclude: [ /node_modules/ ],
       use: [
         {
           loader: 'eslint-loader',
           options: {
-            fix: true
+            fix: true,
           },
         },
         {
           loader: 'babel-loader',
           query: {
-            presets: ['env'],
+            presets: [ 'env' ],
           },
         },
       ],
     },
     {
       test: /.css$/,
-      use: ExtractTextPlugin.extract([{
+      exclude: [ /node_modules/ ],
+      use: ExtractTextPlugin.extract([ {
         loader: 'css-loader',
         options: {
           minimize: 1,
           importLoaders: 1,
         },
-      }]),
+      } ]),
     },
   ],
 };
