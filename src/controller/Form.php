@@ -11,7 +11,7 @@ class Form
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if ( isset($_FILES['file']) ) {
+            if ( isset($_FILES['files']) ) {
 
                 $this->uploadFile();
 
@@ -38,7 +38,10 @@ class Form
      */
     protected function uploadFile() {
 
-        if ( empty($_FILES['file']['name']) ) {
+        # TODO add multiple file uploading support
+        # This way we have $_FILES['files'] as a one file or array with files
+
+        if ( empty($_FILES['files']['name']) ) {
 
             \HTTP\Response::BadRequest('File is missing');
 
@@ -48,7 +51,7 @@ class Form
 
             try {
 
-                $link = $uploader->uploadFile($_FILES['file']);
+                $link = $uploader->uploadFile($_FILES['files']);
 
                 $this->returnImageLink($link);
 
