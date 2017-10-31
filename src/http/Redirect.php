@@ -5,7 +5,7 @@ namespace HTTP;
 class Redirect
 {
 
-	public static function __invoke ($url, $code) 
+	public static function redirect ($url, $code) 
 	{
 		header( 'Location: ' . $url, true, $code );
 	}

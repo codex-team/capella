@@ -107,8 +107,7 @@ class Form
         } else {
 
             $url = '/file?link=' . basename($link)
-            $page = new \HTTP\Redirect;
-            $page($url, 303);
+            \HTTP\Redirect::redirect($url, 303);
 
         }
 
