@@ -106,7 +106,7 @@ class Form
 
         } else {
 
-            echo $link;
+            header( 'Location: ./view/file.php?link=' . basename($link), true, 303 );
 
         }
 

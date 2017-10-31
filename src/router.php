@@ -23,6 +23,13 @@ switch ($alias) {
         break;
 
     /**
+     * Show success page
+     */
+    case 'file':
+        require_once DOCROOT."src/view/file.php";
+        break;
+
+    /**
      * Process uri
      */
     default:
