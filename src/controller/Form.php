@@ -106,7 +106,9 @@ class Form
 
         } else {
 
-            header( 'Location: ./view/file.php?link=' . basename($link), true, 303 );
+            $url = '/file?link=' . basename($link)
+            $page = new \HTTP\Redirect;
+            $page($url, 303);
 
         }
 
