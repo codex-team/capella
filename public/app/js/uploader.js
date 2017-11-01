@@ -43,19 +43,22 @@ let uploader = {
         type: 'POST',
         url: uploader.uploadUrl,
         data: {'link': uploader.uploadLinkField.value},
-        before: function before() {},
-        progress: function progress(percentage) {
+        before() {},
+        progress(percentage) {
           console.log(percentage + '%');
         },
-        success: function success(response) {
+        success(response) {
+          response = JSON.parse(response);
+          console.log(response);
+
+          /** Redirect to uploaded image */
+          window.location.href = response.data.url;
+        },
+        error(response) {
           response = JSON.parse(response);
           console.log(response);
         },
-        error: function error(response) {
-          response = JSON.parse(response);
-          console.log(response);
-        },
-        after: function after() {}
+        after() {}
       });
     };
   },
@@ -69,19 +72,22 @@ let uploader = {
       multiple: false,
       accept: 'image/*',
       data: {},
-      before: function () {},
-      progress: function (percentage) {
+      before() {},
+      progress(percentage) {
         console.log(percentage + '%');
       },
-      success: function (response) {
+      success(response) {
+        response = JSON.parse(response);
+        console.log(response);
+
+        /** Redirect to uploaded image */
+        window.location.href = response.data.url;
+      },
+      error(response) {
         response = JSON.parse(response);
         console.log(response);
       },
-      error: function (response) {
-        response = JSON.parse(response);
-        console.log(response);
-      },
-      after: function () {},
+      after() {},
     });
   }
 };
