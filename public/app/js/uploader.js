@@ -48,14 +48,12 @@ let uploader = {
           console.log(percentage + '%');
         },
         success(response) {
-          response = JSON.parse(response);
           console.log(response);
 
           /** Redirect to uploaded image */
           window.location.href = response.data.url;
         },
         error(response) {
-          response = JSON.parse(response);
           console.log(response);
         },
         after() {}
@@ -77,14 +75,12 @@ let uploader = {
         console.log(percentage + '%');
       },
       success(response) {
-        response = JSON.parse(response);
         console.log(response);
 
         /** Redirect to uploaded image */
         window.location.href = response.data.url;
       },
       error(response) {
-        response = JSON.parse(response);
         console.log(response);
       },
       after() {},
