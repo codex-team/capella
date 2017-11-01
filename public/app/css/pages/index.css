@@ -60,6 +60,9 @@
         line-height: 51px;
         vertical-align: middle;
         cursor: pointer;
+        -webkit-appearance: none;
+        outline: none;
+        border: 0;
 
         &::before {
             content: url(/public/app/img/instagram-logo.svg);
