@@ -90,7 +90,7 @@ class Processing
                     $params = $filter['params'];
 
                     $width = $params['width'];
-                    $height = $params['height'];
+                    $height = isset($params['height']) ? $params['height'] : null;
                     $x = isset($params['x']) ? $params['x'] : null;
                     $y = isset($params['y']) ? $params['y'] : null;
 
@@ -103,7 +103,7 @@ class Processing
                     $params = $filter['params'];
 
                     $width = $params['width'];
-                    $height = $params['height'];
+                    $height = isset($params['height']) ? $params['height'] : null;
 
                     $imageProcessing->resizeImage($width, $height);
 
