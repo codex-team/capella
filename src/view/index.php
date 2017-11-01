@@ -14,17 +14,11 @@
                         <img src="../public/app/img/Capella-branding.svg">
                     </div>
                     <p>Upload file directly using drag-n-drop or clipboard. You will instantly get link to your file.</p>
-                    <form method="post" action="/upload" enctype="multipart/form-data">
-                        <label for="ImageFile" class="capella__button">Select picture</label>
-                        <input id="ImageFile" type="file" name="file" hidden="true"/>
-                        <input type="submit" value="Upload" hidden="true"/>
-                    </form>
-                    <form method="post" action="/upload" autocomplete="off">
-                        <input class="capella__input" type="text" name="link" placeholder="Paste the URL"/>
-                        <input type="submit" value="Upload" hidden="true"/>
-                    </form>
+                    <button id="uploadFileButton" class="capella__button">Select picture</button>
+                    <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste the URL"/>
                 </div>
             </div>
         </div>
+        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>

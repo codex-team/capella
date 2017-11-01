@@ -13,4 +13,5 @@ config.php
 # Ignore environment settings
 .env
 node_modules/
+npm-debug.log
 .DS_Store
