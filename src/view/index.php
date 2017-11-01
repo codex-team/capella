@@ -1,12 +1,6 @@
-<div>file</div>
-<form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file"/>
-    <input type="submit" value="Upload"/>
-</form>
+<button id="uploadFileButton">Upload file</button>
+
+<input id="uploadLinkField" type="text" placeholder="Enter a link"/>
 
 
-<div>link</div>
-<form method="post" action="/upload">
-    <input type="text" name="link"/>
-    <input type="submit" value="Upload"/>
-</form>
+<script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
