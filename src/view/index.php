@@ -9,7 +9,7 @@
         <div class="capella-background">
             <div class="capella">
                 <div class="capella__contents">
-                    <img src="../public/app/img/Logo.svg">
+                    <div class="capella__logo"></div>
                     <div class="capella__title">
                         <img src="../public/app/img/Capella-branding.svg">
                     </div>
