@@ -27,12 +27,12 @@ const useModule = {
   rules: [
     {
       test: /.js$/,
-      exclude: [ /node_modules/ ],
+      exclude: /node_modules/,
       use: [
         {
           loader: 'eslint-loader',
           options: {
-            fix: true,
+            // fix: true,
           },
         },
         {
@@ -68,9 +68,9 @@ const plugins = [
   }),
 
   /** Minify JS and CSS */
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-  }),
+  // new webpack.optimize.UglifyJsPlugin({
+  //   sourceMap: true,
+  // }),
 
   /** Block biuld if errors found */
   new webpack.NoEmitOnErrorsPlugin(),
