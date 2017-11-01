@@ -33,7 +33,7 @@ var uploader = {
     }
     e.preventDefault();
 
-    var uploadLinkField = e.target;
+    var uploadLinkField = this;
 
     if (uploadLinkField && uploadLinkField.value) {
       capella.ajax.call({
