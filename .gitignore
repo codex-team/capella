@@ -12,7 +12,10 @@ config.php
 
 # Ignore environment settings
 .env
+
+# Node
 node_modules/
 npm-debug.log
-.DS_Store
-.htaccess
+
+# Ignore updates for composer.lock
+composer.lock
