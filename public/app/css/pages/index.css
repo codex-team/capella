@@ -10,12 +10,12 @@
 }
 .capella {
     background-size: 100% 100%;
-    background: url("/public/app/svg/Dashed-border.svg") no-repeat;
     position: absolute;
     box-sizing: border-box;
     width: calc(100% - 40px);
     height: 700px;
     margin: 0 auto;
+    border: 2px dashed #564C90;
     border-radius: 6px;
     top: 50%;
     left: 50%;
@@ -118,7 +118,6 @@
         width: 100%;
         height: auto;
         transform: none;
-        border: 2px dashed #564C90;
         font-size: 17px;
 
         &__title {
