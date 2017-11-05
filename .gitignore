@@ -12,5 +12,10 @@ config.php
 
 # Ignore environment settings
 .env
+
+# Node
 node_modules/
 npm-debug.log
+
+# Ignore updates for composer.lock
+composer.lock
