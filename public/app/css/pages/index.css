@@ -1,20 +1,20 @@
 .capella-background {
-    background: url(/public/app/img/Bg-overlay.jpg);
     background-size: cover;
-    text-align: center;
+    background: url(/public/app/img/Bg-overlay.jpg);
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    text-align: center;
 }
 .capella {
-    width: calc(100% - 40px);
-    height: 700px;
+    background-size: 100% 100%;
+    background: url("/public/app/svg/Dashed-border.svg") no-repeat;
     position: absolute;
     box-sizing: border-box;
-    background: url("/public/app/img/Dashed-border.svg") no-repeat;
-    background-size: 100% 100%;
+    width: calc(100% - 40px);
+    height: 700px;
     margin: 0 auto;
     border-radius: 6px;
     top: 50%;
@@ -38,10 +38,10 @@
     }
 
     &__logo {
-        width: 70px;
-        height: 70px;
         display: inline-block;
         background: #fff;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
     }
 
@@ -53,19 +53,19 @@
     &__button {
         display: inline-block;
         background: #6c0bd1;
-        margin-top: 35px;
         padding: 0 30px;
+        margin-top: 35px;
         border-radius: 25px;
         color: #fff;
         line-height: 51px;
         vertical-align: middle;
-        cursor: pointer;
         -webkit-appearance: none;
         outline: none;
         border: 0;
+        cursor: pointer;
 
         &::before {
-            content: url(/public/app/img/instagram-logo.svg);
+            content: url(/public/app/svg/instagram-logo.svg);
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
@@ -79,10 +79,10 @@
     }
 
     &__input {
-        border-color: transparent;
         background: transparent;
-        -webkit-appearance: none;
+        border-color: transparent;
         border-bottom: 2px solid #B59BDA;
+        -webkit-appearance: none;
         margin-top: 40px;
         padding-bottom: 10px;
         text-align: center;
@@ -113,12 +113,12 @@
         overflow-x:hidden;
     }
     .capella {
+        position: initial;
+        background-image: none;
         width: 100%;
         height: auto;
-        position: initial;
         transform: none;
         border: 2px dashed #564C90;
-        background-image: none;
         font-size: 17px;
 
         &__title {

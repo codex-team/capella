@@ -15,3 +15,4 @@ config.php
 node_modules/
 npm-debug.log
 .DS_Store
+.htaccess
