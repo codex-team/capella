@@ -4,8 +4,8 @@
  * Router
  */
 $requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
-
-$alias = trim($requestUri, '/');
+$requestUri = trim($requestUri, '/');
+$alias = explode('/', $requestUri)[0];
 
 switch ($alias) {
     /**

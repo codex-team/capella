@@ -1,6 +1,9 @@
 <?php
 
-if ( !isset($_GET['link']) {
+$requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
+$requestUri = trim($requestUri, '/');
+
+if ( !$requestUri ) {
 
 	\HTTP\Response::NotFound();
 
@@ -8,6 +11,5 @@ if ( !isset($_GET['link']) {
 
 ?>
 
-capella.ifmo.su/<?= $_GET['link'] ?>
-<img src="/<?= $_GET['link']; ?>">
-
+capella.ifmo.su/<?= basename($requestUri) ?>
+<img src="/<?= basename($requestUri) ?>">
