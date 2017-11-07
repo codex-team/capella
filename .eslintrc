@@ -1,7 +1,11 @@
-module.exports = {
+{
+    /** Enable ES6 features */
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "classes": true
+        }
     },
     "rules": {
 
@@ -39,7 +43,7 @@ module.exports = {
         "no-nested-ternary": 1,
         "no-trailing-spaces": 2,
         "no-mixed-spaces-and-tabs": 2,
-        "padded-blocks": [2, "always"],
+        "padded-blocks": [2, "never"],
         "space-before-blocks": 1,
         "space-before-function-paren": [1, {
             "anonymous": "always",
@@ -50,29 +54,32 @@ module.exports = {
             "markers": ["=", "!"]
         }],
         "semi": [2, "always"],
-        "indent": [2, 4, {
-            "SwitchCase": 1
+        "indent": [2, 2, {
+            "SwitchCase": 1,
+            "VariableDeclarator": 2
         }],
         "camelcase": [2, {
             "properties": "always"
         }],
         "newline-after-var": [1, "always"],
+        "require-jsdoc": ["error", {
+            "require": {
+                "FunctionDeclaration": true,
+                "MethodDefinition": true,
+                "ClassDeclaration": true,
+                "ArrowFunctionExpression": false
+            }
+        }]
 
     },
-    "globals":{
+    "globals": {
         "document": true,
         "module": true,
         "require": true,
         "window": true,
-        "console" : true,
-        "codex": true,
-        "VERSION" : true,
-        "Promise" : true,
-        "MutationObserver": true,
+        "console": true,
+        "define": true,
         "FormData": true,
-        "XMLHttpRequest": true,
-        "ActiveXObject": true,
-        "FileReader": true
-
+        "capella": true
     }
-};
+}
