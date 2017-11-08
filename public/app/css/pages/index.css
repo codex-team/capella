@@ -1,37 +1,35 @@
-.capella-background {
-    background-size: cover;
-    background: url(/public/app/img/Bg-overlay.jpg);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-}
 .capella {
-    background-size: 100% 100%;
-    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: calc(100% - 40px);
     box-sizing: border-box;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    margin: 0 auto;
+    margin: 0 40px;
+    padding: 20px 0;
     border: 2px dashed #564C90;
     border-radius: 6px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     -webkit-font-smoothing: antialiased;
     font-size: 18px;
     line-height: 1.5em;
     font-family: Helvetica;
     color: #b59bda;
 
-    &__contents {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+    &-background {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-size: cover;
+        background: url(/public/app/img/Bg-overlay.jpg);
+        text-align: center;
+    }
 
+    &__contents {
         p {
             max-width: 430px;
         }
@@ -46,22 +44,21 @@
     }
 
     &__title {
-        margin-top: 16px;
-        margin-bottom: 86px;
+        margin: 16px auto 86px;
     }
 
     &__button {
         display: inline-block;
-        background: #6c0bd1;
+        vertical-align: middle;
         padding: 0 30px;
         margin-top: 35px;
+        border: 0;
         border-radius: 25px;
-        color: #fff;
+        background: #6c0bd1;
         line-height: 51px;
-        vertical-align: middle;
+        color: #fff;
         -webkit-appearance: none;
         outline: none;
-        border: 0;
         cursor: pointer;
 
         &::before {
@@ -69,8 +66,7 @@
             display: inline-block;
             vertical-align: middle;
             line-height: normal;
-            margin-right: 10px;
-            margin-left: -5px;
+            margin: 0 10px 0 -5px;
         }
 
         &:hover {
@@ -79,17 +75,18 @@
     }
 
     &__input {
+        margin-top: 40px;
+        padding-bottom: 10px;
         background: transparent;
         border-color: transparent;
         border-bottom: 2px solid #B59BDA;
-        -webkit-appearance: none;
-        margin-top: 40px;
-        padding-bottom: 10px;
+        border-radius: 0;
         text-align: center;
-        outline: none;
         font-family: Helvetica;
         font-size: 16px;
         color: #fff;
+        -webkit-appearance: none;
+        outline: none;
 
         &::-webkit-input-placeholder {
             color: #b59bda;
@@ -109,15 +106,15 @@
     */
     .capella-background {
         padding: 15px;
+        align-items: flex-start;
         overflow-y:scroll;
         overflow-x:hidden;
     }
     .capella {
-        position: initial;
-        border: 0px solid transparent;
+        align-items: flex-start;
         width: 100%;
         height: auto;
-        transform: none;
+        border: 0px solid transparent;
         font-size: 17px;
 
         &__title {
@@ -125,15 +122,12 @@
         }
 
         &__button {
+            margin: 80px auto 35px;
             padding: 0 20px;
         }
 
         &__contents {
-            position: initial;
-            margin-top: 80px;
-            margin-bottom: 80px;
             padding: 0 10px;
-            transform: none;
 
             p {
                 margin: 0 auto;
