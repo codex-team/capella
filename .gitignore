@@ -16,6 +16,3 @@ config.php
 # Node
 node_modules/
 npm-debug.log
-
-# Ignore updates for composer.lock
-composer.lock
