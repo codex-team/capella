@@ -1,9 +1,13 @@
 .capella {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    min-height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
     line-height: 1.5em;
-    color: #b59bda;
+    color: #aea2d9;
 
     &__drag-n-drop {
         display: flex;
@@ -14,11 +18,11 @@
         box-sizing: border-box;
         margin: 30px;
         padding: 80px 0;
-        border: 2px dashed #564C90;
-        border-radius: 6px;
+        border: 2px dashed #564c90;
     }
 
     &__contents {
+        text-align: center;
         p {
             max-width: 430px;
         }
@@ -37,7 +41,7 @@
         border: 0;
         border-radius: 25px;
         background: #6c0bd1;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: inherit;
         line-height: 51px;
         color: #fff;
         -webkit-appearance: none;
@@ -65,8 +69,8 @@
         border-bottom: 2px solid #B59BDA;
         border-radius: 0;
         text-align: center;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 16px;
+        font-family: inherit;
+        font-size: 17px;
         color: #fff;
         -webkit-appearance: none;
         outline: none;
@@ -76,17 +80,6 @@
         }
     }
 }
-.space-background {
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    min-height: 100%;
-    background-size: cover;
-    background: url(/public/app/img/space-bg.jpg);
-    background-position: center;
-    text-align: center;
-}
-
 
 /**
 * Mobile viewport styles
@@ -96,12 +89,10 @@
     /**
     * Capella main page mobile
     */
-    .space-background {
+    .capella {
         align-items: flex-start;
         overflow-y:scroll;
         overflow-x:hidden;
-    }
-    .capella {
         font-size: 17px;
 
         &__drag-n-drop {
