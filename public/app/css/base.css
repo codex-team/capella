@@ -3,7 +3,7 @@ html, body {
 }
 body {
     background-size: cover;
-    background: #11164E url(/public/app/img/space-bg.jpg);
+    background: #11173e url(/public/app/img/space-bg.jpg);
     background-position: center;
     font-family: system-ui;
     font-size: 18px;
