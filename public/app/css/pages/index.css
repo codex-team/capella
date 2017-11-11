@@ -69,6 +69,11 @@
         -webkit-appearance: none;
         outline: none;
 
+        &:focus::-webkit-input-placeholder {
+            opacity: 0;
+            transition: opacity 0.1s 0.1s ease; 
+        };
+
         &::-webkit-input-placeholder {
             color: var(--input-placeholder);
         }
