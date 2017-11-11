@@ -3,7 +3,6 @@ const webpack = require('webpack');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-
 /**
  * Define entry point
  */
@@ -52,7 +51,9 @@ const useModule = {
           minimize: 1,
           importLoaders: 1,
         },
-      } ]),
+      },
+        'postcss-loader' 
+      ]),
     },
   ],
 };

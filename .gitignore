@@ -19,3 +19,4 @@ npm-debug.log
 
 # Ignore updates for composer.lock
 composer.lock
+.DS_Store
