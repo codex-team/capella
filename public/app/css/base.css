@@ -5,4 +5,9 @@ body {
     background-size: cover;
     background: url(/public/app/img/space-bg.jpg);
     background-position: center;
+    font-family: system-ui;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5em;
+    color: #aea2d9;
 }

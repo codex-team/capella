@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
     <body>
-        <div class="capella space-background">
+        <div class="capella">
             <div class="capella__drag-n-drop">
                 <div class="capella__contents">
                     <div class="capella__logo">

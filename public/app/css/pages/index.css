@@ -3,11 +3,6 @@
     align-items: stretch;
     justify-content: center;
     min-height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 18px;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5em;
-    color: #aea2d9;
 
     &__drag-n-drop {
         display: flex;
@@ -93,7 +88,6 @@
         align-items: flex-start;
         overflow-y:scroll;
         overflow-x:hidden;
-        font-size: 17px;
 
         &__drag-n-drop {
             align-items: flex-start;
