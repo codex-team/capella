@@ -1,3 +1,19 @@
+:root {
+    /** Texts */
+    --text-purple: #555968;
+    --text-white: #fff;
+
+    /** Input placeholder */
+    --input-placeholder: #b59bda;
+
+    /** Backgrounds */
+    --bg-main: #11173e;
+    --bg-button: #6c0bd1;
+    --bg-button-hover: #6004c0;
+
+    /** Borders */
+    --border-color: #564c90;
+}
 /**
 * Custom media queries
 */
