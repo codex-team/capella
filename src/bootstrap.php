@@ -3,7 +3,7 @@
 /**
  * Autoload vendor
  */
-require_once DOCROOT.'src/autoload.php';
+require_once DOCROOT.'vendor/autoload.php';
 
 /**
  * Load Dotenv
@@ -20,8 +20,8 @@ if (is_file(DOCROOT.'.env'))
  *
  * @link https://hawk.so/docs
  */
-//\Hawk\HawkCatcher::instance($_SERVER['HAWK_TOKEN']);
-//\Hawk\HawkCatcher::enableHandlers();
+\Hawk\HawkCatcher::instance($_SERVER['HAWK_TOKEN']);
+\Hawk\HawkCatcher::enableHandlers();
 
 
 /**
