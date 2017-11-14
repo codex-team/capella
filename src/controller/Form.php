@@ -42,7 +42,7 @@ class Form
         # This way we have $_FILES['files'] as a one file or array with files
 
         if ( empty($_FILES['files']['name']) ) {
-            
+
             \HTTP\Response::BadRequest('application/json');
 
             echo json_encode(array(
@@ -62,7 +62,7 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::InternalServerError('application/json');
+                \HTTP\Response::BadRequest('application/json');
 
                 echo json_encode(array(
                     'success' => false,
@@ -102,7 +102,7 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::InternalServerError('application/json');
+                \HTTP\Response::BadRequest('application/json');
 
                 echo json_encode(array(
                     'success' => false,

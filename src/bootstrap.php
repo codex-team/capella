@@ -21,7 +21,11 @@ if (is_file(DOCROOT.'.env'))
  * @link https://hawk.so/docs
  */
 \Hawk\HawkCatcher::instance($_SERVER['HAWK_TOKEN']);
-\Hawk\HawkCatcher::enableHandlers();
+\Hawk\HawkCatcher::enableHandlers(
+    FALSE,      // exceptions
+    TRUE,       // errors
+    TRUE        // shutdown
+);
 
 
 /**
