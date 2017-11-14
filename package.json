@@ -26,6 +26,19 @@
     "eslint": "^4.9.0",
     "eslint-loader": "^1.9.0",
     "extract-text-webpack-plugin": "^3.0.1",
+    "postcss-color-function": "^4.0.1",
+    "postcss-color-hex-alpha": "^3.0.0",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-custom-properties": "^6.2.0",
+    "postcss-custom-selectors": "^4.0.1",
+    "postcss-font-family-system-ui": "^2.0.1",
+    "postcss-font-variant": "^3.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-media-minmax": "^3.0.0",
+    "postcss-nested": "^2.1.2",
+    "postcss-nested-ancestors": "^1.0.0",
+    "postcss-nesting": "^4.2.1",
+    "postcss-smart-import": "^0.7.5",
     "webpack": "^3.8.1"
   }
 }

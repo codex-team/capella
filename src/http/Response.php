@@ -5,46 +5,36 @@ namespace HTTP;
 
 class Response
 {
-    private static function response($code, $status)
+    public static function response($code, $status, $contentType='text/html')
     {
         header("HTTP/1.0 $code $status");
         header("HTTP/1.1 $code $status");
         header("Status: $code $status");
-
-        if (\Methods::isAjax()) {
-
-            echo json_encode(array(
-                'code' => $code,
-                'status' => $status
-            ));
-
-        } else {
-
-            echo $status;
-
-        }
-
-        die();
+        header("Content-Type: $contentType");
     }
 
-    public static function BadRequest($status = 'Bad Request')
-    {
-        self::response(400, $status);
+    public static function OK($contentType='text/html') {
+        self::response(200, 'OK', $contentType);
     }
 
-    public static function NotFound($status = 'Not Found')
+    public static function BadRequest($contentType='text/html')
     {
-        self::response(404, $status);
+        self::response(400, 'Bad Request', $contentType);
     }
 
-    public static function MethodNotAllowed($status = 'Method Not Allowed')
+    public static function NotFound($contentType='text/html')
     {
-        self::response(405, $status);
+        self::response(404, 'Not Found', $contentType);
     }
 
-    public static function InternalServerError($status = 'Internal Server Error')
+    public static function MethodNotAllowed($contentType='text/html')
     {
-        self::response(500, $status);
+        self::response(405, 'Method Not Allowed', $contentType);
+    }
+
+    public static function InternalServerError($contentType='text/html')
+    {
+        self::response(500, 'Internal Server Error', $contentType);
     }
 
     /**
@@ -72,17 +62,4 @@ class Response
         echo $blob;
     }
 
-    /**
-     * Show AJAX response
-     *
-     * @param array $data
-     * @return string json encoded data
-     */
-    public static function ajax($data)
-    {
-        echo json_encode(array(
-          'code' => '200',
-          'data' => $data
-        ));
-    }
 }
