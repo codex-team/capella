@@ -42,15 +42,41 @@ class Processing
 
     public function __construct($requestUri)
     {
-        // Trying to get cached image
+        /**
+         * Trying to get cached image
+         */
         $imageData = \Methods::cache()->get($requestUri);
 
-        // If no cached image then create it
+        /**
+         * If no cached image then create it
+         */
         if ( !$imageData ) {
-            $imageData = $this->returnImage($requestUri);
+
+            /**
+             * Try to process url or throw error message and code 400
+             */
+            try {
+
+                $imageData = $this->returnImage($requestUri);
+
+            } catch (\Exception $e) {
+
+                \HTTP\Response::BadRequest();
+
+                echo $e->getMessage();
+
+                die();
+            }
+
+            /**
+             * Cache imageData result
+             */
             \Methods::cache()->set($requestUri, $imageData);
         }
 
+        /**
+         * Return imageData
+         */
         \HTTP\Response::data($imageData);
     }
 
@@ -76,7 +102,11 @@ class Processing
         $imageUrl = 'upload/'.$imageId;
 
         if (!$imageUrl) {
+
             \HTTP\Response::NotFound();
+
+            die();
+
         }
 
         $imageProcessing = new \ImageProcessing($imageUrl);

@@ -202,10 +202,16 @@ class ImageProcessing
         // If no cached image then create it
         if ( !$blob ) {
 
-            $readResult = @$this->imagick->readImage($path);
+            try {
 
-            if (!$readResult) {
-                throw new \Exception("Invalid image path");
+                $readResult = @$this->imagick->readImage($path);
+
+            } catch (Exception $e) {
+
+                \HTTP\Response::NotFound();
+
+                die();
+
             }
 
             $blob = $this->imagick->getImageBlob();

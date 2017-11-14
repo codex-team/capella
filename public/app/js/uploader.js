@@ -50,8 +50,10 @@ let uploader = {
         success(response) {
           console.log(response);
 
-          /** Redirect to uploaded image */
-          window.location.href = response.data.url;
+          if (response.success) {
+            /** Redirect to uploaded image */
+            window.location.href = response.url;
+          }
         },
         error(response) {
           console.log(response);
@@ -77,8 +79,10 @@ let uploader = {
       success(response) {
         console.log(response);
 
-        /** Redirect to uploaded image */
-        window.location.href = response.data.url;
+        if (response.success) {
+          /** Redirect to uploaded image */
+          window.location.href = response.url;
+        }
       },
       error(response) {
         console.log(response);

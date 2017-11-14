@@ -43,7 +43,12 @@ class Form
 
         if ( empty($_FILES['files']['name']) ) {
 
-            \HTTP\Response::BadRequest('File is missing');
+            \HTTP\Response::BadRequest();
+
+            echo json_encode(array(
+                'success' => false,
+                'message' => 'File is missing'
+            ));
 
         } else {
 
@@ -57,7 +62,13 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::InternalServerError($e->getMessage());
+                \HTTP\Response::BadRequest();
+
+                echo json_encode(array(
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ));
+
 
             }
 
@@ -72,7 +83,12 @@ class Form
 
         if ( empty($_POST['link']) ) {
 
-            \HTTP\Response::BadRequest('Link is missing');
+            \HTTP\Response::BadRequest();
+
+            echo json_encode(array(
+                'success' => false,
+                'message' => 'Link is missing'
+            ));
 
         } else {
 
@@ -86,7 +102,12 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::InternalServerError($e->getMessage());
+                \HTTP\Response::BadRequest();
+
+                echo json_encode(array(
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ));
 
             }
 
@@ -103,7 +124,12 @@ class Form
 
         if (\Methods::isAjax()) {
 
-            \HTTP\Response::ajax(array(
+            \HTTP\Response::OK();
+
+            echo json_encode(array(
+                'success' => true,
+                'message' => 'Image uploaded',
+                'id' => basename($link),
                 'url' => $link
             ));
 
