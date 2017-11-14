@@ -33,8 +33,10 @@ switch ($alias) {
         } catch (\Exception $e) {
 
             \Hawk\HawkCatcher::catchException($e);
+
             \HTTP\Response::InternalServerError();
             echo "Internal Server Error";
+            die();
 
         }
 

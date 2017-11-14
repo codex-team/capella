@@ -43,7 +43,7 @@ class Form
 
         if ( empty($_FILES['files']['name']) ) {
 
-            \HTTP\Response::BadRequest('application/json');
+            \HTTP\Response::BadRequest();
 
             echo json_encode(array(
                 'success' => false,
@@ -62,7 +62,7 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::BadRequest('application/json');
+                \HTTP\Response::BadRequest();
 
                 echo json_encode(array(
                     'success' => false,
@@ -83,7 +83,7 @@ class Form
 
         if ( empty($_POST['link']) ) {
 
-            \HTTP\Response::BadRequest('application/json');
+            \HTTP\Response::BadRequest();
 
             echo json_encode(array(
                 'success' => false,
@@ -102,7 +102,7 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::BadRequest('application/json');
+                \HTTP\Response::BadRequest();
 
                 echo json_encode(array(
                     'success' => false,
@@ -124,7 +124,7 @@ class Form
 
         if (\Methods::isAjax()) {
 
-            \HTTP\Response::OK('application/json');
+            \HTTP\Response::OK();
 
             echo json_encode(array(
                 'success' => true,

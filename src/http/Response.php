@@ -5,36 +5,40 @@ namespace HTTP;
 
 class Response
 {
-    public static function response($code, $status, $contentType='text/html')
+    public static function response($code, $status)
     {
         header("HTTP/1.0 $code $status");
         header("HTTP/1.1 $code $status");
         header("Status: $code $status");
+
+        $contentType = \Methods::isAjax() ? "application/json" : "text/html";
+
         header("Content-Type: $contentType");
     }
 
-    public static function OK($contentType='text/html') {
-        self::response(200, 'OK', $contentType);
+    public static function OK ()
+    {
+        self::response(200, 'OK');
     }
 
-    public static function BadRequest($contentType='text/html')
+    public static function BadRequest ()
     {
-        self::response(400, 'Bad Request', $contentType);
+        self::response(400, 'Bad Request');
     }
 
-    public static function NotFound($contentType='text/html')
+    public static function NotFound()
     {
-        self::response(404, 'Not Found', $contentType);
+        self::response(404, 'Not Found');
     }
 
-    public static function MethodNotAllowed($contentType='text/html')
+    public static function MethodNotAllowed()
     {
-        self::response(405, 'Method Not Allowed', $contentType);
+        self::response(405, 'Method Not Allowed');
     }
 
-    public static function InternalServerError($contentType='text/html')
+    public static function InternalServerError()
     {
-        self::response(500, 'Internal Server Error', $contentType);
+        self::response(500, 'Internal Server Error');
     }
 
     /**
