@@ -2,7 +2,6 @@ let Clipboard = function () {
   'use strict';
 
   let image = document.createElement('img');
-  let text = document.createTextNode('UPLOADING');
 
   document.body.addEventListener('paste', pasteFromClipboard);
 
@@ -60,6 +59,4 @@ let Clipboard = function () {
       after() {},
     });
   }
-
-  document.body.appendChild(image);
 }();
