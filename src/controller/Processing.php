@@ -27,41 +27,57 @@ class Processing
     const FILTERS = array(
         'crop' => array(
             'title' => 'crop',
-            'pattern' => '{width|int}x{height|int}[&{x|int},{y|int}]'
+            'pattern' => '{width|int}[x{height|int}[&{x|int},{y|int}]]'
         ),
         'resize' => array(
             'title' => 'resize',
-            'pattern' => '{width|int}x{height|int}'
+            'pattern' => '{width|int}[x{height|int}]'
+        ),
+        'pixelize' => array(
+            'title' => 'pixelize',
+            'pattern' => '{pixels|int}'
         )
     );
 
 
     public function __construct($requestUri)
     {
-        $cache = new \Cache\Cache();
-        $cacheKey = $this->getCacheKey($requestUri);
+        /**
+         * Trying to get cached image
+         */
+        $imageData = \Methods::cache()->get($requestUri);
 
-        // Trying to get cached image
-        $imageData = $cache->get($cacheKey);
-
-        // If no cached image then create it
+        /**
+         * If no cached image then create it
+         */
         if ( !$imageData ) {
-            $imageData = $this->returnImage($requestUri);
-            $cache->set($cacheKey, $imageData);
+
+            /**
+             * Try to process url or throw error message and code 400
+             */
+            try {
+
+                $imageData = $this->returnImage($requestUri);
+
+            } catch (\Exception $e) {
+
+                \HTTP\Response::BadRequest();
+
+                echo $e->getMessage();
+
+                die();
+            }
+
+            /**
+             * Cache imageData result
+             */
+            \Methods::cache()->set($requestUri, $imageData);
         }
 
+        /**
+         * Return imageData
+         */
         \HTTP\Response::data($imageData);
-    }
-
-    /**
-     * Get cache key by uri
-     *
-     * @param string $uri - request uri
-     * @return string - cache key
-     */
-    protected function getCacheKey($uri)
-    {
-        return md5($uri);
     }
 
     /**
@@ -75,62 +91,77 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-      $storage = new \AWS\Storage();
+        $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
+        $imageId = $dispatcher->id;
+        $filters = $dispatcher->parsedFilters;
 
-      $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
+        /** TODO return to get image from cloud */
+        // $storage = new \AWS\Storage();
+        // $imageUrl = $storage->getImageURL($imageId);
 
-      $imageId = $dispatcher->id;
-      $filters = $dispatcher->parsedFilters;
+        $imageUrl = 'upload/'.$imageId;
 
-      $imageUrl = $storage->getImageURL($imageId);
+        if (!$imageUrl) {
 
-      if (!$imageUrl) {
-          \HTTP\Response::NotFound();
-      }
+            \HTTP\Response::NotFound();
 
-      $imageProcessing = new \ImageProcessing($imageUrl);
+            die();
 
-      foreach ($filters as $filter) {
+        }
 
-          switch ($filter['filter']) {
+        $imageProcessing = new \ImageProcessing($imageUrl);
 
-              case 'crop':
+        foreach ($filters as $filter) {
 
-                  $params = $filter['params'];
+            switch ($filter['filter']) {
 
-                  $width = $params['width'];
-                  $height = $params['height'];
-                  $x = isset($params['x']) ? $params['x'] : null;
-                  $y = isset($params['y']) ? $params['y'] : null;
+                case 'crop':
 
-                  $imageProcessing->cropImage($width, $height, $x, $y);
+                    $params = $filter['params'];
 
-                  break;
+                    $width = $params['width'];
+                    $height = isset($params['height']) ? $params['height'] : null;
+                    $x = isset($params['x']) ? $params['x'] : null;
+                    $y = isset($params['y']) ? $params['y'] : null;
 
-              case 'resize':
+                    $imageProcessing->cropImage($width, $height, $x, $y);
 
-                  $params = $filter['params'];
+                    break;
 
-                  $width = $params['width'];
-                  $height = $params['height'];
+                case 'resize':
 
-                  $imageProcessing->resizeImage($width, $height);
+                    $params = $filter['params'];
 
-                  break;
-          }
+                    $width = $params['width'];
+                    $height = isset($params['height']) ? $params['height'] : null;
 
-      }
+                    $imageProcessing->resizeImage($width, $height);
 
-      $type = 'image/' . strtolower($imageProcessing->extension);
-      $blob = $imageProcessing->getImageBlob();
-      $length = strlen($blob);
+                    break;
 
-      $imageData = array(
-          'type'    => $type,
-          'blob'    => $blob,
-          'length'  => $length
-      );
+                case 'pixelize':
 
-      return $imageData;
+                    $params = $filter['params'];
+
+                    $pixels = $params['pixels'];
+
+                    $imageProcessing->pixelizeImage($pixels);
+
+                    break;
+            }
+
+        }
+
+        $type = 'image/' . strtolower($imageProcessing->extension);
+        $blob = $imageProcessing->getImageBlob();
+        $length = strlen($blob);
+
+        $imageData = array(
+            'type'    => $type,
+            'blob'    => $blob,
+            'length'  => $length
+        );
+
+        return $imageData;
     }
 }

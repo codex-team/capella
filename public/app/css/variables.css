@@ -1,0 +1,23 @@
+:root {
+    /** Texts */
+    --text-purple: #555968;
+    --text-white: #fff;
+
+    /** Input placeholder */
+    --input-placeholder: #b59bda;
+
+    /** Backgrounds */
+    --bg-main: #11173e;
+    --bg-button: #6c0bd1;
+    --bg-button-hover: #6004c0;
+
+    /** Borders */
+    --border-color: #564c90;
+}
+/**
+* Custom media queries
+*/
+@custom-media --desktop all and (min-width: 1050px);
+@custom-media --tablet all and (max-width: 1050px);
+@custom-media --mobile all and (max-width: 980px);
+@custom-media --retina all and (-webkit-min-device-pixel-ratio: 1.5);
