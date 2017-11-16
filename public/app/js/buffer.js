@@ -28,7 +28,7 @@ let Clipboard = function () {
 
         let formData = new FormData();
 
-        formData.append('ImageFile', blob, blob.name);
+        formData.append('files', blob, blob.name);
         send(formData);
       };
       reader.readAsDataURL(blob);
