@@ -1,8 +1,6 @@
 let Clipboard = function () {
   'use strict';
 
-  let image = document.createElement('img');
-
   document.body.addEventListener('paste', pasteFromClipboard);
 
   /**
@@ -23,8 +21,6 @@ let Clipboard = function () {
       let reader = new FileReader();
 
       reader.onload = function (event) {
-        document.body.removeChild(text);
-
         let formData = new FormData();
 
         formData.append('files', blob, blob.name);
