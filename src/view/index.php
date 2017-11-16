@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <title>Main</title>
+        <title>Capella</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../public/build/bundle.css">
         <link rel="icon" type="image/png" href="/favicon.png">
