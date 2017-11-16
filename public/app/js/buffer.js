@@ -32,6 +32,8 @@ let Clipboard = function () {
 
   /**
    * Send image to the server
+   *
+   * @param {data} - data of the file
    */
   function send(data) {
     capella.ajax.call({
