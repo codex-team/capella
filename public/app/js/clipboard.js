@@ -39,7 +39,7 @@ export default class Clipboard {
         let formData = new FormData();
 
         formData.append('files', blob, blob.name);
-        Clipboard.send(Clipboard);
+        Clipboard.send(formData);
       };
       reader.readAsDataURL(blob);
     }
