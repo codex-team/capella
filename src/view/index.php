@@ -27,7 +27,7 @@
         <link rel="apple-touch-icon" href="/favicon.png"/>
         <meta name="description" property="og:description" content="Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with simple API">
         <meta name="keywords" content="cloud service,upload files,image storage">
-        <meta name="image" property="og:image" content="https://alpha.capella.ifmo.su/meta_img.png" />
+        <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
     <body>
