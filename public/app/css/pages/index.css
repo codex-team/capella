@@ -79,6 +79,27 @@
             color: var(--input-placeholder);
         }
     }
+
+    &__uploading {
+
+        margin-top: 250px;
+
+        &-title {
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        &-progress {
+            margin: 13px auto;
+        }
+
+        &-link {
+            display: block;
+            color: inherit;
+            font-size: 15px;
+            text-decoration: none;
+        }
+    }
 }
 
 /**
@@ -117,5 +138,13 @@
                 margin: 0 auto;
             }
         }
+
+        &__uploading {
+            margin-top: 100px;
+            &-progress {
+                width: 200px;
+            }
+        }
     }
+
 }
