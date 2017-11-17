@@ -80,6 +80,7 @@
         "console": true,
         "define": true,
         "FormData": true,
+        "FileReader": true,
         "capella": true
     }
 }
