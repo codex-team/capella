@@ -9,7 +9,9 @@ const capella = {};
 capella.ajax = require('codex.ajax');
 capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
-capella.buffer = require('./buffer');
+let newClipboard = require('./clipboard').default;
+
+capella.clipboard = new newClipboard();
 
 /**
  * Capella init function

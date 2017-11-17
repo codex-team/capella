@@ -1,30 +1,45 @@
-let Clipboard = function () {
-  'use strict';
-
-  document.body.addEventListener('paste', pasteFromClipboard);
+/**
+ * Paste from clipboard module
+ */
+export default class Clipboard {
+  /**
+   * Initialization of Clipboard module
+   */
+  constructor() {
+    document.body.addEventListener('paste', this.pasteFromClipboard);
+  }
 
   /**
    * Pasted image from clipboard
    */
-  function pasteFromClipboard(e) {
-    document.body.appendChild(text);
-    let items = (e.clipboardData  || e.originalEvent.clipboardData).items;
+  pasteFromClipboard(event) {
+    /**
+     * items - data from clipboard
+     */
+    let items = (event.clipboardData  || event.originalEvent.clipboardData).items;
     let blob = null;
 
-    for (let i = 0; i < items.length; i++) {
+    /**
+     * Checking all clipboard's files and choosing last image file
+     */
+    for (let i = items.length - 1; i >= 0; --i) {
       if (items[i].type.indexOf('image') === 0) {
         blob = items[i].getAsFile();
+        break;
       }
     }
 
     if (blob !== null) {
+      /**
+       * FilerReader is used for asynchronous image reading from blob: function at onload
+       */
       let reader = new FileReader();
 
-      reader.onload = function (event) {
+      reader.onload = function () {
         let formData = new FormData();
 
         formData.append('files', blob, blob.name);
-        send(formData);
+        Clipboard.send(Clipboard);
       };
       reader.readAsDataURL(blob);
     }
@@ -35,7 +50,7 @@ let Clipboard = function () {
    *
    * @param {data} - data of the file
    */
-  function send(data) {
+  static send(data) {
     capella.ajax.call({
       type: 'POST',
       url: '/upload',
@@ -57,4 +72,4 @@ let Clipboard = function () {
       after() {},
     });
   }
-}();
+}
