@@ -9,10 +9,10 @@
     }
 
     &--dark {
-        background: rgba(7,7,25,0.75);
+        background: var(--bg-dark);
 
         .capella__drag-n-drop {
-            border-color: #6C0BD1;
+            border-color: var(--dnd-active-border-color);
         }
 
         .capella__dark-contents {
@@ -23,7 +23,8 @@
             display: block;
             margin-top: 70px;
             font-size: 33px;
-            color: #8129FF;
+            color: var(--text-dark-purple);
+
             img {
                 display: block;
                 margin: 15px auto;
@@ -39,7 +40,7 @@
         box-sizing: border-box;
         margin: 30px;
         padding: 40px 0;
-        border: 2px dashed var(--border-color);
+        border: 2px dashed var(--dnd-border-color);
     }
 
     &__contents {
