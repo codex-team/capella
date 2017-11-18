@@ -12,9 +12,6 @@ body {
     line-height: 1.5em;
     color: #aea2d9;
 }
-.hide {
-    display: none !important;
-}
 
 /**
  * Styles for progress bar
