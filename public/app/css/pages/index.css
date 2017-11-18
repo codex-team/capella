@@ -4,10 +4,6 @@
     justify-content: center;
     min-height: 100%;
 
-    &__cta-dnd {
-        display: none;
-    }
-
     &--dark {
         background: var(--bg-dark);
 
@@ -19,7 +15,7 @@
             opacity: 0.3;
         }
 
-        .capella__cta-dnd {
+        .capella__drag-n-drop-activator {
             display: block;
             margin-top: 70px;
             font-size: 33px;
@@ -30,6 +26,10 @@
                 margin: 15px auto;
             }
         }
+    }
+
+    &__drag-n-drop-activator {
+        display: none;
     }
 
     &__drag-n-drop {
@@ -144,10 +144,6 @@
             p {
                 margin: 0 auto;
             }
-        }
-
-        &__cta-dnd {
-            display: none !important;
         }
     }
 }

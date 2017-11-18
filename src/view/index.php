@@ -24,7 +24,7 @@
                         <button id="uploadFileButton" class="capella__button">Select picture</button><br>
                         <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste URL"/>
                     </div>
-                    <div class="capella__cta-dnd">
+                    <div class="capella__drag-n-drop-activator">
                         <img src="../public/app/svg/cloud-computing.svg">
                         Drop file to upload
                     </div>
