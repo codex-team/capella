@@ -13,15 +13,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
     <body>
-        <div class="capella">
+        <div class="capella capella--dark">
             <div class="capella__drag-n-drop">
                 <div class="capella__contents">
                     <div class="capella__logo">
                         <img src="../public/app/svg/capella-logo.svg">
                     </div>
-                    <p>Upload file directly using drag-n-drop or clipboard. You will instantly get link to your file.</p>
-                    <button id="uploadFileButton" class="capella__button">Select picture</button><br>
-                    <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste URL"/>
+                    <div class="capella__dark-contents">
+                        <p>Upload file directly using drag-n-drop or clipboard. You will instantly get link to your file.</p>
+                        <button id="uploadFileButton" class="capella__button">Select picture</button><br>
+                        <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste URL"/>
+                    </div>
+                    <div class="capella__cta-dnd">
+                        <img src="../public/app/svg/cloud-computing.svg">
+                        Drop file to upload
+                    </div>
                 </div>
             </div>
         </div>

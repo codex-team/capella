@@ -4,6 +4,33 @@
     justify-content: center;
     min-height: 100%;
 
+    &__cta-dnd {
+        display: none;
+    }
+
+    &--dark {
+        background: rgba(7,7,25,0.75);
+
+        .capella__drag-n-drop {
+            border-color: #6C0BD1;
+        }
+
+        .capella__dark-contents {
+            opacity: 0.3;
+        }
+
+        .capella__cta-dnd {
+            display: block;
+            margin-top: 70px;
+            font-size: 33px;
+            color: #8129FF;
+            img {
+                display: block;
+                margin: 15px auto;
+            }
+        }
+    }
+
     &__drag-n-drop {
         display: flex;
         flex-grow: 1;
@@ -116,6 +143,10 @@
             p {
                 margin: 0 auto;
             }
+        }
+
+        &__cta-dnd {
+            display: none !important;
         }
     }
 }
