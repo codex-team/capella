@@ -3,7 +3,7 @@
     <head>
         <title>Capella</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="../public/build/bundle.css">
+        <link rel="stylesheet" type="text/css" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
         <link rel="icon" type="image/png" href="/favicon.png">
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png" />
         <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180.png" />
