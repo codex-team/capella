@@ -53,41 +53,13 @@ export default class DNDFileUploader {
   drop(event) {
     this.wrapper.classList.remove('capella--dark');
 
-    this.upload(event.dataTransfer.files[0]);
-    event.preventDefault();
-  }
-
-  /**
-   *
-   * Upload file to server via AJAX
-   *
-   * @param {Blob} file — file to upload
-   */
-  upload(file) {
+    let file = event.dataTransfer.files[0];
     let formData = new FormData();
 
     formData.append('file', file, file.name);
 
-    capella.ajax.call({
-      type: 'POST',
-      url: '/upload',
-      data: formData,
-      before() {},
-      progress(percentage) {
-        console.log(percentage + '%');
-      },
-      success(response) {
-        console.log(response);
+    capella.uploader.upload(formData);
 
-        if (response.success) {
-          /** Redirect to uploaded image */
-          window.location.href = response.url;
-        }
-      },
-      error(response) {
-        console.log(response);
-      },
-      after() {}
-    });
+    event.preventDefault();
   }
 }
