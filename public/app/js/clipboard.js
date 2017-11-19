@@ -39,37 +39,10 @@ export default class Clipboard {
         let formData = new FormData();
 
         formData.append('file', blob, blob.name);
-        Clipboard.send(formData);
+
+        capella.uploader.upload(formData);
       };
       reader.readAsDataURL(blob);
     }
-  }
-
-  /**
-   * Send image to the server
-   *
-   * @param {data} - data of the file
-   */
-  static send(data) {
-    capella.ajax.call({
-      type: 'POST',
-      url: '/upload',
-      data: data,
-      before() {},
-      progress(percentage) {
-        console.log(percentage + '%');
-      },
-      success(response) {
-        console.log(response);
-
-        if (response.success) {
-          window.location.href = response.url;
-        }
-      },
-      error(response) {
-        console.log(response);
-      },
-      after() {},
-    });
   }
 }

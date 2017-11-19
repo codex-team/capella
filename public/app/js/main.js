@@ -19,11 +19,10 @@ let DNDFileUploader = require('./dragndrop').default;
 
 capella.dnd = new DNDFileUploader('.capella');
 
-/**
- * Capella init function
- */
 capella.init = function () {
-  capella.uploader.init();
+  let Uploader = require('./uploader').default;
+
+  capella.uploader = new Uploader();
 };
 
 module.exports = capella;
