@@ -21,7 +21,7 @@
                     </div>
                     <div class="capella__uploading">
                         <div class="capella__uploading-title">Uploading</div>
-                        <progress max="100" value="70" class="capella__uploading-progress"></progress>
+                        <progress max="100" value="70" class="capella__uploading-progress js-capella__uploading-progress"></progress>
                         <a href="" class="capella__uploading-link">Pasted image at 2017_10_17 09_27 PM.png</a>
                     </div>
                     <div class="capella__dark-contents">
@@ -36,5 +36,12 @@
             </div>
         </div>
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
+        <script type="text/javascript">
+             window.docReady(function() {
+                capella.screensToggler.init();
+                // capella.screensToggler.progress(60);
+                // capella.screensToggler.dragNdrop();
+             })
+        </script>
     </body>
 </html>
