@@ -10,6 +10,10 @@ capella.ajax = require('codex.ajax');
 capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 
+let DNDFileUploader = require('./dragndrop').default;
+
+capella.dnd = new DNDFileUploader('.capella', '.capella__drag-n-drop');
+
 /**
  * Capella init function
  */
