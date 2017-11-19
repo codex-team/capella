@@ -25,7 +25,7 @@
                         <a href="" class="capella__uploading-link">Pasted image at 2017_10_17 09_27 PM.png</a>
                     </div>
                     <div class="capella__dark-contents">
-                        <p>Upload file directly using drag-n-drop or clipboard. You will instantly get link to your file.</p>
+                        <p>Upload a file directly using drag-n-drop or clipboard. You will instantly get a link to your file.</p>
                         <button id="uploadFileButton" class="capella__button">Select picture</button><br>
                         <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste URL"/>
                     </div>
