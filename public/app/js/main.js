@@ -15,7 +15,7 @@ capella.clipboard = new Clipboard();
 
 let DNDFileUploader = require('./dragndrop').default;
 
-capella.dnd = new DNDFileUploader('.capella', '.capella__drag-n-drop');
+capella.dnd = new DNDFileUploader('.capella');
 
 /**
  * Capella init function
