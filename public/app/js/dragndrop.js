@@ -1,10 +1,11 @@
 /**
- *
+ * Class for working with drag and drop files to browser
  */
 export default class DNDFileUploader {
   /**
+   * Bind drag and drop events
    *
-   * @param dropzone
+   * @param wrapper - page wrapper selector
    */
   constructor(wrapper) {
     this.wrapper = document.querySelector(wrapper);
@@ -17,6 +18,8 @@ export default class DNDFileUploader {
 
   /**
    *
+   * File dragover handler
+   *
    * @param event
    */
   dragover(event) {
@@ -27,6 +30,8 @@ export default class DNDFileUploader {
 
   /**
    *
+   * File dragleave handler
+   *
    * @param event
    */
   drageleave(event) {
@@ -36,6 +41,7 @@ export default class DNDFileUploader {
   }
 
   /**
+   * File drop handler
    *
    * @param event
    */
@@ -47,6 +53,8 @@ export default class DNDFileUploader {
   }
 
   /**
+   *
+   * Upload file to server via AJAX
    *
    * @param file
    */
