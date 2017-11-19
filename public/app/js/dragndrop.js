@@ -1,11 +1,16 @@
 /**
  * Class for working with drag and drop files to browser
+ *
+ * @class DNDFileUploader
+ *
+ * @property {HTMLElement} wrapper — page wrapper element
+ *
  */
 export default class DNDFileUploader {
   /**
    * Bind drag and drop events
    *
-   * @param wrapper - page wrapper selector
+   * @param {String} wrapper - page wrapper selector
    */
   constructor(wrapper) {
     this.wrapper = document.querySelector(wrapper);
@@ -20,7 +25,7 @@ export default class DNDFileUploader {
    *
    * File dragover handler
    *
-   * @param event
+   * @param {Event} event — dragover event
    */
   dragover(event) {
     event.preventDefault();
@@ -32,7 +37,7 @@ export default class DNDFileUploader {
    *
    * File dragleave handler
    *
-   * @param event
+   * @param {Event} event — dragleave event
    */
   drageleave(event) {
     event.preventDefault();
@@ -43,7 +48,7 @@ export default class DNDFileUploader {
   /**
    * File drop handler
    *
-   * @param event
+   * @param {Event} event — drop event
    */
   drop(event) {
     this.wrapper.classList.remove('capella--dark');
@@ -56,7 +61,7 @@ export default class DNDFileUploader {
    *
    * Upload file to server via AJAX
    *
-   * @param file
+   * @param {Blob} file — file to upload
    */
   upload(file) {
     let formData = new FormData();
