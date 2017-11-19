@@ -16,6 +16,7 @@
         background: var(--bg-dark);
 
         .capella__drag-n-drop {
+            position: relative;
             border-color: var(--dnd-active-border-color);
         }
 
@@ -25,7 +26,11 @@
 
         .capella__drag-n-drop-activator {
             display: block;
-            margin-top: 70px;
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            width: 100%;
+            transform: translateX(-50%);
             font-size: 33px;
             color: var(--text-dark-purple);
 

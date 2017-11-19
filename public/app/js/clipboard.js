@@ -38,7 +38,7 @@ export default class Clipboard {
       reader.onload = function () {
         let formData = new FormData();
 
-        formData.append('files', blob, blob.name);
+        formData.append('file', blob, blob.name);
         Clipboard.send(formData);
       };
       reader.readAsDataURL(blob);

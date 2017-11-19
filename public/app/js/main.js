@@ -14,9 +14,10 @@ let Clipboard = require('./clipboard').default;
 
 capella.clipboard = new Clipboard();
 
-window.docReady = function (f) {
-  /in/.test(document.readyState) ? window.setTimeout(window.docReady, 9, f) : f();
-};
+
+let DNDFileUploader = require('./dragndrop').default;
+
+capella.dnd = new DNDFileUploader('.capella');
 
 /**
  * Capella init function
