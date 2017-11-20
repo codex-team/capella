@@ -1,0 +1,57 @@
+.capella--result {
+
+        .capella__drag-n-drop {
+            padding: 0;
+        }
+
+        .capella__logo {
+            margin-bottom: 35px;
+        }
+        .capella__result {
+            display: block;
+            
+            img {
+                width: auto;
+                height: 340px;
+                margin-bottom: 20px;
+            }
+
+            &-info {
+                color: var(--text-light-purple);
+            }
+
+            &-link {
+                display: block;
+                max-width: 623px;
+                margin: 20px auto;
+                padding: 15px;
+                box-sizing: border-box;
+                background: var(--bg-dark-link);
+                border-radius: 25px;
+                color: var(--link-with-bg);
+                text-decoration: none;
+                font-size: 17px;
+                word-break: break-word;
+            }
+
+        }
+    }
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+
+    .capella--result {
+        .capella__result {
+            img {
+                max-height: 250px;
+            }
+            &-link {
+                max-width: 80%;
+            }
+        }
+        
+    }
+}

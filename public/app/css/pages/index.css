@@ -4,6 +4,11 @@
     justify-content: center;
     min-height: 100%;
 
+    &__cta-link {
+        color: var(--inline-link);
+        text-decoration: underline;
+    }
+
     &__uploading {
         display: none;
     }
@@ -86,6 +91,7 @@
         text-align: center;
         p {
             max-width: 430px;
+            margin: 0 auto;
         }
     }
 
@@ -194,7 +200,6 @@
                 }
             } 
         }
-
         
     }
 

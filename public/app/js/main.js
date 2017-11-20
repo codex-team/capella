@@ -14,11 +14,14 @@ capella.ajax = require('codex.ajax');
 capella.transport = require('codex.transport');
 capella.scene = require('./scene');
 capella.uploader = require('./uploader');
+capella.copyable = require('./copyable');
 
 capella.uploader = new Uploader();
 capella.clipboard = new Clipboard();
 capella.dnd = new DNDFileUploader('.capella');
 
-capella.init = function () {};
+capella.init = function () {
+  capella.copyable.init();
+};
 
 module.exports = capella;

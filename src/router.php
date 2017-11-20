@@ -16,6 +16,13 @@ switch ($alias) {
         break;
 
     /**
+     * Show result page
+     */
+    case 'result':
+        require_once DOCROOT."src/view/result.php";
+        break;
+
+    /**
      * Uploader uri
      */
     case 'upload':
