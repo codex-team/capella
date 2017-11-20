@@ -21,8 +21,8 @@
                     </div>
                     <div class="capella__uploading">
                         <div class="capella__uploading-title">Uploading</div>
-                        <progress max="100" value="70" class="capella__uploading-progress js-capella__uploading-progress"></progress>
-                        <a href="" class="capella__uploading-link">Pasted image at 2017_10_17 09_27 PM.png</a>
+                        <progress max="100" value="0" class="capella__uploading-progress js-capella__uploading-progress"></progress>
+                        <a href="" class="capella__uploading-link"></a>
                     </div>
                     <div class="capella__dark-contents">
                         <p>Upload a file directly using drag-n-drop or clipboard. You will instantly get a link to your file.</p>

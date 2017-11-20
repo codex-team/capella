@@ -3,26 +3,22 @@
 
 const capella = {};
 
+let Uploader = require('./uploader').default;
+let Clipboard = require('./clipboard').default;
+let DNDFileUploader = require('./dragndrop').default;
+
 /**
  * Require modules
  */
 capella.ajax = require('codex.ajax');
 capella.transport = require('codex.transport');
+capella.scene = require('./scene');
 capella.uploader = require('./uploader');
-capella.screensToggler = require('./screensToggler');
-let Clipboard = require('./clipboard').default;
 
+capella.uploader = new Uploader();
 capella.clipboard = new Clipboard();
-
-
-let DNDFileUploader = require('./dragndrop').default;
-
 capella.dnd = new DNDFileUploader('.capella');
 
-capella.init = function () {
-  let Uploader = require('./uploader').default;
-
-  capella.uploader = new Uploader();
-};
+capella.init = function () {};
 
 module.exports = capella;

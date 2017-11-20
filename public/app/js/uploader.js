@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @class Uploader
  * Handle images uploading
@@ -6,7 +7,6 @@
  * @property {String} uploadUrl — url to upload images
  * @property {HTMLElement} uploadFilButton — transport initialization trigger
  * @property {HTMLElement} uploadLinkField — input to insert image link
- *
  */
 export default class Uploader {
   /**
@@ -16,6 +16,9 @@ export default class Uploader {
     this.uploadUrl = '/upload';
     this.uploadFileButton = document.getElementById('uploadFileButton');
     this.uploadLinkField = document.getElementById('uploadLinkField');
+    this.pageWrapper = document.getElementsByClassName('capella')[0];
+    this.progressBar = document.getElementsByClassName('js-capella__uploading-progress')[0];
+    this._this = this;
 
     if (this.uploadFileButton) {
       this.uploadFileButton.addEventListener('click', this.uploadByTransport.bind(this), false);
@@ -81,7 +84,9 @@ export default class Uploader {
   /**
    * Method to call before upload starts
    */
-  before() {}
+  before() {
+    capella.scene.uploadScreen.show();
+  }
 
   /**
    *  Handle upload progress
@@ -90,6 +95,7 @@ export default class Uploader {
    */
   progress(percentage) {
     console.log(percentage + '%');
+    capella.scene.uploadScreen.progress(percentage);
   }
 
   /**
@@ -122,5 +128,7 @@ export default class Uploader {
   /**
    * Method to call after upload
    */
-  after() {}
+  after() {
+    capella.scene.uploadScreen.hide();
+  }
 }
