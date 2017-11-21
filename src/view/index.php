@@ -20,6 +20,7 @@
                         <img src="/public/app/svg/capella-logo.svg">
                     </div>
                     <div class="capella__uploading">
+                        <? include 'public/app/svg/startup.svg'; ?>
                         <div class="capella__uploading-title">Uploading</div>
                         <div  class="capella__uploading-progress js-capella__uploading-progress">
                             <div style="width: 0%"></div>

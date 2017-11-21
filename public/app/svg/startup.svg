@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 10000 10000" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="500" height="500">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 10000 10000" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="800" height="250">
 	<g id="spaceship-wrapper" transform="rotate(-50) translate(0, -50)" fill="#ffffff">
 		<g id="spaceship" class="spaceship">
 			<g id="spaceship-body">
-				<path d="M496.64,232.96c-28.16-74.24-102.4-112.64-184.32-97.28C232.96,56.32,122.88,2.56,12.8,0C5.12,0,0,5.12,0,12.8
+				<path transform="scale(1.5) translate(-150, -170)" d="M496.64,232.96c-28.16-74.24-102.4-112.64-184.32-97.28C232.96,56.32,122.88,2.56,12.8,0C5.12,0,0,5.12,0,12.8
 					c2.56,110.08,56.32,220.16,133.12,299.52c-12.8,79.36,23.04,156.16,97.28,184.32c-12.8-33.28-15.36-71.68-5.12-110.08
 					c12.8,7.68,25.6,15.36,38.4,20.48c5.12,2.56,10.24,2.56,15.36-2.56l128-128c2.56-2.56,2.56-7.68,0-12.8
 					c-5.12-12.8-12.8-25.6-20.48-35.84C424.96,217.6,463.36,220.16,496.64,232.96z M215.04,215.04c-20.48,20.48-51.2,20.48-71.68,0
 					c-20.48-20.48-20.48-51.2,0-71.68c20.48-20.48,51.2-20.48,71.68,0C235.52,163.84,235.52,194.56,215.04,215.04z"/>
 			</g>
-			<g id="nozzle">
+			<g id="nozzle" transform="scale(1.5)" class="spaceship__nozzle">
 				<path d="M504.32,368.64l-53.76-53.76c-10.24-10.24-25.6-10.24-35.84,0s-10.24,25.6,0,35.84l53.76,53.76
 					c10.24,10.24,25.6,10.24,35.84,0S514.56,378.88,504.32,368.64z"/>
 				<path d="M404.48,468.48l-53.76-53.76c-10.24-10.24-25.6-10.24-35.84,0s-10.24,25.6,0,35.84l53.76,53.76

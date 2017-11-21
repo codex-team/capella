@@ -3,7 +3,7 @@
     transform-origin: center;
 }
 
-#nozzle {
+.spaceship__nozzle {
     animation: nozzle 2s linear infinite;
 }
 

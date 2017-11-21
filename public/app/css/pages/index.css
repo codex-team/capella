@@ -43,13 +43,16 @@
 
     &--loading {
 
+        .capella__logo {
+            margin-bottom: 10px;
+        }
+
         .capella__dark-contents {
             display: none;
         }
 
         .capella__uploading {
 
-            margin-top: 250px;
             display: block;
 
             &-title {
