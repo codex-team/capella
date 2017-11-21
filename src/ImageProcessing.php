@@ -197,7 +197,7 @@ class ImageProcessing
         $this->path = $path;
 
         // Trying to get cached image
-        $blob = \Methods::cache()->get($this->path);
+        $blob = \Cache\Cache::instance()->get($this->path);
 
         // If no cached image then create it
         if ( !$blob ) {
@@ -216,7 +216,7 @@ class ImageProcessing
 
             $blob = $this->imagick->getImageBlob();
 
-            \Methods::cache()->set($this->path, $blob);
+            \Cache\Cache::instance()->set($this->path, $blob);
 
         }
 

@@ -45,7 +45,7 @@ class Processing
         /**
          * Trying to get cached image
          */
-        $imageData = \Methods::cache()->get($requestUri);
+        $imageData = \Cache\Cache::instance()->get($requestUri);
 
         /**
          * If no cached image then create it
@@ -71,7 +71,7 @@ class Processing
             /**
              * Cache imageData result
              */
-            \Methods::cache()->set($requestUri, $imageData);
+            \Cache\Cache::instance()->set($requestUri, $imageData);
         }
 
         /**

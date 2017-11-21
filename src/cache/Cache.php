@@ -2,13 +2,12 @@
 
 namespace Cache;
 
-// TODO singleton
-
 /**
+ * @singleton
  * Cache class
  *
- * @example create new class
- * $cache = new \Cache\Cache();
+ * @example get instance
+ * $cache = \Cache\Cache::instance();
  *
  * @example set object
  * $cache->set($key, $data[, $exp]);
@@ -24,37 +23,31 @@ class Cache
 {
 
     private $memcacheObj;
+    private static $_instance = null;
 
-    /**
-     * Cache constructor
-     */
-    public function __construct()
-    {
-        $config = include "config.php";
+    public static function instance() {
 
-        $this->memcacheObj = new \Memcache();
-        $this->memcacheObj->connect($config['host'], $config['port']) or die('Memcache is not connected');
-    }
+        if (is_null(self::$_instance)) {
+            self::$_instance = new self();
+        }
 
-    /**
-     * Generate key for input string
-     *
-     * @param string $string - indentifier
-     * @return string - hashed id
-     */
-    private function generateKey($string)
-    {
-        return md5($string);
+        return self::$_instance;
+
     }
 
     /**
      * Get object
      *
-     * @param {string} Object name
-     * @return if success return object else return null
+     * @param string $key — cache key
+     * @return array|null|string — cached data
      */
     public function get($key)
     {
+
+        if (is_null($this->memcacheObj)) {
+            return null;
+        }
+
         $key = $this->generateKey($key);
 
         $cacheObj = $this->memcacheObj->get($key);
@@ -69,13 +62,18 @@ class Cache
     /**
      * Set object
      *
-     * @param Object
-     * @param {string} $imageId Object name
-     * @param {integer} $timeOfLife time of var life
+     * @param string $key — cache key
+     * @param * $obj — data to cache
+     * @param integer $timeOfLife — cached data life time
      */
     public function set($key, $obj, $timeOfLife = 60 * 60)
     {
-        $key = $this->generateKey($key);
+
+        if (is_null($this->memcacheObj)) {
+            return;
+        }
+
+        $key = self::generateKey($key);
 
         $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, $timeOfLife);
     }
@@ -83,13 +81,54 @@ class Cache
     /**
      * Delete object
      *
-     * @param Object name
+     * @param string $key — cache key
      */
     public function delete($key)
     {
+
+        if (is_null($this->memcacheObj)) {
+            return;
+        }
+
         $key = $this->generateKey($key);
 
         $this->memcacheObj->delete($key);
     }
+
+    /**
+     * Cache constructor
+     */
+    private function __construct()
+    {
+        $config = include "config.php";
+
+        if (!class_exists('\Memcache')) {
+
+            $this->memcacheObj = null;
+            return;
+
+        };
+
+        $this->memcacheObj = new \Memcache();
+        if (!$this->memcacheObj->connect($config['host'], $config['port'])) {
+            $this->memcacheObj = null;
+        };
+    }
+
+    /**
+     * Prevent cloning of instance
+     */
+    private function __clone() {}
+
+    /**
+     * Generate key for input string
+     *
+     * @param string $string — string to hash
+     * @return string — hashed string
+     */
+    private function generateKey($string)
+    {
+        return md5($string);
+    }
+
 }
-?>
