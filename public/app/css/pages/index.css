@@ -63,10 +63,7 @@
             &-progress {
                 height: 5px;
                 width: 277px;
-                position: relative;
                 background: #0d0918;
-                -moz-border-radius: 3px;
-                -webkit-border-radius: 3px;
                 border-radius: 3px;
                 margin: 13px auto;
 
@@ -74,7 +71,6 @@
                     height: 100%;
                     background: #830cff;
                     border-radius: 3px;
-                    -webkit-transition: width 0.4s, -webkit-transform 0.4s;
                     transition: width 0.4s, transform 0.4s;
                 }
             }

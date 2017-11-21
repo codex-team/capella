@@ -94,7 +94,6 @@ export default class Uploader {
    * @param percentage — upload percentage
    */
   progress(percentage) {
-    console.log(percentage + '%');
     capella.scene.uploadScreen.progress(percentage);
   }
 
