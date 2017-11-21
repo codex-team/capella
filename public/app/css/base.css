@@ -12,29 +12,3 @@ body {
     line-height: 1.5em;
     color: #aea2d9;
 }
-
-/**
- * Styles for progress bar
- */
-progress {
-    display: inline-block;
-    vertical-align: baseline;
-    border: 0px solid transparent;
-    border-radius: 3px;
-    background: #0d0918;
-    width: 277px;
-    height: 5px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-progress::-webkit-progress-bar {
-    border-radius: 3px;
-    background: #0d0918;
-}
-progress::-webkit-progress-value {
-    border-radius: 3px;
-    background: #830cff;
-}
-progress::-moz-progress-bar { 
-    background: #830cff;
-}

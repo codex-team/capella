@@ -21,7 +21,9 @@
                     </div>
                     <div class="capella__uploading">
                         <div class="capella__uploading-title">Uploading</div>
-                        <progress max="100" value="0" class="capella__uploading-progress js-capella__uploading-progress"></progress>
+                        <div  class="capella__uploading-progress js-capella__uploading-progress">
+                            <div style="width: 0%"></div>
+                        </div>
                         <a href="" class="capella__uploading-link"></a>
                     </div>
                     <div class="capella__dark-contents">
