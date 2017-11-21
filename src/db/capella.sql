@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `capella-storage`
+-- Структура таблицы `uploads`
 --
 
-CREATE TABLE `capella-storage` (
+CREATE TABLE `uploads` (
   `id` varchar(50) NOT NULL,
   `dt_add` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `extension` varchar(6) NOT NULL,
@@ -38,9 +38,9 @@ CREATE TABLE `capella-storage` (
 --
 
 --
--- Индексы таблицы `capella-storage`
+-- Индексы таблицы `uploads`
 --
-ALTER TABLE `capella-storage`
+ALTER TABLE `uploads`
   ADD UNIQUE KEY `id` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

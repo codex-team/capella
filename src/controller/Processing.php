@@ -1,6 +1,7 @@
 <?php
 
 namespace Controller;
+use DB\DatabaseWorker;
 
 /**
  * Class Processing
@@ -99,9 +100,9 @@ class Processing
         // $storage = new \AWS\Storage();
         // $imageUrl = $storage->getImageURL($imageId);
 
-        $imageUrl = 'upload/'.$imageId;
+        $imagePath = \DB\DatabaseWorker::get($id);
 
-        if (!$imageUrl) {
+        if (!$imagePath) {
 
             \HTTP\Response::NotFound();
 
@@ -109,7 +110,7 @@ class Processing
 
         }
 
-        $imageProcessing = new \ImageProcessing($imageUrl);
+        $imageProcessing = new \ImageProcessing($imagePath);
 
         foreach ($filters as $filter) {
 

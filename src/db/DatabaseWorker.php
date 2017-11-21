@@ -15,8 +15,11 @@ namespace DB;
  */
 class DatabaseWorker
 {
+
+    public static $uploadsTable = 'uploads';
+
     /**
-     * @var PDO
+     * @var \PDO
      * $statementHandler-statement handler
      */
     private $databaseHandler;
@@ -35,12 +38,12 @@ class DatabaseWorker
 
         // Set options for PDO connection
         $options = array(
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
         );
 
         // Create a new PDO instanace
-        $this->databaseHandler = new PDO(
+        $this->databaseHandler = new \PDO(
             $dataSourceName,
             $config['user'],
             $config['password'],
@@ -64,16 +67,16 @@ class DatabaseWorker
         if (is_null($type)) {
             switch (true) {
                 case is_int($value):
-                    $type = PDO::PARAM_INT;
+                    $type = \PDO::PARAM_INT;
                     break;
                 case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
+                    $type = \PDO::PARAM_BOOL;
                     break;
                 case is_null($value):
-                    $type = PDO::PARAM_NULL;
+                    $type = \PDO::PARAM_NULL;
                     break;
                 default:
-                    $type = PDO::PARAM_STR;
+                    $type = \PDO::PARAM_STR;
             }
         }
 
@@ -93,7 +96,7 @@ class DatabaseWorker
      */
     public function fetchAll()
     {
-        return $this->statementHandler->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -101,7 +104,7 @@ class DatabaseWorker
      */
     public function fetch()
     {
-        return $this->statementHandler->fetch(PDO::FETCH_ASSOC);
+        return $this->statementHandler->fetch(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -123,4 +126,35 @@ class DatabaseWorker
 
         return $ip;
     }
+
+    public static function save($id, $ext)
+    {
+
+        $database = new self();
+
+        $ip = $database->getUserIP();
+
+        $database->query('INSERT INTO `' . self::$uploadsTable . '` (id, extension, ip) VALUES (:id, :extension, :ip)');
+        $database->bind(':id', $id);
+        $database->bind(':extension', $ext);
+        $database->bind(':ip', $ip);
+
+        $database->execute();
+
+    }
+
+    public static function get($id)
+    {
+
+        $database = new self();
+
+        $database->query('SELECT * FROM `' . self::$uploadsTable . '` WHERE id=:id');
+        $database->bind(':id', $id);
+
+        $result = $database->fetchAll();
+
+        var_dump($result);
+
+    }
+
 }

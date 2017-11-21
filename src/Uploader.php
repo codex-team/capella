@@ -68,7 +68,8 @@ class Uploader
     protected function saveFileToUploadDir($filepath)
     {
         // Generate filename
-        $path = Uploader::UPLOAD_DIR . \Methods::generateId();
+        $id = \Methods::generateId();
+        $path = Uploader::UPLOAD_DIR . $id;
 
         // Save file to uploads dir
         file_put_contents($path, file_get_contents($filepath));
@@ -86,17 +87,19 @@ class Uploader
         rename($path, $newPath);
         $path = $newPath;
 
-        return $path;
+
+        \DB\DatabaseWorker::save($id, $ext);
+
+        return $id;
     }
 
     /**
      * Upload file to cloud and return capella url
      *
-     * @param $filepath - path to file
-     * @param $label - name of file
+     * @param $id- id of file
      * @return string - img url
      */
-    protected function uploadToCloud($filepath, $label)
+    protected function uploadToCloud($id)
     {
         /** TODO return to get image from cloud */
         // $storage = new \AWS\Storage();
@@ -104,7 +107,7 @@ class Uploader
 
         // TODO insert file info to database
 
-        $imgURI = \Methods::getImageUri($label);
+        $imgURI = \Methods::getImageUri($id);
 
         return $imgURI;
     }
@@ -132,13 +135,12 @@ class Uploader
         };
 
         // Copy temp file to upload dir
-        $filepath = $this->saveFileToUploadDir($file);
+        $id = $this->saveFileToUploadDir($file);
         // $label = explode('.', basename($filepath))[0];
-        $label = basename($filepath);
 
 
         // Upload file and get its ID
-        $imgURI = $this->uploadToCloud($filepath, $label);
+        $imgURI = $this->uploadToCloud($id);
 
         // Delete temp file
         // unlink($filepath);
