@@ -94,6 +94,7 @@ export default class Uploader {
    * @param percentage — upload percentage
    */
   progress(percentage) {
+    percentage = 0.95 * percentage;
     capella.scene.uploadScreen.progress(percentage);
   }
 
@@ -110,8 +111,12 @@ export default class Uploader {
     console.log(response);
 
     if (response.success) {
+      capella.scene.uploadScreen.progress(100);
+
       /** Redirect to uploaded image */
       window.location.href = response.url;
+    } else {
+      capella.scene.uploadScreen.hide();
     }
   }
 
@@ -122,12 +127,11 @@ export default class Uploader {
    */
   error(error) {
     console.log(error);
+    capella.scene.uploadScreen.hide();
   }
 
   /**
    * Method to call after upload
    */
-  after() {
-    capella.scene.uploadScreen.hide();
-  }
+  after() {}
 }
