@@ -80,6 +80,7 @@ class Uploader
         $ext = explode('/', $mimeType)[1];
 
         if ( ! $this->isValidMimeType($mimeType) ) {
+            unlink($path);
             throw new \Exception('Wrong file type');
         };
 
@@ -87,11 +88,6 @@ class Uploader
         $image = new Imagick($path);
         $image->setImageFormat(self::TARGET_EXT);
         $image->writeImage($path);
-
-        // Add extension from MIME-type
-        // $newPath = $path.'.'.$ext;
-        // rename($path, $newPath);
-        // $path = $newPath;
 
         return $path;
     }
