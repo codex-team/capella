@@ -102,7 +102,7 @@ class Processing
         /** TODO Rashardkodit' */
         $imageUrl = 'upload/' . $imageId . '.' . \Uploader::TARGET_EXT;
 
-        if (!$imageUrl) {
+        if (!file_exists($imageUrl)) {
 
             \HTTP\Response::NotFound();
 
