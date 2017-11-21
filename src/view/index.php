@@ -33,7 +33,6 @@
                         <img src="/public/app/svg/cloud-computing.svg">
                         Drop file to upload
                     </div>
-                </div>
             </div>
         </div>
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>

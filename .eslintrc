@@ -78,7 +78,6 @@
         "require": true,
         "window": true,
         "console": true,
-        "CustomEvent": true,
         "define": true,
         "FormData": true,
         "FileReader": true,

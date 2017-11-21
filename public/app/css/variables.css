@@ -2,12 +2,7 @@
     /** Texts */
     --text-purple: #555968;
     --text-dark-purple: #8129ff;
-    --text-light-purple: #877ead;
     --text-white: #fff;
-
-    /** Links */
-    --inline-link: #7863e1;
-    --link-with-bg: #7964d6;
 
     /** Input placeholder */
     --input-placeholder: #b59bda;
@@ -15,7 +10,6 @@
     /** Backgrounds */
     --bg-main: #11173e;
     --bg-dark: rgba(7,7,25,0.88);
-    --bg-dark-link: #0d0c1c;
     --bg-button: #6c0bd1;
     --bg-button-hover: #6004c0;
 
