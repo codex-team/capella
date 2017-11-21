@@ -19,6 +19,8 @@ class Uploader
         'image/gif'
     );
 
+    const TARGET_EXT = 'png';
+
     /**
      * Temp files directory
      */
@@ -68,7 +70,7 @@ class Uploader
     protected function saveFileToUploadDir($filepath)
     {
         // Generate filename
-        $path = Uploader::UPLOAD_DIR . \Methods::generateId();
+        $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
 
         // Save file to uploads dir
         file_put_contents($path, file_get_contents($filepath));
@@ -78,13 +80,14 @@ class Uploader
         $ext = explode('/', $mimeType)[1];
 
         if ( ! $this->isValidMimeType($mimeType) ) {
-            throw new \Exception("Wrong file type");
+            unlink($path);
+            throw new \Exception('Wrong file type');
         };
 
-        // Add extension from MIME-type
-        $newPath = $path.'.'.$ext;
-        rename($path, $newPath);
-        $path = $newPath;
+        // Convert image to png
+        $image = new Imagick($path);
+        $image->setImageFormat(self::TARGET_EXT);
+        $image->writeImage($path);
 
         return $path;
     }
@@ -128,13 +131,12 @@ class Uploader
         };
 
         if ( ! $this->isValidMimeType($mime) ) {
-            throw new \Exception("Wrong source mime-type");
+            throw new \Exception('Wrong source mime-type');
         };
 
         // Copy temp file to upload dir
         $filepath = $this->saveFileToUploadDir($file);
-        // $label = explode('.', basename($filepath))[0];
-        $label = basename($filepath);
+        $label = explode('.', basename($filepath))[0];
 
 
         // Upload file and get its ID
@@ -155,7 +157,7 @@ class Uploader
     public function uploadFile($data)
     {
         if (!is_uploaded_file($data['tmp_name'])) {
-            throw new \Exception("File is missing");
+            throw new \Exception('File is missing');
         }
 
         $mime = mime_content_type($data['tmp_name']);

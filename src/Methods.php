@@ -54,16 +54,6 @@ class Methods
     }
 
     /**
-     * Return cache class
-     */
-    public static function cache()
-    {
-        $cache = new \Cache\Cache();
-
-        return $cache;
-    }
-
-    /**
      * Check for AJAX request
      *
      * @return boolean

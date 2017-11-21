@@ -45,7 +45,7 @@ class Processing
         /**
          * Trying to get cached image
          */
-        $imageData = \Methods::cache()->get($requestUri);
+        $imageData = \Cache\Cache::instance()->get($requestUri);
 
         /**
          * If no cached image then create it
@@ -71,7 +71,7 @@ class Processing
             /**
              * Cache imageData result
              */
-            \Methods::cache()->set($requestUri, $imageData);
+            \Cache\Cache::instance()->set($requestUri, $imageData);
         }
 
         /**
@@ -99,9 +99,10 @@ class Processing
         // $storage = new \AWS\Storage();
         // $imageUrl = $storage->getImageURL($imageId);
 
-        $imageUrl = 'upload/'.$imageId;
+        /** TODO Rashardkodit' */
+        $imageUrl = 'upload/' . $imageId . '.' . \Uploader::TARGET_EXT;
 
-        if (!$imageUrl) {
+        if (!file_exists($imageUrl)) {
 
             \HTTP\Response::NotFound();
 
