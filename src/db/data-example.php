@@ -1,5 +1,5 @@
 <?php
-require_once('database.php');
+require_once('DatabaseWorker.php');
 /**
  * There is an example of usage of database class of Capella
  */
