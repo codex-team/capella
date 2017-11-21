@@ -99,7 +99,8 @@ class Processing
         // $storage = new \AWS\Storage();
         // $imageUrl = $storage->getImageURL($imageId);
 
-        $imageUrl = 'upload/'.$imageId;
+        /** TODO Rashardkodit' */
+        $imageUrl = 'upload/' . $imageId . '.' . \Uploader::TARGET_EXT;
 
         if (!$imageUrl) {
 
