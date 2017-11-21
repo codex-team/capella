@@ -119,6 +119,9 @@ class Cache
      * Prevent cloning of instance
      */
     private function __clone() {}
+    private function __sleep () {}
+    private function __wakeup () {}
+
 
     /**
      * Generate key for input string
