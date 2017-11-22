@@ -10,6 +10,7 @@
     }
 
     input {
+        display: none;
         width: 121px;
         background: transparent;
         border: 0px solid transparent;
@@ -125,7 +126,7 @@
                     margin: 0 0.5em;
                 }
             }
-            
+
             .codex-team {
                 margin-left: 0;
                 color: inherit;
