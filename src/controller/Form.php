@@ -122,22 +122,14 @@ class Form
      */
     protected function returnImageLink($link) {
 
-        if (\Methods::isAjax()) {
+        \HTTP\Response::OK();
 
-            \HTTP\Response::OK();
-
-            echo json_encode(array(
-                'success' => true,
-                'message' => 'Image uploaded',
-                'id' => basename($link),
-                'url' => $link
-            ));
-
-        } else {
-
-            echo $link;
-
-        }
+        echo json_encode(array(
+            'success' => true,
+            'message' => 'Image uploaded',
+            'id' => basename($link),
+            'url' => $link
+        ));
 
     }
 
