@@ -3,19 +3,26 @@
     --text-purple: #555968;
     --text-dark-purple: #8129ff;
     --text-white: #fff;
+    --text-gray: #59555e;
 
     /** Input placeholder */
     --input-placeholder: #b59bda;
 
     /** Backgrounds */
     --bg-main: #11173e;
+    --bg-black: #101012;
     --bg-dark: rgba(7,7,25,0.88);
     --bg-button: #6c0bd1;
     --bg-button-hover: #6004c0;
+    --bg-button-gray: #222123;
 
     /** Borders */
     --dnd-border-color: #564c90;
     --dnd-active-border-color: #564c90;
+    --border--gray: #28282E;
+
+    /** List markers */
+    --marker-gray: #313137;
 }
 /**
 * Custom media queries
