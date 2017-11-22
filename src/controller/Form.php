@@ -21,13 +21,19 @@ class Form
 
             } else {
 
-                \HTTP\Response::BadRequest();
+                \API\Response::BadRequest(array(
+                    'success' => false,
+                    'message' => 'File or link is missing'
+                ));
 
             }
 
         } else {
 
-            \HTTP\Response::MethodNotAllowed();
+            \API\Response::MethodNotAllowed(array(
+                'success' => false,
+                'message' => 'Method not allowed'
+            ));
 
         }
 
@@ -43,9 +49,7 @@ class Form
 
         if ( empty($_FILES['file']['name']) ) {
 
-            \HTTP\Response::BadRequest();
-
-            echo json_encode(array(
+            \API\Response::BadRequest(array(
                 'success' => false,
                 'message' => 'File is missing'
             ));
@@ -62,14 +66,10 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::BadRequest();
-
-                echo json_encode(array(
+                \API\Response::BadRequest(array(
                     'success' => false,
                     'message' => $e->getMessage()
                 ));
-
-
             }
 
         }
@@ -83,9 +83,7 @@ class Form
 
         if ( empty($_POST['link']) ) {
 
-            \HTTP\Response::BadRequest();
-
-            echo json_encode(array(
+            \API\Response::BadRequest(array(
                 'success' => false,
                 'message' => 'Link is missing'
             ));
@@ -102,9 +100,7 @@ class Form
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::BadRequest();
-
-                echo json_encode(array(
+                \API\Response::BadRequest(array(
                     'success' => false,
                     'message' => $e->getMessage()
                 ));
@@ -116,15 +112,13 @@ class Form
     }
 
     /**
-     * Show result on page with image link
+     * Return success result with image link
      *
      * @param string $link
      */
     protected function returnImageLink($link) {
 
-        \HTTP\Response::OK();
-
-        echo json_encode(array(
+        \API\Response::OK(array(
             'success' => true,
             'message' => 'Image uploaded',
             'id' => basename($link),

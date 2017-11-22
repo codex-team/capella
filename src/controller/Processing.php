@@ -61,9 +61,10 @@ class Processing
 
             } catch (\Exception $e) {
 
-                \HTTP\Response::BadRequest();
-
-                echo $e->getMessage();
+                \API\Response::BadRequest(array(
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ));
 
                 die();
             }
@@ -77,7 +78,7 @@ class Processing
         /**
          * Return imageData
          */
-        \HTTP\Response::data($imageData);
+        \API\Response::showData($imageData);
     }
 
     /**

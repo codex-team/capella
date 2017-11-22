@@ -33,7 +33,7 @@ export default class Uploader {
     capella.transport.init({
       url: this.uploadUrl,
       multiple: false,
-      accept: 'image/*',
+      accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp',
       data: {},
       before: this.before,
       progress: this.progress,
