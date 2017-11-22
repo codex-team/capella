@@ -12,25 +12,30 @@ class Response
         echo json_encode($responseData);
     }
 
-    public static function OK($responseData = array())
+    public static function returnSuccess($data)
     {
-        \HTTP\Response::OK();
+        $response = array(
+            'success' => true
+        );
 
-        self::returnJSON($responseData);
+        foreach ($data as $key => $value) {
+            $response[$key] = $value;
+        }
+
+        self::returnJSON($response);
     }
 
-    public static function BadRequest($responseData = array())
+    public static function returnError($data)
     {
-        \HTTP\Response::BadRequest();
+        $response = array(
+            'success' => false
+        );
 
-        self::returnJSON($responseData);
-    }
+        foreach ($data as $key => $value) {
+            $response[$key] = $value;
+        }
 
-    public static function MethodNotAllowed($responseData = array())
-    {
-        \HTTP\Response::MethodNotAllowed();
-
-        self::returnJSON($responseData);
+        self::returnJSON($response);
     }
 
     /**

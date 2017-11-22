@@ -21,8 +21,9 @@ class Form
 
             } else {
 
-                \API\Response::BadRequest(array(
-                    'success' => false,
+                \HTTP\Response::BadRequest();
+
+                \API\Response::returnError(array(
                     'message' => 'File or link is missing'
                 ));
 
@@ -30,8 +31,9 @@ class Form
 
         } else {
 
-            \API\Response::MethodNotAllowed(array(
-                'success' => false,
+            \HTTP\Response::MethodNotAllowed();
+
+            \API\Response::returnError(array(
                 'message' => 'Method not allowed'
             ));
 
@@ -49,8 +51,9 @@ class Form
 
         if ( empty($_FILES['file']['name']) ) {
 
-            \API\Response::BadRequest(array(
-                'success' => false,
+            \HTTP\Response::BadRequest();
+
+            \API\Response::returnError(array(
                 'message' => 'File is missing'
             ));
 
@@ -66,8 +69,9 @@ class Form
 
             } catch (\Exception $e) {
 
-                \API\Response::BadRequest(array(
-                    'success' => false,
+                \HTTP\Response::BadRequest();
+
+                \API\Response::returnError(array(
                     'message' => $e->getMessage()
                 ));
             }
@@ -83,8 +87,9 @@ class Form
 
         if ( empty($_POST['link']) ) {
 
-            \API\Response::BadRequest(array(
-                'success' => false,
+            \HTTP\Response::BadRequest();
+
+            \API\Response::returnError(array(
                 'message' => 'Link is missing'
             ));
 
@@ -100,8 +105,9 @@ class Form
 
             } catch (\Exception $e) {
 
-                \API\Response::BadRequest(array(
-                    'success' => false,
+                \HTTP\Response::BadRequest();
+
+                \API\Response::returnError(array(
                     'message' => $e->getMessage()
                 ));
 
@@ -118,8 +124,9 @@ class Form
      */
     protected function returnImageLink($link) {
 
-        \API\Response::OK(array(
-            'success' => true,
+        \HTTP\Response::OK();
+
+        \API\Response::returnSuccess(array(
             'message' => 'Image uploaded',
             'id' => basename($link),
             'url' => $link

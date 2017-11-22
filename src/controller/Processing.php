@@ -61,8 +61,9 @@ class Processing
 
             } catch (\Exception $e) {
 
-                \API\Response::BadRequest(array(
-                    'success' => false,
+                \HTTP\Response::BadRequest();
+
+                \API\Response::returnError(array(
                     'message' => $e->getMessage()
                 ));
 

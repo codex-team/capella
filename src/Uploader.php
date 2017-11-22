@@ -177,6 +177,10 @@ class Uploader
         // Get link info
         $headers = @get_headers($url, 1);
 
+        if ( !$headers ) {
+            throw new \Exception('Can\'t get headers for this URL');
+        }
+
         $size = $headers['Content-Length'];
         $mime = $headers['Content-Type'];
 
