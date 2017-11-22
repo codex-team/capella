@@ -84,8 +84,17 @@ export default class Uploader {
   /**
    * Method to call before upload starts
    */
-  before() {
-    capella.scene.uploadScreen.show();
+  before(data) {
+    let filename;
+
+    if (data instanceof FormData && data.get('file')) {
+      filename = data.get('file').name;
+    }
+    if (data && data.link) {
+      filename = data.link;
+    }
+
+    capella.scene.uploadScreen.show(filename);
   }
 
   /**
