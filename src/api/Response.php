@@ -7,11 +7,21 @@ namespace API;
  */
 class Response
 {
+    /**
+     * Return json encoded data
+     *
+     * @param {mixed} $responseData
+     */
     public static function json($responseData)
     {
         echo json_encode($responseData);
     }
 
+    /**
+     * Return json encoded data with success = true
+     *
+     * @param {array} $data
+     */
     public static function success($data)
     {
         $response = array_merge(
@@ -24,6 +34,11 @@ class Response
         self::json($response);
     }
 
+    /**
+     * Return json encoded data with success = false
+     *
+     * @param {array} $data
+     */
     public static function error($data)
     {
         $response = array_merge(
