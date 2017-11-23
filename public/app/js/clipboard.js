@@ -36,11 +36,7 @@ export default class Clipboard {
       let reader = new FileReader();
 
       reader.onload = function () {
-        let formData = new FormData();
-
-        formData.append('file', blob, blob.name);
-
-        capella.uploader.upload(formData);
+        capella.uploader.uploadBlob(blob);
       };
       reader.readAsDataURL(blob);
     }
