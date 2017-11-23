@@ -23,6 +23,10 @@ capella.dnd = new DNDFileUploader('.capella');
 
 capella.init = function () {
   capella.copyable.init();
+
+  if (window.navigator.userAgent.search('Safari') >= 0 && window.navigator.userAgent.search('Chrome') < 0) {
+    document.body.classList.add('safari');
+  }
 };
 
 module.exports = capella;

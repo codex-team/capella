@@ -82,6 +82,8 @@
         "define": true,
         "FormData": true,
         "FileReader": true,
+        "File": true,
+        "Blob": true,
         "capella": true
     }
 }

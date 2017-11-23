@@ -1,4 +1,4 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg id="startup" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 10000 10000" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="800" height="250">
 	<g id="spaceship-wrapper" transform="rotate(-50) translate(0, -50)" fill="#ffffff">
 		<g id="spaceship" class="spaceship">

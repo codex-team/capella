@@ -54,11 +54,8 @@ export default class DNDFileUploader {
     this.wrapper.classList.remove('capella--dark');
 
     let file = event.dataTransfer.files[0];
-    let formData = new FormData();
 
-    formData.append('file', file, file.name);
-
-    capella.uploader.upload(formData);
+    capella.uploader.uploadBlob(file);
 
     event.preventDefault();
   }

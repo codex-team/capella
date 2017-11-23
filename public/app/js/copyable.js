@@ -1,14 +1,14 @@
 /**
-* Copyable module allows you to add text to copy buffer by click
-* Just add 'js-copyable' name to element and call init method
-*
-* @usage
-* <span name='js-copyable'>Click to copy</span>
-*
-* You can pass callback function to init method. Callback will fire when something has copied
-*
-* @type {{init}}
-*/
+  * Copyable module allows you to add text to copy buffer by click
+  * Just add 'js-copyable' name to element and call init method
+  *
+  * @usage
+  * <span name='js-copyable'>Click to copy</span>
+  *
+  * You can pass callback function to init method. Callback will fire when something has copied
+  *
+  * @type {{init}}
+  */
 module.exports = function () {
   const NAMES = {
     copyable: 'js-copyable',
