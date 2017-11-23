@@ -6,7 +6,10 @@ module.exports = (function () {
   let loadingClass = 'capella--loading';
 
   let uploadScreen = {
-    show: function () {
+    show: function (filename) {
+      let filenameHolder = mainContainer.querySelector('.capella__uploading-filename');
+
+      filenameHolder.textContent = filename;
       mainContainer.classList.add(loadingClass);
     },
 

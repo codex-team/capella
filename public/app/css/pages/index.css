@@ -75,11 +75,8 @@
                 }
             }
 
-            &-link {
-                display: block;
-                color: inherit;
+            &-filename {
                 font-size: 15px;
-                text-decoration: none;
             }
         }
 
