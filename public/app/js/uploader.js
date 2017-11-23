@@ -82,9 +82,9 @@ export default class Uploader {
    * Method to call before upload starts
    */
   before(data) {
-    let filename;
+    let filename = '';
 
-    if (data instanceof FormData && data.get('file')) {
+    if (data instanceof FormData && typeof data.get === 'function' && data.get('file')) {
       filename = data.get('file').name;
     }
     if (data && data.link) {
