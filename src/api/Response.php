@@ -14,26 +14,24 @@ class Response
 
     public static function success($data)
     {
-        $response = array(
-            'success' => true
+        $response = array_merge(
+            array(
+                'success' => true
+            ),
+            $data
         );
-
-        foreach ($data as $key => $value) {
-            $response[$key] = $value;
-        }
 
         self::json($response);
     }
 
     public static function error($data)
     {
-        $response = array(
-            'success' => false
+        $response = array_merge(
+            array(
+                'success' => false
+            ),
+            $data
         );
-
-        foreach ($data as $key => $value) {
-            $response[$key] = $value;
-        }
 
         self::json($response);
     }
