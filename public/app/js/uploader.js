@@ -16,9 +16,6 @@ export default class Uploader {
     this.uploadUrl = '/upload';
     this.uploadFileButton = document.getElementById('uploadFileButton');
     this.uploadLinkField = document.getElementById('uploadLinkField');
-    this.pageWrapper = document.getElementsByClassName('capella')[0];
-    this.progressBar = document.getElementsByClassName('js-capella__uploading-progress')[0];
-    this._this = this;
 
     if (this.uploadFileButton) {
       this.uploadFileButton.addEventListener('click', this.uploadByTransport.bind(this), false);
@@ -94,7 +91,7 @@ export default class Uploader {
       filename = data.link;
     }
 
-    capella.scene.uploadScreen.show(filename);
+    capella.uploadScreen.show(filename);
   }
 
   /**
@@ -104,7 +101,7 @@ export default class Uploader {
    */
   progress(percentage) {
     percentage = 0.95 * percentage;
-    capella.scene.uploadScreen.progress(percentage);
+    capella.uploadScreen.progress(percentage);
   }
 
   /**
@@ -120,12 +117,12 @@ export default class Uploader {
     console.log(response);
 
     if (response.success) {
-      capella.scene.uploadScreen.progress(100);
+      capella.uploadScreen.progress(100);
 
       /** Redirect to uploaded image */
       window.location.href = response.url;
     } else {
-      capella.scene.uploadScreen.hide();
+      capella.uploadScreen.hide();
     }
   }
 
@@ -136,7 +133,7 @@ export default class Uploader {
    */
   error(error) {
     console.log(error);
-    capella.scene.uploadScreen.hide();
+    capella.uploadScreen.hide();
   }
 
   /**
