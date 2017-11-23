@@ -15,6 +15,7 @@ capella.ajax = require('codex.ajax');
 capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
+capella.checkForSafari = require('./checkForSafari');
 
 capella.uploadScreen = new UploadScreen();
 capella.uploader = new Uploader();
@@ -23,10 +24,7 @@ capella.dnd = new DNDFileUploader('.capella');
 
 capella.init = function () {
   capella.copyable.init();
-
-  if (window.navigator.userAgent.search('Safari') >= 0 && window.navigator.userAgent.search('Chrome') < 0) {
-    document.body.classList.add('safari');
-  }
+  capella.checkForSafari.init();
 };
 
 module.exports = capella;
