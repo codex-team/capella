@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @class Uploader
  * Handle images uploading
@@ -6,7 +7,6 @@
  * @property {String} uploadUrl — url to upload images
  * @property {HTMLElement} uploadFilButton — transport initialization trigger
  * @property {HTMLElement} uploadLinkField — input to insert image link
- *
  */
 export default class Uploader {
   /**
@@ -61,6 +61,21 @@ export default class Uploader {
   }
 
   /**
+   * Handler to upload blob data using FormData
+   *
+   * @param {Blob|File} file — file to send
+   */
+  uploadBlob(file) {
+    let formData = new FormData();
+
+    this.currentFileName = file.name;
+
+    formData.append('file', file, file.name);
+
+    this.upload(formData);
+  }
+
+  /**
    * Send AJAX request to uploadUrl with passed data
    *
    * @param {*} data — data to send
@@ -70,7 +85,7 @@ export default class Uploader {
       type: 'POST',
       url: this.uploadUrl,
       data: data,
-      before: this.before,
+      before: this.before.bind(this),
       progress: this.progress,
       success: this.success,
       error: this.error,
@@ -81,7 +96,21 @@ export default class Uploader {
   /**
    * Method to call before upload starts
    */
-  before() {}
+  before(data) {
+    let filename;
+
+    if (data instanceof FormData) {
+      filename = this.currentFileName;
+    }
+    if (data && data.link) {
+      filename = data.link;
+    }
+    if (data[0] instanceof File) {
+      filename = data[0].name;
+    }
+
+    capella.uploadScreen.show(filename);
+  }
 
   /**
    *  Handle upload progress
@@ -89,7 +118,8 @@ export default class Uploader {
    * @param percentage — upload percentage
    */
   progress(percentage) {
-    console.log(percentage + '%');
+    percentage = 0.95 * percentage;
+    capella.uploadScreen.progress(percentage);
   }
 
   /**
@@ -105,8 +135,12 @@ export default class Uploader {
     console.log(response);
 
     if (response.success) {
+      capella.uploadScreen.progress(100);
+
       /** Redirect to uploaded image */
       window.location.href = response.url;
+    } else {
+      capella.uploadScreen.hide();
     }
   }
 
@@ -117,6 +151,7 @@ export default class Uploader {
    */
   error(error) {
     console.log(error);
+    capella.uploadScreen.hide();
   }
 
   /**

@@ -17,18 +17,25 @@
             <div class="capella__drag-n-drop">
                 <div class="capella__contents">
                     <div class="capella__logo">
-                        <img src="../public/app/svg/capella-logo.svg">
+                        <img src="/public/app/svg/capella-logo.svg">
+                    </div>
+                    <div class="capella__uploading">
+                        <? include 'public/app/svg/startup.svg'; ?>
+                        <div class="capella__uploading-title">Uploading</div>
+                        <div class="capella__uploading-progress">
+                            <div class="js-capella__uploading-progress" style="width: 0%"></div>
+                        </div>
+                        <div class="capella__uploading-filename"></div>
                     </div>
                     <div class="capella__dark-contents">
-                        <p>Upload file directly using drag-n-drop or clipboard. You will instantly get link to your file.</p>
+                        <p>Upload a file directly using drag-n-drop or clipboard. You will instantly get a link to your file.</p>
                         <button id="uploadFileButton" class="capella__button">Select picture</button><br>
                         <input id="uploadLinkField" type="text" class="capella__input" placeholder="Paste URL"/>
                     </div>
                     <div class="capella__drag-n-drop-activator">
-                        <img src="../public/app/svg/cloud-computing.svg">
+                        <img src="/public/app/svg/cloud-computing.svg">
                         Drop file to upload
                     </div>
-                </div>
             </div>
         </div>
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>

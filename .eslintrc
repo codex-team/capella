@@ -78,9 +78,12 @@
         "require": true,
         "window": true,
         "console": true,
+        "CustomEvent": true,
         "define": true,
         "FormData": true,
         "FileReader": true,
+        "File": true,
+        "Blob": true,
         "capella": true
     }
 }
