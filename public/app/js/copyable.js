@@ -16,10 +16,10 @@ module.exports = function () {
   };
 
   /**
- * Take element by name and pass it to prepareElement function
- *
- * @param {Function} copiedCallback - fires when something has copied
- */
+   * Take element by name and pass it to prepareElement function
+   *
+   * @param {Function} copiedCallback - fires when something has copied
+   */
   let init = function (copiedCallback) {
     let elems = document.getElementsByName(NAMES.copyable);
 
@@ -42,28 +42,28 @@ module.exports = function () {
   };
 
   /**
- * Add click and copied listeners to copyable element
- *
- * @param element
- * @param copiedCallback
- */
+   * Add click and copied listeners to copyable element
+   *
+   * @param element
+   * @param copiedCallback
+   */
   let prepareElement = function (element, copiedCallback) {
     element.addEventListener('click', elementClicked);
     element.addEventListener('copied', copiedCallback);
   };
 
   /**
- * Add click listner for authorized element
- *
- * @param element
- */
+   * Add click listener for authorized element
+   *
+   * @param element
+   */
   let authorize = function (element) {
     element.addEventListener('click', authorizedCopy);
   };
 
   /**
- * Click handler for authorized elements
- */
+   * Click handler for authorized elements
+   */
   let authorizedCopy = function () {
     let authorizedElem = this;
     let copyable = authorizedElem.querySelector('[name='+NAMES.copyable+']');
@@ -72,9 +72,9 @@ module.exports = function () {
   };
 
   /**
- * Click handler
- * Create new range, select copyable element and add range to selection. Then exec 'copy' command
- */
+   * Click handler
+   * Create new range, select copyable element and add range to selection. Then exec 'copy' command
+   */
   let elementClicked = function (event) {
     let selection = window.getSelection(),
         range     = document.createRange();
@@ -87,9 +87,9 @@ module.exports = function () {
     selection.removeAllRanges();
 
     /**
-   * We create new CustomEvent and dispatch it on copyable element
-   * Consist copied text in detail property
-   */
+     * We create new CustomEvent and dispatch it on copyable element
+     * Consist copied text in detail property
+     */
     let CopiedEvent = new CustomEvent('copied', {
       bubbles: false,
       cancelable: false,

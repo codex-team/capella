@@ -2,7 +2,9 @@
 
 namespace HTTP;
 
-
+/**
+ * Set code and status headers for response
+ */
 class Response
 {
     public static function response($code, $status)
@@ -16,12 +18,12 @@ class Response
         header("Content-Type: $contentType");
     }
 
-    public static function OK ()
+    public static function OK()
     {
         self::response(200, 'OK');
     }
 
-    public static function BadRequest ()
+    public static function BadRequest()
     {
         self::response(400, 'Bad Request');
     }
@@ -39,31 +41,6 @@ class Response
     public static function InternalServerError()
     {
         self::response(500, 'Internal Server Error');
-    }
-
-    /**
-     * Echo data to the page
-     *
-     * @param array $imageData
-     *    $imageData['type'] string - image mime-type
-     *    $imageData['blob'] string - blob image
-     *    $imageData['length'] int - image size
-     */
-    public static function data($imageData)
-    {
-        $blob = $imageData['blob'];
-        $type = $imageData['type'];
-        $length = $imageData['length'];
-
-        if ($type) {
-            header("Content-Type: $type");
-        }
-
-        if ($length) {
-            header("Content-Length: $length");
-        }
-
-        echo $blob;
     }
 
 }
