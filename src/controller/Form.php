@@ -23,7 +23,7 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
-                \API\Response::returnError(array(
+                \API\Response::error(array(
                     'message' => 'File or link is missing'
                 ));
 
@@ -33,7 +33,7 @@ class Form
 
             \HTTP\Response::MethodNotAllowed();
 
-            \API\Response::returnError(array(
+            \API\Response::error(array(
                 'message' => 'Method not allowed'
             ));
 
@@ -53,7 +53,7 @@ class Form
 
             \HTTP\Response::BadRequest();
 
-            \API\Response::returnError(array(
+            \API\Response::error(array(
                 'message' => 'File is missing'
             ));
 
@@ -71,7 +71,7 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
-                \API\Response::returnError(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
             }
@@ -89,7 +89,7 @@ class Form
 
             \HTTP\Response::BadRequest();
 
-            \API\Response::returnError(array(
+            \API\Response::error(array(
                 'message' => 'Link is missing'
             ));
 
@@ -107,7 +107,7 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
-                \API\Response::returnError(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
 
@@ -126,7 +126,7 @@ class Form
 
         \HTTP\Response::OK();
 
-        \API\Response::returnSuccess(array(
+        \API\Response::success(array(
             'message' => 'Image uploaded',
             'id' => basename($link),
             'url' => $link

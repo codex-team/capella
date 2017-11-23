@@ -7,12 +7,12 @@ namespace API;
  */
 class Response
 {
-    public static function returnJSON($responseData)
+    public static function json($responseData)
     {
         echo json_encode($responseData);
     }
 
-    public static function returnSuccess($data)
+    public static function success($data)
     {
         $response = array(
             'success' => true
@@ -22,10 +22,10 @@ class Response
             $response[$key] = $value;
         }
 
-        self::returnJSON($response);
+        self::json($response);
     }
 
-    public static function returnError($data)
+    public static function error($data)
     {
         $response = array(
             'success' => false
@@ -35,7 +35,7 @@ class Response
             $response[$key] = $value;
         }
 
-        self::returnJSON($response);
+        self::json($response);
     }
 
     /**

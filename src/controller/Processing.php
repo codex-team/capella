@@ -63,7 +63,7 @@ class Processing
 
                 \HTTP\Response::BadRequest();
 
-                \API\Response::returnError(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
 
