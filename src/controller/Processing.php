@@ -79,7 +79,7 @@ class Processing
         /**
          * Return imageData
          */
-        \API\Response::showData($imageData);
+        \API\Response::data($imageData);
     }
 
     /**

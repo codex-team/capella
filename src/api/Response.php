@@ -39,16 +39,16 @@ class Response
     /**
      * Echo data to the page
      *
-     * @param array $imageData
-     *    $imageData['type'] string - image mime-type
-     *    $imageData['blob'] string - blob image
-     *    $imageData['length'] int - image size
+     * @param array $data
+     *    $data['type'] string - mime-type
+     *    $data['blob'] string - blob
+     *    $data['length'] int - size
      */
-    public static function showData($imageData)
+    public static function data($data)
     {
-        $blob   = $imageData['blob'];
-        $type   = $imageData['type'];
-        $length = $imageData['length'];
+        $blob   = $data['blob'];
+        $type   = $data['type'];
+        $length = $data['length'];
 
         if ($type) {
             header("Content-Type: $type");
