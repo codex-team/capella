@@ -24,7 +24,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 
 ## Usage
 
-1. Open Capella or use API to upload image.
+1. Open [capella.ifmo.su](https://capella.ifmo.su) or use [API](#upload-api) to upload image.
 
 2. Get image by given url with applied filters.
 
@@ -32,7 +32,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 
 Max size for the file is `15MB`.
 
-At this time we support these types of images:
+Capella supports these types of images:
 
 - jpg
 - jpeg
@@ -50,10 +50,10 @@ Per one request you can upload one file or link.
 
 You can upload image file or send link to image from your app by making a request to `https://capella.ifmo.su/upload`.
 
-| Method | URI      | Data                  |
-|--------|----------|-----------------------|
-| `POST` | `upload` | `file` field in files |
-| `POST` | `upload` | `link` field in data  |
+| Method | URI      | Data                      |
+|--------|----------|---------------------------|
+| `POST` | `upload` | file in `file` field      |
+| `POST` | `upload` | image url in `link` field |
 
 You will get a json response from server.
 
@@ -107,7 +107,7 @@ Each response will have at least `success` and `message` fields.
 | `File is missing`                | File name is empty                    |
 | `Link is missing`                | Field link is empty                   |
 | `Wrong source mime-type`         | No support file with this mime-type   |
-| `Source is too big`              | File size is more than a limit        |
+| `Source is too big`              | File size exceeds the limit           |
 | `Source is damaged`              | Source has no data, size or mime-type |
 | `Can't get headers for this URL` | Wrong url was passed                  |
 
@@ -181,6 +181,7 @@ Scale the image to the largest size such that both its width and its height can 
 | `height` | Integer | (optional) Max image height                                  |
 
 `https://capella.ifmo.su/<image_id>/resize/300x400`
+
 `https://capella.ifmo.su/<image_id>/resize/500`
 
 #### Crop
@@ -193,13 +194,14 @@ Cover the target rectangle by the image. Nice tool for creating covers or profil
 | `height` | Integer | (optional) Target rectangle height                                         |
 
 `https://capella.ifmo.su/<image_id>/crop/300x400`
+
 `https://capella.ifmo.su/<image_id>/crop/250`
 
 ##### Additional params
 
 If you need to crop area from specified point then pass these params.
 
-Note that this way `width` and `height` will be params for cropped area size.
+Note that this way `width` and `height` will be size params for the cropped area.
 
 | Param    | Type    | Description |
 |----------|---------|-------------|
