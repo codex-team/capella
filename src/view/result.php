@@ -15,7 +15,7 @@
     <body>
         <div class="capella result">
             <div class="result__contents">
-                <img class="result__img" src="<?= $imageURL ?>/resize/350">
+                <img class="result__img" src="<?= $imageURL ?>">
             </div>
             <div class="result__footer">
                 <div class="result__footer-filters">
