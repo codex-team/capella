@@ -19,11 +19,10 @@
             </div>
             <div class="result__footer">
                 <div class="result__footer-filters">
-                    <div class="result__copy-link">
+                    <div name="js-copyable-authorize" class="result__copy-link">
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
-                        <a href="">https://capella.ifmo.su/f57fd76c-f24d-414e-91b1-554f37b7abb4</a>
+                        <a name="js-copyable" href="">https://capella.ifmo.su/f57fd76c-f24d-414e-91b1-554f37b7abb4</a>
                     </div>
-                    
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">
                 </div>
