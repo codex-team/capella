@@ -6,6 +6,8 @@ namespace Cache;
  * @singleton
  * Cache class
  *
+ * Requires php driver for Memcache
+ *
  * @example get instance
  * $cache = \Cache\Cache::instance();
  *
@@ -21,18 +23,16 @@ namespace Cache;
 
 class Cache
 {
-
     private $memcacheObj;
     private static $_instance = null;
 
-    public static function instance() {
-
+    public static function instance()
+    {
         if (is_null(self::$_instance)) {
             self::$_instance = new self();
         }
 
         return self::$_instance;
-
     }
 
     /**
@@ -43,7 +43,6 @@ class Cache
      */
     public function get($key)
     {
-
         if (is_null($this->memcacheObj)) {
             return null;
         }
@@ -68,7 +67,6 @@ class Cache
      */
     public function set($key, $obj, $timeOfLife = 60 * 60)
     {
-
         if (is_null($this->memcacheObj)) {
             return;
         }
@@ -85,7 +83,6 @@ class Cache
      */
     public function delete($key)
     {
-
         if (is_null($this->memcacheObj)) {
             return;
         }
@@ -100,17 +97,27 @@ class Cache
      */
     private function __construct()
     {
-        $config = include "config.php";
-
         if (!class_exists('\Memcache')) {
-
             $this->memcacheObj = null;
             return;
-
         };
 
+        /** Set default config params */
+        $config = array(
+            'host' => 'localhost',
+            'port' => 11211
+        );
+
+        $pathToConfig = dirname(__FILE__) . '/config.php';
+
+        /** Override default config params */
+        if (file_exists($pathToConfig)) {
+            $config = include "config.php";
+        }
+
         $this->memcacheObj = new \Memcache();
-        if (!$this->memcacheObj->connect($config['host'], $config['port'])) {
+
+        if (!$this->memcacheObj->addServer($config['host'], $config['port'])) {
             $this->memcacheObj = null;
         };
     }
@@ -122,7 +129,6 @@ class Cache
     private function __sleep () {}
     private function __wakeup () {}
 
-
     /**
      * Generate key for input string
      *
@@ -133,5 +139,4 @@ class Cache
     {
         return md5($string);
     }
-
 }

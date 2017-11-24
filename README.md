@@ -40,8 +40,6 @@ Please note that each uploaded file would be converted to PNG.
 
 ### Request
 
-You can upload one file or URL per one request.
-
 You can upload image file or send link to the image from your app by making a request to `https://capella.ifmo.su/upload`.
 
 | Method | URI      | Data                      |
