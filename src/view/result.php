@@ -15,14 +15,14 @@
     <body class="body--black">
         <div class="capella result">
             <div class="result__contents">
-                <img class="result__img" src="/public/app/img/tim-cook.png">
+                <img class="result__img" src="<?= $imageURL ?>">
             </div>
             <div class="result__footer">
                 <div class="result__footer-filters">
                     <div name="js-copyable-authorize" class="result__copy">
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
                         <span class="result__copy-text">Copy link</span>
-                        <a name="js-copyable" class="result__copy-link" href="javascript:void(0)">https://capella.ifmo.su/f57fd76c-f24d-414e-91b1-554f37b7abb4</a>
+                        <a name="js-copyable" class="result__copy-link" href="javascript:void(0)"><?= $imageURL ?></a>
                     </div>
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">
