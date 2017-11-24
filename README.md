@@ -1,6 +1,6 @@
 # [Сapella](https://capella.ifmo.su)
 
-Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with simple API.
+Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with the simple API.
 
 Made with :heart: by [CodeX Team](https://ifmo.su)
 
@@ -24,13 +24,13 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 
 ## Usage
 
-1. Open [capella.ifmo.su](https://capella.ifmo.su) or use [API](#upload-api) to upload image.
+1. Open [capella.ifmo.su](https://capella.ifmo.su) or use [API](#upload-api) to upload an image.
 
-2. Get image by given url with applied filters.
+2. Get image by given URL with applied filters.
 
 ### File requirements
 
-Max size for the file is `15MB`.
+Maximum size for the file is `15MB`.
 
 Capella supports these types of images:
 
@@ -46,16 +46,16 @@ Please note that each uploaded file would be converted to PNG.
 
 ### Request
 
-Per one request you can upload one file or link.
+You can upload one file or URL per one request.
 
-You can upload image file or send link to image from your app by making a request to `https://capella.ifmo.su/upload`.
+You can upload image file or send link to the image from your app by making a request to `https://capella.ifmo.su/upload`.
 
 | Method | URI      | Data                      |
 |--------|----------|---------------------------|
 | `POST` | `upload` | file in `file` field      |
 | `POST` | `upload` | image url in `link` field |
 
-You will get a json response from server.
+You will get a JSON response from server.
 
 ### Response
 
@@ -68,12 +68,12 @@ Each response will have at least `success` and `message` fields.
 
 #### Success
 
-| Field     | Type    | Description or value                   |
-|-----------|---------|----------------------------------------|
-| `success` | Boolean | `true`                                 |
-| `message` | String  | `Image uploaded`                       |
-| `id`      | String  | Image id                               |
-| `url`     | String  | Full link to uploaded image on Capella |
+| Field     | Type    | Description or value            |
+|-----------|---------|---------------------------------|
+| `success` | Boolean | `true`                          |
+| `message` | String  | `Image uploaded`                |
+| `id`      | String  | Image id                        |
+| `url`     | String  | Full link to the uploaded image |
 
 ```json
 {
@@ -163,22 +163,31 @@ print(response)
 
 ## Get image
 
-You can get each uploaded image by the following url scheme.
+You can get each uploaded image by the following URL scheme.
 
 `https://capella.ifmo.su/<image_id>`
 
 ### Filters
 
-Add filters at the end of request image URL.
+Apply filters by adding them at the end of the image URL.
+
+You can use as many filters as you want.
+
+Note that the order of filters affects the result:
+
+`/resize/25/crop/100` is not the same as `/crop/100/resize/25`
+
 
 #### Resize
 
 Scale the image to the largest size such that both its width and its height can fit inside the target rectangle.
 
-| Param    | Type    | Description                                                  |
-|----------|---------|--------------------------------------------------------------|
-| `width`  | Integer | Max image width or max image box size if no height was given |
-| `height` | Integer | (optional) Max image height                                  |
+| Param    | Type    | Description                                                                  |
+|----------|---------|------------------------------------------------------------------------------|
+| `width`  | Integer | Maximum image's width or maximum target square's size if no height was given |
+| `height` | Integer | (optional) Maximum image's height                                            |
+
+Sample: `/resize/300x400`
 
 `https://capella.ifmo.su/<image_id>/resize/300x400`
 
@@ -188,10 +197,12 @@ Scale the image to the largest size such that both its width and its height can 
 
 Cover the target rectangle by the image. Nice tool for creating covers or profile pics.
 
-| Param    | Type    | Description                                                                |
-|----------|---------|----------------------------------------------------------------------------|
-| `width`  | Integer | Target rectangle width or target rectangle box size if no height was given |
-| `height` | Integer | (optional) Target rectangle height                                         |
+| Param    | Type    | Description                                                             |
+|----------|---------|-------------------------------------------------------------------------|
+| `width`  | Integer | Target rectangle's width or target square's size if no height was given |
+| `height` | Integer | (optional) Target rectangle height                                      |
+
+Sample: `/crop/300x300`
 
 `https://capella.ifmo.su/<image_id>/crop/300x400`
 
@@ -199,7 +210,7 @@ Cover the target rectangle by the image. Nice tool for creating covers or profil
 
 ##### Additional params
 
-If you need to crop area from specified point then pass these params.
+If you need to crop an area from specified point then pass these params.
 
 Note that this way `width` and `height` will be size params for the cropped area.
 
@@ -207,6 +218,8 @@ Note that this way `width` and `height` will be size params for the cropped area
 |----------|---------|-------------|
 | `x`      | Integer | Left indent |
 | `y`      | Integer | Top indent  |
+
+Sample: `/crop/300x400&20,15`
 
 `https://capella.ifmo.su/<image_id>/crop/300x400&20,15`
 
@@ -218,6 +231,8 @@ Render image using large colored blocks.
 | Param     | Type    | Description                          |
 |-----------|---------|--------------------------------------|
 | `pixels`  | Integer | Number of pixels on the largest side |
+
+Sample: `/pixelize/25`
 
 `https://capella.ifmo.su/<image_id>/pixelize/25`
 
