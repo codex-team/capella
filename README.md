@@ -167,16 +167,27 @@ You can get each uploaded image by the following URL scheme.
 
 `https://capella.ifmo.su/<image_id>`
 
+[![](https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5)](https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5)
+
 ### Filters
 
-Apply filters by adding them at the end of the image URL.
+Apply filter by adding it at the end of the image URL.
+
+`https://capella.ifmo.su/<image_id>/<filter>/<params>`
 
 You can use as many filters as you want.
 
+`/<filter_1>/<params_1>/<filter_2>/<params_2>...`
+
 Note that the order of filters affects the result:
 
-`/resize/25/crop/100` is not the same as `/crop/100/resize/25`
+| Filter                 | Result                                                                        |
+|------------------------|-------------------------------------------------------------------------------|
+| `/resize/100/crop/200` | [![][codex-stickers-resize-100-crop-200]][codex-stickers-resize-100-crop-200] |
+| `/crop/200/resize/100` | [![][codex-stickers-crop-200-resize-100]][codex-stickers-crop-200-resize-100] |
 
+[codex-stickers-resize-100-crop-200]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/100/crop/200
+[codex-stickers-crop-200-resize-100]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200/resize/100
 
 #### Resize
 
@@ -187,11 +198,16 @@ Scale the image to the largest size such that both its width and its height can 
 | `width`  | Integer | Maximum image's width or maximum target square's size if no height was given |
 | `height` | Integer | (optional) Maximum image's height                                            |
 
-Sample: `/resize/300x400`
+Example: `https://capella.ifmo.su/<image_id>/resize/300x400`
 
-`https://capella.ifmo.su/<image_id>/resize/300x400`
+| Filter                | Result                                                              |
+|-----------------------|---------------------------------------------------------------------|
+| `/resize/300x400`     | [![][codex-stickers-resize-300-400]][codex-stickers-resize-300-400] |
+| `/resize/150`         | [![][codex-stickers-resize-150]][codex-stickers-resize-150]         |
 
-`https://capella.ifmo.su/<image_id>/resize/500`
+[codex-stickers-resize-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/150
+[codex-stickers-resize-300-400]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/300x400
+
 
 #### Crop
 
@@ -202,11 +218,18 @@ Cover the target rectangle by the image. Nice tool for creating covers or profil
 | `width`  | Integer | Target rectangle's width or target square's size if no height was given |
 | `height` | Integer | (optional) Target rectangle height                                      |
 
-Sample: `/crop/300x300`
+Example: `https://capella.ifmo.su/<image_id>/crop/150`
 
-`https://capella.ifmo.su/<image_id>/crop/300x400`
+| Filter              | Result                                                          |
+|---------------------|-----------------------------------------------------------------|
+| `/crop/150`         | [![][codex-stickers-crop-150]][codex-stickers-crop-150]         |
+| `/crop/200x400`     | [![][codex-stickers-crop-200-400]][codex-stickers-crop-200-400] |
+| `/crop/400x200`     | [![][codex-stickers-crop-400-200]][codex-stickers-crop-400-200] |
 
-`https://capella.ifmo.su/<image_id>/crop/250`
+[codex-stickers-crop-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/150
+[codex-stickers-crop-200-400]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200x400
+[codex-stickers-crop-400-200]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x200
+
 
 ##### Additional params
 
@@ -219,10 +242,15 @@ Note that this way `width` and `height` will be size params for the cropped area
 | `x`      | Integer | Left indent |
 | `y`      | Integer | Top indent  |
 
-Sample: `/crop/300x400&20,15`
+Example: `https://capella.ifmo.su/<image_id>/crop/400x300&500,150`
 
-`https://capella.ifmo.su/<image_id>/crop/300x400&20,15`
+| Filter                  | Result                                                                          |
+|-------------------------|---------------------------------------------------------------------------------|
+| `/crop/400x300&500,150` | [![][codex-stickers-crop-400-300-500-150]][codex-stickers-crop-400-300-500-150] |
+| `/crop/300x400&200,150` | [![][codex-stickers-crop-300-400-200-150]][codex-stickers-crop-300-400-200-150] |
 
+[codex-stickers-crop-400-300-500-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x300&500,150
+[codex-stickers-crop-300-400-200-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/300x400&200,150
 
 #### Pixelize
 
@@ -232,10 +260,15 @@ Render image using large colored blocks.
 |-----------|---------|--------------------------------------|
 | `pixels`  | Integer | Number of pixels on the largest side |
 
-Sample: `/pixelize/25`
+Example: `https://capella.ifmo.su/<image_id>/pixelize/20`
 
-`https://capella.ifmo.su/<image_id>/pixelize/25`
+| Filter         | Result                                                        |
+|----------------|---------------------------------------------------------------|
+| `/pixelize/20` | [![][codex-stickers-pixelize-20]][codex-stickers-pixelize-20] |
+| `/pixelize/50` | [![][codex-stickers-pixelize-50]][codex-stickers-pixelize-50] |
 
+[codex-stickers-pixelize-20]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/20
+[codex-stickers-pixelize-50]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/50
 
 ## Links
 
