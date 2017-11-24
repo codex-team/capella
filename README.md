@@ -266,7 +266,7 @@ Example: `https://capella.ifmo.su/<image_id>/pixelize/20`
 
 ## Issues and improvements
 
-Ask a question or report a bug on [create issue page](https://github.com/codex-team/capella/issues/new).
+Ask a question or report a bug on the [create issue page](https://github.com/codex-team/capella/issues/new).
 
 Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
 
