@@ -98,7 +98,7 @@ Each response will have at least `success` and `message` fields.
 |----------------------------------|---------------------------------------|
 | `Method not allowed`             | Request method is not POST            |
 | `File or link is missing`        | No expected data was found            |
-| `File is missing`                | File name is empty                    |
+| `File is missing`                | Filename is empty                     |
 | `Link is missing`                | Field link is empty                   |
 | `Wrong source mime-type`         | No support file with this mime-type   |
 | `Source is too big`              | File size exceeds the limit           |
@@ -189,7 +189,7 @@ Scale the image to the largest size such that both its width and its height can 
 
 | Param    | Type    | Description                                                                  |
 |----------|---------|------------------------------------------------------------------------------|
-| `width`  | Integer | Maximum image's width or maximum target square's size if no height was given |
+| `width`  | Integer | Maximum image`s width or maximum target square`s size if no height was given |
 | `height` | Integer | (optional) Maximum image's height                                            |
 
 Example: `https://capella.ifmo.su/<image_id>/resize/300x400`
@@ -209,7 +209,7 @@ Cover the target rectangle by the image. Nice tool for creating covers or profil
 
 | Param    | Type    | Description                                                             |
 |----------|---------|-------------------------------------------------------------------------|
-| `width`  | Integer | Target rectangle's width or target square's size if no height was given |
+| `width`  | Integer | Target rectangle`s width or target square`s size if no height was given |
 | `height` | Integer | (optional) Target rectangle height                                      |
 
 Example: `https://capella.ifmo.su/<image_id>/crop/150`
