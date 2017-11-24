@@ -16,7 +16,8 @@ class Uploader
         'image/jpg',
         'image/png',
         'image/jpeg',
-        'image/gif'
+        'image/gif',
+        'image/bmp'
     );
 
     const TARGET_EXT = 'png';
@@ -81,7 +82,7 @@ class Uploader
 
         if ( ! $this->isValidMimeType($mimeType) ) {
             unlink($path);
-            throw new \Exception('Wrong file type');
+            throw new \Exception('Wrong source mime-type');
         };
 
         // Convert image to png
@@ -175,6 +176,10 @@ class Uploader
     {
         // Get link info
         $headers = @get_headers($url, 1);
+
+        if ( !$headers ) {
+            throw new \Exception('Can\'t get headers for this URL');
+        }
 
         $size = $headers['Content-Length'];
         $mime = $headers['Content-Type'];

@@ -23,11 +23,19 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
+                \API\Response::error(array(
+                    'message' => 'File or link is missing'
+                ));
+
             }
 
         } else {
 
             \HTTP\Response::MethodNotAllowed();
+
+            \API\Response::error(array(
+                'message' => 'Method not allowed'
+            ));
 
         }
 
@@ -45,8 +53,7 @@ class Form
 
             \HTTP\Response::BadRequest();
 
-            echo json_encode(array(
-                'success' => false,
+            \API\Response::error(array(
                 'message' => 'File is missing'
             ));
 
@@ -64,12 +71,9 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
-                echo json_encode(array(
-                    'success' => false,
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
-
-
             }
 
         }
@@ -85,8 +89,7 @@ class Form
 
             \HTTP\Response::BadRequest();
 
-            echo json_encode(array(
-                'success' => false,
+            \API\Response::error(array(
                 'message' => 'Link is missing'
             ));
 
@@ -104,8 +107,7 @@ class Form
 
                 \HTTP\Response::BadRequest();
 
-                echo json_encode(array(
-                    'success' => false,
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
 
@@ -116,28 +118,19 @@ class Form
     }
 
     /**
-     * Show result on page with image link
+     * Return success result with image link
      *
      * @param string $link
      */
     protected function returnImageLink($link) {
 
-        if (\Methods::isAjax()) {
+        \HTTP\Response::OK();
 
-            \HTTP\Response::OK();
-
-            echo json_encode(array(
-                'success' => true,
-                'message' => 'Image uploaded',
-                'id' => basename($link),
-                'url' => $link
-            ));
-
-        } else {
-
-            echo $link;
-
-        }
+        \API\Response::success(array(
+            'message' => 'Image uploaded',
+            'id' => basename($link),
+            'url' => $link
+        ));
 
     }
 

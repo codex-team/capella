@@ -63,7 +63,9 @@ class Processing
 
                 \HTTP\Response::BadRequest();
 
-                echo $e->getMessage();
+                \API\Response::error(array(
+                    'message' => $e->getMessage()
+                ));
 
                 die();
             }
@@ -77,7 +79,7 @@ class Processing
         /**
          * Return imageData
          */
-        \HTTP\Response::data($imageData);
+        \API\Response::data($imageData);
     }
 
     /**
