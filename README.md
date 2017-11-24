@@ -264,9 +264,34 @@ Example: `https://capella.ifmo.su/<image_id>/pixelize/20`
 [codex-stickers-pixelize-20]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/20
 [codex-stickers-pixelize-50]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/50
 
-## Links
+## Issues and improvements
 
-Capella — https://capella.ifmo.su
-Repository — https://github.com/codex-team/capella
-Report a bug — https://github.com/codex-team/capella/issues/new
-CodeX Team — https://ifmo.su
+Ask a question or report a bug on [create issue page](https://github.com/codex-team/capella/issues/new).
+
+Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
+
+You can also drop a few lines to [CodeX Team's email](mailto:team@ifmo.su).
+
+## License
+
+MIT
+
+Copyright (c) 2017 CodeX Team <team@ifmo.su>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
