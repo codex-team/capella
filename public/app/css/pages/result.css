@@ -120,7 +120,6 @@
             align-self: flex-start;
             max-width: calc(100% - 30px);
             height: auto;
-            max-height: none;
             padding: 0;
             margin: 15px auto;
         }
