@@ -3,7 +3,7 @@
 namespace Controller;
 
 /**
- * Class for processing uploading form or AJAX upload
+ * Show Capella page with uploaded image
  */
 class Image
 {
