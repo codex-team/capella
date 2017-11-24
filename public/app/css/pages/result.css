@@ -1,5 +1,6 @@
 .result {
-    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
     background: var(--bg-black);
     color: var(--text-gray);
     font-size: 14.5px;
@@ -8,8 +9,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
-        margin-bottom: 111px; /*Footer height*/
+        flex-grow: 1;
+        min-width: 100%;
     }
 
     a {
@@ -42,7 +43,11 @@
         margin: 50px 0;
     }
     
-    &__copy-link {
+    &__copy {
+
+        .result__copy-text {
+            display: none;
+        }
 
         svg {
             width: 15px;
@@ -54,26 +59,7 @@
         &:hover {
             color: var(--text-white);
             cursor: pointer;
-            svg path {
-                fill: var(--text-white);
-            }
-        }
-    }
-
-    &__copy-mobile {
-        display: none;
-        margin: 13px 0;
-        padding: 0 9px;
-        background: var(--bg-button-gray);
-        line-height: 33px;
-        border-radius: 2px;
-
-        svg {
-            margin-right: 5px;
-            vertical-align: text-bottom;
-        }
-
-        &:hover {
+            
             svg path {
                 fill: var(--text-white);
             }
@@ -81,10 +67,6 @@
     }
 
     &__footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
         padding: 0 20px;
         background: var(--bg-black);
 
@@ -107,7 +89,7 @@
         &-link {
             line-height: 20px;
 
-        &:not(:first-of-type):not(:nth-of-type(2))::before {
+            &:not(:first-of-type):not(:nth-of-type(2))::before {
                 content: '';
                 display: inline-block;
                 vertical-align: middle;
@@ -131,10 +113,10 @@
 */
 @media (--mobile) {
     .result {
-        flex-direction: column;
         justify-content: flex-start;
 
         &__img {
+            align-self: flex-start;
             max-width: calc(100% - 30px);
             height: auto;
             max-height: none;
@@ -142,16 +124,36 @@
             margin: 15px auto;
         }
 
-        &__copy-mobile {
+        &__copy {
             display: inline-block;
+            margin: 13px 0;
+            padding: 0 9px;
+            background: var(--bg-button-gray);
+            line-height: 33px;
+            border-radius: 2px;
+
+            .result__copy-text {
+                display: initial;
+            }
+
+            .result__copy-link {
+                display: none;
+            }
+
+            svg {
+                margin-right: 5px;
+            }
         }
 
         &__footer {
+            min-width: 100%;
             padding: 0 15px;
+            box-sizing: border-box;
 
             &-filters {
-                display: none;
+                padding: 0;
             }
+
             .codex-team {
                 margin-left: 0;
                 color: inherit;
