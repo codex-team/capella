@@ -98,7 +98,7 @@ Each response will have at least `success` and `message` fields.
 |----------------------------------|---------------------------------------|
 | `Method not allowed`             | Request method is not POST            |
 | `File or link is missing`        | No expected data was found            |
-| `File is missing`                | Filename is empty                     |
+| `File is missing`                | Filename is missing                   |
 | `Link is missing`                | Field link is empty                   |
 | `Wrong source mime-type`         | No support file with this mime-type   |
 | `Source is too big`              | File size exceeds the limit           |
