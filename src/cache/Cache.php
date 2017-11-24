@@ -26,43 +26,6 @@ class Cache
     private $memcacheObj;
     private static $_instance = null;
 
-    /**
-     * Cache constructor
-     */
-    private function __construct()
-    {
-        if (!class_exists('\Memcache')) {
-            $this->memcacheObj = null;
-            return;
-        };
-
-        /** Set default config params */
-        $config = array(
-            'host' => 'localhost',
-            'port' => 11211
-        );
-
-        $pathToConfig = dirname(__FILE__) . '/config.php';
-
-        /** Override default config params */
-        if (file_exists($pathToConfig)) {
-            $config = include "config.php";
-        }
-
-        $this->memcacheObj = new \Memcache();
-
-        if (!$this->memcacheObj->addServer($config['host'], $config['port'])) {
-            $this->memcacheObj = null;
-        };
-    }
-
-    /**
-     * Prevent cloning of instance
-     */
-    private function __clone() {}
-    private function __sleep () {}
-    private function __wakeup () {}
-
     public static function instance()
     {
         if (is_null(self::$_instance)) {
@@ -128,6 +91,43 @@ class Cache
 
         $this->memcacheObj->delete($key);
     }
+
+    /**
+     * Cache constructor
+     */
+    private function __construct()
+    {
+        if (!class_exists('\Memcache')) {
+            $this->memcacheObj = null;
+            return;
+        };
+
+        /** Set default config params */
+        $config = array(
+            'host' => 'localhost',
+            'port' => 11211
+        );
+
+        $pathToConfig = dirname(__FILE__) . '/config.php';
+
+        /** Override default config params */
+        if (file_exists($pathToConfig)) {
+            $config = include "config.php";
+        }
+
+        $this->memcacheObj = new \Memcache();
+
+        if (!$this->memcacheObj->addServer($config['host'], $config['port'])) {
+            $this->memcacheObj = null;
+        };
+    }
+
+    /**
+     * Prevent cloning of instance
+     */
+    private function __clone() {}
+    private function __sleep () {}
+    private function __wakeup () {}
 
     /**
      * Generate key for input string
