@@ -14,22 +14,29 @@
     </head>
     <body>
         <div class="capella result">
-            <img class="result__img" src="/public/app/img/tim-cook.png">
+            <div class="result__contents">
+                <img class="result__img" src="/public/app/img/tim-cook.png">
+            </div>
             <div class="result__footer">
                 <div class="result__footer-filters">
-                    <img class="result__icon-copy" src="/public/app/svg/icon-copy.svg">
-                    <a href="">https://capella.ifmo.su/f57fd76c-f24d-414e-91b1-554f37b7abb4</a>
+                    <div class="result__copy-link">
+                        <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
+                        <a href="">https://capella.ifmo.su/f57fd76c-f24d-414e-91b1-554f37b7abb4</a>
+                    </div>
+                    
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">
                 </div>
                 <a class="result__copy-mobile" href="">
-                    <img class="result__icon-copy" src="/public/app/svg/icon-copy.svg">Copy link
+                    <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>Copy link
                 </a>
                 <div class="result__footer-about">
-                    <img class="result__footer-logo" src="/public/app/svg/logo-horizontal.svg">
-                    <a class="result__footer-link" href="">About</a>
-                    <a class="result__footer-link" href="">API</a>
-                    <a class="codex-team" href="">CodeX</a>
+                    <a class="result__footer-logo-link" href="/">
+                        <img class="result__footer-logo" src="/public/app/svg/logo-horizontal.svg">
+                    </a>
+                    <a class="result__footer-link" href="https://github.com/codex-team/capella/blob/master/README.md">About</a>
+                    <a class="result__footer-link" href="https://github.com/codex-team/capella/blob/master/README.md#upload-api">API</a>
+                    <a class="codex-team" href="https://ifmo.su/">CodeX</a>
                 </div>
             </div>
         </div>

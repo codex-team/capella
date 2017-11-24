@@ -4,9 +4,21 @@
     color: var(--text-gray);
     font-size: 14.5px;
 
+    &__contents {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 111px; /*Footer height*/
+    }
+
     a {
         color: inherit;
         text-decoration: none;
+
+        &:hover {
+            color: var(--text-white);
+        }
     }
 
     input {
@@ -24,17 +36,28 @@
     }
 
     &__img {
-        align-self: center;
-        width: auto;
-        height: 470px;
-        padding: 40px 0;
+        height:auto;
+        width:auto;
+        max-height:70vh;
+        margin: 50px 0;
     }
+    
+    &__copy-link {
 
-    &__icon-copy {
-        width: 15px;
-        height: 17px;
-        margin-right: 15px;
-        vertical-align: text-bottom;
+        svg {
+            width: 15px;
+            height: 17px;
+            margin-right: 10px;
+            vertical-align: text-bottom;
+        }
+
+        &:hover {
+            color: var(--text-white);
+            cursor: pointer;
+            svg path {
+                fill: var(--text-white);
+            }
+        }
     }
 
     &__copy-mobile {
@@ -45,8 +68,15 @@
         line-height: 33px;
         border-radius: 2px;
 
-        img {
+        svg {
             margin-right: 5px;
+            vertical-align: text-bottom;
+        }
+
+        &:hover {
+            svg path {
+                fill: var(--text-white);
+            }
         }
     }
 
@@ -60,6 +90,7 @@
 
         &-logo {
             margin-right: 35px;
+            vertical-align: sub;
         }
 
         &-filters {
@@ -76,7 +107,7 @@
         &-link {
             line-height: 20px;
 
-            &:not(:first-of-type)::before {
+        &:not(:first-of-type):not(:nth-of-type(2))::before {
                 content: '';
                 display: inline-block;
                 vertical-align: middle;
@@ -84,7 +115,7 @@
                 height: 4px;
                 border-radius: 50%;
                 background: var(--marker-gray);
-                margin: 0 0.5em 0 0.8em;
+                margin: 0 0.5em;
             }
         }
 
@@ -120,13 +151,6 @@
             &-filters {
                 display: none;
             }
-
-            &-link {
-                &:not(:first-of-type)::before {
-                    margin: 0 0.5em;
-                }
-            }
-
             .codex-team {
                 margin-left: 0;
                 color: inherit;
@@ -143,7 +167,7 @@
                 }
             }
 
-            &-logo {
+            &-logo-link {
                 margin-right: auto;
             }
         }
