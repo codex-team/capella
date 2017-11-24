@@ -1,6 +1,7 @@
 .result {
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
     background: var(--bg-black);
     color: var(--text-gray);
     font-size: 14.5px;
