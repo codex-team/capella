@@ -9,17 +9,11 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 ## Content
 
 * [Usage](#usage)
-
 * [Upload API](#upload-api)
-
     * [Request](#request)
-
     * [Response](#response)
-
     * [Example](#example)
-
 * [Get image](#get-image)
-
     * [Filters](#filters)
 
 ## Usage
@@ -273,9 +267,6 @@ Example: `https://capella.ifmo.su/<image_id>/pixelize/20`
 ## Links
 
 Capella — https://capella.ifmo.su
-
 Repository — https://github.com/codex-team/capella
-
 Report a bug — https://github.com/codex-team/capella/issues/new
-
 CodeX Team — https://ifmo.su
