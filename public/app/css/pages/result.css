@@ -1,3 +1,6 @@
+.body--black {
+    background: var(--bg-black);
+}
 .result {
     flex-direction: column;
     justify-content: space-between;

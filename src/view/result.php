@@ -12,7 +12,7 @@
         <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
-    <body>
+    <body class="body--black">
         <div class="capella result">
             <div class="result__contents">
                 <img class="result__img" src="/public/app/img/tim-cook.png">
