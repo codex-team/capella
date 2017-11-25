@@ -43,17 +43,8 @@ module.exports = function () {
     this.clipboardButton = document.querySelector('.js-result__copy-text');
 
     if (this.clipboardButton) {
-      this.clipboardButton.addEventListener('click', toggleButtonText(), false);
+      this.clipboardButton.addEventListener('click', toggleButtonText, false);
     }
-  };
-
-  /**
-   * Select elem to change text
-   *
-   * @param element
-   */
-  let selectButton = function (element) {
-    element.addEventListener('click', changeText);
   };
 
   /**
@@ -79,8 +70,8 @@ module.exports = function () {
   /**
    * Change clicked elem's text
    */
-  let toggleButtonText = function (element) {
-    element.innerHTML = 'Copied';
+  let toggleButtonText = function () {
+    this.innerHTML = 'Copied';
   };
 
   /**
