@@ -138,7 +138,7 @@ export default class Uploader {
       capella.uploadScreen.progress(100);
 
       /** Redirect to uploaded image */
-      window.location.href = response.url;
+      window.location.href = '/image/' + response.id;
     } else {
       capella.uploadScreen.hide();
     }
