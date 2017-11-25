@@ -13,16 +13,16 @@ export default class Clipboard {
    * Pasted image from clipboard
    */
   pasteFromClipboard(event) {
-    /**
-     * items - data from clipboard
-     */
-    let items = (event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData).items;
-    let data = (event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData).getData('Text');
-    let blob = null;
+    let clipboard = (event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData);
 
     /**
-     * Stop data actually being pasted into document {default settings}
+     * items - for images
+     * data - for links
      */
+    let items = clipboard.items;
+    let data = clipboard.getData('Text');
+    let blob = null;
+
     event.stopPropagation();
     event.preventDefault();
 
@@ -33,12 +33,16 @@ export default class Clipboard {
       /**
        * Parsing on valid URL
        */
-      if (data.match(/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/)) {
+      let regex = '/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/';
+
+      if (data.match(regex)) {
         capella.uploader.upload({'link': data});
       } else {
         document.getElementById('uploadLinkField').value = data;
       }
-    } else if (items) {
+    }
+
+    if (items) {
       /**
        * Checking all clipboard's files and choosing last image file
        */
