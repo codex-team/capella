@@ -35,6 +35,8 @@ export default class Clipboard {
        */
       if (data.match(/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/)) {
         capella.uploader.upload({'link': data});
+      } else {
+        document.getElementById('uploadLinkField').value = data;
       }
     } else if (items) {
       /**
