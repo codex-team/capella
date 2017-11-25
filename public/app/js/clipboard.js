@@ -30,10 +30,8 @@ export default class Clipboard {
       if (items[i].type.indexOf('text') === 0) {
         let input = event.clipboardData.getData('Text');
 
-        if (input.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)) {
+        if (input.match(/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/)) {
           capella.uploader.upload({'link': input});
-        } else {
-          window.alert('Invalid URL');
         }
       }
     }
