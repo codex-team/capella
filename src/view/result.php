@@ -21,7 +21,7 @@
                 <div class="result__footer-filters">
                     <div name="js-copyable-authorize" class="result__copy">
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
-                        <span class="result__copy-text">Copy link</span>
+                        <span class="result__copy-text js-result__copy-text">Copy link</span>
                         <a name="js-copyable" class="result__copy-link" href="javascript:void(0)"><?= $imageURL ?></a>
                     </div>
                     <input type="text" value="+  /resize___x___" name="">
@@ -38,5 +38,13 @@
             </div>
         </div>
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
+        <script type="text/javascript">
+        var buttonChangeText = 'js-result__copy-text';
+
+        document.getElementsByClassName(buttonChangeText)[0].addEventListener('click', function () {
+          this.innerHTML = 'Copied';
+        });
+
+        </script>
     </body>
 </html>

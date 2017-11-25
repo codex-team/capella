@@ -148,6 +148,14 @@
             svg {
                 margin-right: 5px;
             }
+
+            &:hover {
+                color: var(--text-gray);
+                
+                svg path {
+                    fill: var(--text-gray);
+                }
+            }
         }
 
         &__footer {
