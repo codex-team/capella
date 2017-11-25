@@ -20,7 +20,9 @@ export default class Clipboard {
     let data = (event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData).getData('Text');
     let blob = null;
 
-    // Stop data actually being pasted into document {default settings}
+    /*
+     * Stop data actually being pasted into document {default settings}
+     */
     event.stopPropagation();
     event.preventDefault();
 
