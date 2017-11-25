@@ -21,9 +21,6 @@ module.exports = function () {
    * @param {Function} copiedCallback - fires when something has copied
    */
   let init = function (copiedCallback) {
-    this.button = document.querySelector('.js-result__copy-text');
-    selectButton(this.button);
-
     let elems = document.getElementsByName(NAMES.copyable);
 
     if (!elems) {
@@ -42,6 +39,12 @@ module.exports = function () {
     }
 
     console.log('Copyable module initialized');
+
+    this.button = document.querySelector('.js-result__copy-text');
+
+    if (this.button) {
+      selectButton(this.button);
+    }
   };
 
   /**

@@ -39,6 +39,6 @@
                     </div>
             </div>
         </div>
-        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init(); alert('hello');"></script>
+        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>
