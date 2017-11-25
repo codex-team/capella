@@ -40,10 +40,10 @@ module.exports = function () {
 
     console.log('Copyable module initialized');
 
-    this.button = document.querySelector('.js-result__copy-text');
+    this.clipboardButton = document.querySelector('.js-result__copy-text');
 
-    if (this.button) {
-      selectButton(this.button);
+    if (this.clipboardButton) {
+      this.clipboardButton.addEventListener('click', toggleButtonText(), false);
     }
   };
 
@@ -79,8 +79,8 @@ module.exports = function () {
   /**
    * Change clicked elem's text
    */
-  let changeText = function () {
-    this.innerHTML = 'Copied';
+  let toggleButtonText = function (element) {
+    element.innerHTML = 'Copied';
   };
 
   /**
