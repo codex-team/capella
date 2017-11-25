@@ -33,7 +33,7 @@ export default class Clipboard {
       /**
        * Parsing on valid URL
        */
-      let regex = '/^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/';
+      let regex = /^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
 
       if (data.match(regex)) {
         capella.uploader.upload({'link': data});
