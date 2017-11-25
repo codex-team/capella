@@ -11,6 +11,7 @@
         <meta name="keywords" content="cloud service,upload files,image storage">
         <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <script src="https://rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');"></script>
     </head>
     <body>
         <div class="capella">
@@ -38,6 +39,6 @@
                     </div>
             </div>
         </div>
-        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
+        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init(); alert('hello');"></script>
     </body>
 </html>
