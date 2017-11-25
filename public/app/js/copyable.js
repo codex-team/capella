@@ -21,6 +21,9 @@ module.exports = function () {
    * @param {Function} copiedCallback - fires when something has copied
    */
   let init = function (copiedCallback) {
+    this.button = document.querySelector('.js-result__copy-text');
+    selectButton(this.button);
+
     let elems = document.getElementsByName(NAMES.copyable);
 
     if (!elems) {
@@ -42,6 +45,15 @@ module.exports = function () {
   };
 
   /**
+   * Select elem to change text
+   *
+   * @param element
+   */
+  let selectButton = function (element) {
+    element.addEventListener('click', changeText);
+  };
+
+  /**
    * Add click and copied listeners to copyable element
    *
    * @param element
@@ -59,6 +71,13 @@ module.exports = function () {
    */
   let authorize = function (element) {
     element.addEventListener('click', authorizedCopy);
+  };
+
+  /**
+   * Change clicked elem's text
+   */
+  let changeText = function () {
+    this.innerHTML = 'Copied';
   };
 
   /**
