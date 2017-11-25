@@ -140,7 +140,8 @@
             }
 
             .result__copy-link {
-                display: none;
+                position: absolute;
+                top: -200%;
             }
 
             svg {
