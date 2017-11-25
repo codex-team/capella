@@ -27,6 +27,15 @@ export default class Clipboard {
         blob = items[i].getAsFile();
         break;
       }
+      if (items[i].type.indexOf('text') === 0) {
+        let input = event.clipboardData.getData('Text');
+
+        if (input.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)) {
+          capella.uploader.upload({'link': input});
+        } else {
+          window.alert('Invalid URL');
+        }
+      }
     }
 
     if (blob !== null) {
