@@ -2,14 +2,14 @@
     left: auto;
     right: 75px;
     bottom: 78px;
-}
 
-@media (--mobile) {
-    .cdx-notifies {
+    @media (--mobile) {
         right: 40px;
         bottom: 40px;
     }
 }
+
+
 
 .cdx-notify {
     border-radius: 1px;
@@ -18,19 +18,19 @@
     color: #434152;
     background: #d1d7ec;
     width: auto;
-}
 
-.cdx-notify__cross {
-    display: none;
-}
+    &__cross {
+        display: none;
+    }
 
-.cdx-notify__warning-sign {
-    background-image: url(/public/app/svg/warning.svg);
-    background-repeat: no-repeat;
-    width: 23px;
-    height: 19.7px;
-    margin-right: 17px;
-    margin-left: -8px;
-    margin-bottom: -4px;
-    display: inline-block;
+    &__warning-sign {
+        background-image: url(/public/app/svg/warning.svg);
+        background-repeat: no-repeat;
+        width: 23px;
+        height: 19.7px;
+        margin-right: 17px;
+        margin-left: -8px;
+        margin-bottom: -4px;
+        display: inline-block;
+    }
 }
