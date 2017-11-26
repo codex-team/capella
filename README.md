@@ -9,7 +9,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 ## Content
 
 * [Usage](#usage)
-* [Â](#upload-api)
+* [Upload API](#upload-api)
     * [Request](#request)
     * [Response](#response)
     * [Example](#example)
