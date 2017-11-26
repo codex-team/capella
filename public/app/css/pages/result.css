@@ -71,6 +71,14 @@
         }
     }
 
+    &__copied-desktop {
+        color: var(--text-white);
+
+        svg {
+            margin-right: 10px;
+        }
+    }
+
     &__footer {
         padding: 0 20px;
         background: var(--bg-black);
@@ -156,6 +164,10 @@
                     fill: var(--text-gray);
                 }
             }
+        }
+
+        &__copied-desktop {
+            display: none;
         }
 
         &__footer {

@@ -41,9 +41,14 @@ module.exports = function () {
     console.log('Copyable module initialized');
 
     this.clipboardButton = document.querySelector('.js-result__copy-text');
+    this.copiedLink = document.querySelector('.js-result__copy-link');
 
     if (this.clipboardButton) {
       this.clipboardButton.addEventListener('click', toggleButtonText, false);
+    }
+
+    if (this.copiedLink) {
+      this.copiedLink.addEventListener('click', toggleCopiedIcon, false);
     }
   };
 
@@ -72,6 +77,13 @@ module.exports = function () {
    */
   let toggleButtonText = function () {
     this.innerHTML = 'Copied';
+  };
+
+  /**
+   * Show Copied notification on desktop
+   */
+  let toggleCopiedIcon = function () {
+    document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', false);
   };
 
   /**
