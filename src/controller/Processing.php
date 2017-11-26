@@ -8,19 +8,19 @@ namespace Controller;
  * Get image by passed id, process it with passed filters and returns it on page
  *
  * @example get full size image
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee
+ *    capella.pics/aaaa-bbbb-cccc-ddddeeee
  *
  * @example resize filter
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/resize/100x100
+ *    capella.pics/aaaa-bbbb-cccc-ddddeeee/resize/100x100
  *
  * @example crop filter
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100
+ *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100
  *
  * @example crop filter with specified coordinates
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60
+ *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60
  *
  * @example usage of two composed filters
- *    capella.ifmo.su/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60/resize/1000x1000
+ *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60/resize/1000x1000
  */
 class Processing
 {
