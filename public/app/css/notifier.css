@@ -1,0 +1,36 @@
+.cdx-notifies {
+    left: auto;
+    right: 75px;
+    bottom: 78px;
+
+    @media (--mobile) {
+        right: 40px;
+        bottom: 40px;
+    }
+}
+
+
+
+.cdx-notify {
+    border-radius: 1px;
+    font-size: 15px;
+    padding: 20px 33px;
+    color: #434152;
+    background: #d1d7ec;
+    width: auto;
+
+    &__cross {
+        display: none;
+    }
+
+    &__warning-sign {
+        background-image: url(/public/app/svg/warning.svg);
+        background-repeat: no-repeat;
+        width: 23px;
+        height: 19.7px;
+        margin-right: 17px;
+        margin-left: -8px;
+        margin-bottom: -4px;
+        display: inline-block;
+    }
+}

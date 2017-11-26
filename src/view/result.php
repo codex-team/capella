@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head>
-        <title>Capella — file screen</title>
+        <title>Uploaded image</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="/public/build/bundle.css?v=<?= filemtime('public/build/bundle.css') ?>">
         <link rel="icon" type="image/png" href="/favicon.png">
@@ -11,6 +11,7 @@
         <meta name="keywords" content="cloud service,upload files,image storage">
         <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <script src="https://rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');"></script>
     </head>
     <body class="body--black">
         <div class="capella result">
