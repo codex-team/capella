@@ -76,7 +76,13 @@ module.exports = function () {
    * Change clicked elem's text
    */
   let toggleButtonText = function () {
-    this.innerHTML = 'Copied';
+    const cachedText = this.innerHTML;
+
+    this.innerHTML =  'Copied';
+
+    setTimeout(function () {
+      document.querySelector('.js-result__copy-text').innerHTML = cachedText;
+    }, 3500);
   };
 
   /**
@@ -87,7 +93,7 @@ module.exports = function () {
 
     setTimeout(function () {
       document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', true);
-    }, 7000);
+    }, 3500);
   };
 
   /**
