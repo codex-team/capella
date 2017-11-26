@@ -84,6 +84,10 @@ module.exports = function () {
    */
   let toggleCopiedIcon = function () {
     document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', false);
+
+    setTimeout(function () {
+      document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', true);
+    }, 7000);
   };
 
   /**

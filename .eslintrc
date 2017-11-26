@@ -79,6 +79,7 @@
         "window": true,
         "console": true,
         "CustomEvent": true,
+        "setTimeout": true,
         "define": true,
         "FormData": true,
         "FileReader": true,
