@@ -152,7 +152,7 @@ export default class Uploader {
   error(response) {
     capella.notifier.show({
       message: '<i class=\'cdx-notify__warning-sign\'></i>' + response.message,
-      time: 5000
+      time: 10000
     });
     capella.uploadScreen.hide();
   }
