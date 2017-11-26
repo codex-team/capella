@@ -149,8 +149,11 @@ export default class Uploader {
    *
    * @param {Error} error — raised error
    */
-  error(error) {
-    console.log(error);
+  error(response) {
+    capella.notifier.show({
+      message: '<i class=\'cdx-notify__warning-sign\'></i>' + response.message,
+      time: 5000
+    });
     capella.uploadScreen.hide();
   }
 
