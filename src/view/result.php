@@ -28,7 +28,7 @@
                         
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
                         <span class="result__copy-text js-result__copy-text" >Copy link</span>
-                        <a name="js-copyable" class="result__copy-link js-result__copy-link" href="javascript:void(0)"><?= $imageURL ?></a>
+                        <a name="js-copyable" class="result__copy-link js-result__copy-link" href="<?= $imageURL ?>"><?= $imageURL ?></a>
                     </div>
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">

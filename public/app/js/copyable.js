@@ -88,12 +88,24 @@ module.exports = function () {
   /**
    * Show Copied notification on desktop
    */
-  let toggleCopiedIcon = function () {
-    document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', false);
+  let toggleCopiedIcon = function (event) {
+    let notificationClass = '.js-result__copied-desktop';
+    let urlClass = '.js-result__copy-link';
+    let notificationElement = document.querySelector(notificationClass);
 
-    setTimeout(function () {
-      document.querySelector('.js-result__copied-desktop').classList.toggle('invisible', true);
+    clearTimeout(iteration);
+
+    notificationElement.classList.remove('invisible');
+
+    let iteration = setTimeout(function () {
+      notificationElement.classList.add('invisible');
     }, 3500);
+
+    if (event.ctrlKey || event.metaKey || event.mousewheel || event.which == 2) {
+      let url = document.querySelector(urlClass).innerHTML;
+
+      window.open(url, '_blank');
+    }
   };
 
   /**
