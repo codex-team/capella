@@ -93,8 +93,6 @@ module.exports = function () {
     let urlClass = '.js-result__copy-link';
     let notificationElement = document.querySelector(notificationClass);
 
-    clearTimeout(iteration);
-
     notificationElement.classList.remove('invisible');
 
     let iteration = setTimeout(function () {
@@ -106,6 +104,7 @@ module.exports = function () {
 
       window.open(url, '_blank');
     }
+    clearTimeout(iteration);
   };
 
   /**
