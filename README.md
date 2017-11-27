@@ -71,8 +71,8 @@ Each response will have at least `success` and `message` fields.
 {
     "success": true,
     "message": "Image uploaded",
-    "id": "28d23486-c32a-41ae-94e6-72f73a139a7a",
-    "url": "https://capella.pics/28d23486-c32a-41ae-94e6-72f73a139a7a"
+    "id": "69256e83-66e1-449a-b0c2-5414d332e3a6",
+    "url": "https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6"
 }
 ```
 
@@ -159,7 +159,7 @@ You can get each uploaded image by the following URL scheme.
 
 `https://capella.pics/<image_id>`
 
-[![](https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5)](https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5)
+[![](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)
 
 ### Filters
 
@@ -178,8 +178,8 @@ Note that the order of filters affects the result:
 | `/resize/100/crop/200` | [![][codex-stickers-resize-100-crop-200]][codex-stickers-resize-100-crop-200] |
 | `/crop/200/resize/100` | [![][codex-stickers-crop-200-resize-100]][codex-stickers-crop-200-resize-100] |
 
-[codex-stickers-resize-100-crop-200]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/100/crop/200
-[codex-stickers-crop-200-resize-100]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200/resize/100
+[codex-stickers-resize-100-crop-200]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/100/crop/200
+[codex-stickers-crop-200-resize-100]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/200/resize/100
 
 #### Resize
 
@@ -197,8 +197,8 @@ Example: `https://capella.pics/<image_id>/resize/300x400`
 | `/resize/300x400`     | [![][codex-stickers-resize-300-400]][codex-stickers-resize-300-400] |
 | `/resize/150`         | [![][codex-stickers-resize-150]][codex-stickers-resize-150]         |
 
-[codex-stickers-resize-150]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/150
-[codex-stickers-resize-300-400]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/300x400
+[codex-stickers-resize-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/150
+[codex-stickers-resize-300-400]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/300x400
 
 
 #### Crop
@@ -218,9 +218,9 @@ Example: `https://capella.pics/<image_id>/crop/150`
 | `/crop/200x400`     | [![][codex-stickers-crop-200-400]][codex-stickers-crop-200-400] |
 | `/crop/400x200`     | [![][codex-stickers-crop-400-200]][codex-stickers-crop-400-200] |
 
-[codex-stickers-crop-150]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/150
-[codex-stickers-crop-200-400]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200x400
-[codex-stickers-crop-400-200]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x200
+[codex-stickers-crop-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/150
+[codex-stickers-crop-200-400]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/200x400
+[codex-stickers-crop-400-200]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/400x200
 
 
 ##### Additional params
@@ -241,8 +241,8 @@ Example: `https://capella.pics/<image_id>/crop/400x300&500,150`
 | `/crop/400x300&500,150` | [![][codex-stickers-crop-400-300-500-150]][codex-stickers-crop-400-300-500-150] |
 | `/crop/300x400&200,150` | [![][codex-stickers-crop-300-400-200-150]][codex-stickers-crop-300-400-200-150] |
 
-[codex-stickers-crop-400-300-500-150]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x300&500,150
-[codex-stickers-crop-300-400-200-150]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/300x400&200,150
+[codex-stickers-crop-400-300-500-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/400x300&500,150
+[codex-stickers-crop-300-400-200-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/300x400&200,150
 
 #### Pixelize
 
@@ -259,8 +259,8 @@ Example: `https://capella.pics/<image_id>/pixelize/20`
 | `/pixelize/20` | [![][codex-stickers-pixelize-20]][codex-stickers-pixelize-20] |
 | `/pixelize/50` | [![][codex-stickers-pixelize-50]][codex-stickers-pixelize-50] |
 
-[codex-stickers-pixelize-20]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/20
-[codex-stickers-pixelize-50]: https://capella.pics/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/50
+[codex-stickers-pixelize-20]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/20
+[codex-stickers-pixelize-50]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/50
 
 ## Issues and improvements
 
