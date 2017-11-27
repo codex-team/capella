@@ -1,4 +1,4 @@
-# [Сapella](https://capella.ifmo.su)
+# [Сapella](https://capella.pics)
 
 Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with the simple API.
 
@@ -18,7 +18,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 
 ## Usage
 
-1. Open [capella.ifmo.su](https://capella.ifmo.su) or use [API](#upload-api) to upload an image.
+1. Open [capella.pics](https://capella.pics) or use [API](#upload-api) to upload an image.
 
 2. Get image by given URL with applied filters.
 
@@ -40,7 +40,7 @@ Please note that each uploaded file would be converted to PNG.
 
 ### Request
 
-You can upload image file or send link to the image from your app by making a request to `https://capella.ifmo.su/upload`.
+You can upload image file or send link to the image from your app by making a request to `https://capella.pics/upload`.
 
 | Method | URI      | Data                      |
 |--------|----------|---------------------------|
@@ -71,8 +71,8 @@ Each response will have at least `success` and `message` fields.
 {
     "success": true,
     "message": "Image uploaded",
-    "id": "28d23486-c32a-41ae-94e6-72f73a139a7a",
-    "url": "https://capella.ifmo.su/28d23486-c32a-41ae-94e6-72f73a139a7a"
+    "id": "69256e83-66e1-449a-b0c2-5414d332e3a6",
+    "url": "https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6"
 }
 ```
 
@@ -110,13 +110,13 @@ Each response will have at least `success` and `message` fields.
 ```bash
 # Upload file
 
-curl -X POST https://capella.ifmo.su/upload -F "file=@/path/to/image.png"
+curl -X POST https://capella.pics/upload -F "file=@/path/to/image.png"
 ```
 
 ```bash
 # Upload image by link
 
-curl -X POST https://capella.ifmo.su/upload -d "link=https://path.to/image.png"
+curl -X POST https://capella.pics/upload -d "link=https://path.to/image.png"
 ```
 
 #### Python
@@ -131,7 +131,7 @@ files = {
     'file': open('./image.png','rb')
 }
 
-r = requests.post('https://capella.ifmo.su/upload', files=files)
+r = requests.post('https://capella.pics/upload', files=files)
 response = json.loads(r.content)
 
 print(response)
@@ -147,7 +147,7 @@ data = {
     'link': 'https://path.to/image.png'
 }
 
-r = requests.post('https://capella.ifmo.su/upload', data=data)
+r = requests.post('https://capella.pics/upload', data=data)
 response = json.loads(r.content)
 
 print(response)
@@ -157,15 +157,15 @@ print(response)
 
 You can get each uploaded image by the following URL scheme.
 
-`https://capella.ifmo.su/<image_id>`
+`https://capella.pics/<image_id>`
 
-[![](https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5)](https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5)
+[![](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)
 
 ### Filters
 
 Apply filter by adding it at the end of the image URL.
 
-`https://capella.ifmo.su/<image_id>/<filter>/<params>`
+`https://capella.pics/<image_id>/<filter>/<params>`
 
 You can use as many filters as you want.
 
@@ -178,8 +178,8 @@ Note that the order of filters affects the result:
 | `/resize/100/crop/200` | [![][codex-stickers-resize-100-crop-200]][codex-stickers-resize-100-crop-200] |
 | `/crop/200/resize/100` | [![][codex-stickers-crop-200-resize-100]][codex-stickers-crop-200-resize-100] |
 
-[codex-stickers-resize-100-crop-200]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/100/crop/200
-[codex-stickers-crop-200-resize-100]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200/resize/100
+[codex-stickers-resize-100-crop-200]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/100/crop/200
+[codex-stickers-crop-200-resize-100]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/200/resize/100
 
 #### Resize
 
@@ -190,15 +190,15 @@ Scale the image to the largest size such that both its width and its height can 
 | `width`  | Integer | Maximum image`s width or maximum target square`s size if no height was given |
 | `height` | Integer | (optional) Maximum image's height                                            |
 
-Example: `https://capella.ifmo.su/<image_id>/resize/300x400`
+Example: `https://capella.pics/<image_id>/resize/300x400`
 
 | Filter                | Result                                                              |
 |-----------------------|---------------------------------------------------------------------|
 | `/resize/300x400`     | [![][codex-stickers-resize-300-400]][codex-stickers-resize-300-400] |
 | `/resize/150`         | [![][codex-stickers-resize-150]][codex-stickers-resize-150]         |
 
-[codex-stickers-resize-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/150
-[codex-stickers-resize-300-400]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/resize/300x400
+[codex-stickers-resize-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/150
+[codex-stickers-resize-300-400]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/resize/300x400
 
 
 #### Crop
@@ -210,7 +210,7 @@ Cover the target rectangle by the image. Nice tool for creating covers or profil
 | `width`  | Integer | Target rectangle`s width or target square`s size if no height was given |
 | `height` | Integer | (optional) Target rectangle height                                      |
 
-Example: `https://capella.ifmo.su/<image_id>/crop/150`
+Example: `https://capella.pics/<image_id>/crop/150`
 
 | Filter              | Result                                                          |
 |---------------------|-----------------------------------------------------------------|
@@ -218,9 +218,9 @@ Example: `https://capella.ifmo.su/<image_id>/crop/150`
 | `/crop/200x400`     | [![][codex-stickers-crop-200-400]][codex-stickers-crop-200-400] |
 | `/crop/400x200`     | [![][codex-stickers-crop-400-200]][codex-stickers-crop-400-200] |
 
-[codex-stickers-crop-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/150
-[codex-stickers-crop-200-400]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/200x400
-[codex-stickers-crop-400-200]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x200
+[codex-stickers-crop-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/150
+[codex-stickers-crop-200-400]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/200x400
+[codex-stickers-crop-400-200]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/400x200
 
 
 ##### Additional params
@@ -234,15 +234,15 @@ Note that this way `width` and `height` will be size params for the cropped area
 | `x`      | Integer | Left indent |
 | `y`      | Integer | Top indent  |
 
-Example: `https://capella.ifmo.su/<image_id>/crop/400x300&500,150`
+Example: `https://capella.pics/<image_id>/crop/400x300&500,150`
 
 | Filter                  | Result                                                                          |
 |-------------------------|---------------------------------------------------------------------------------|
 | `/crop/400x300&500,150` | [![][codex-stickers-crop-400-300-500-150]][codex-stickers-crop-400-300-500-150] |
 | `/crop/300x400&200,150` | [![][codex-stickers-crop-300-400-200-150]][codex-stickers-crop-300-400-200-150] |
 
-[codex-stickers-crop-400-300-500-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/400x300&500,150
-[codex-stickers-crop-300-400-200-150]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/crop/300x400&200,150
+[codex-stickers-crop-400-300-500-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/400x300&500,150
+[codex-stickers-crop-300-400-200-150]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/300x400&200,150
 
 #### Pixelize
 
@@ -252,15 +252,15 @@ Render image using large colored blocks.
 |-----------|---------|--------------------------------------|
 | `pixels`  | Integer | Number of pixels on the largest side |
 
-Example: `https://capella.ifmo.su/<image_id>/pixelize/20`
+Example: `https://capella.pics/<image_id>/pixelize/20`
 
 | Filter         | Result                                                        |
 |----------------|---------------------------------------------------------------|
 | `/pixelize/20` | [![][codex-stickers-pixelize-20]][codex-stickers-pixelize-20] |
 | `/pixelize/50` | [![][codex-stickers-pixelize-50]][codex-stickers-pixelize-50] |
 
-[codex-stickers-pixelize-20]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/20
-[codex-stickers-pixelize-50]: https://capella.ifmo.su/07fbdd02-34ee-484b-9592-0d0ebb8454a5/pixelize/50
+[codex-stickers-pixelize-20]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/20
+[codex-stickers-pixelize-50]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/50
 
 ## Issues and improvements
 
