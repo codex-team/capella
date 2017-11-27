@@ -3,6 +3,10 @@
     align-items: stretch;
     justify-content: center;
     min-height: 100%;
+    background-image: url(/public/app/img/small-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
     &__uploading {
         display: none;

@@ -77,6 +77,8 @@
         "module": true,
         "require": true,
         "window": true,
+        "Image": true,
+        "setTimeout": true,
         "console": true,
         "CustomEvent": true,
         "define": true,

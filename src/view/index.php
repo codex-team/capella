@@ -13,8 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <script src="https://rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');"></script>
     </head>
-    <body>
-        <div class="capella">
+    <body class="js-full-image" data-src="/public/app/img/space-bg.jpg">
+        <div class="capella js-blur-image">
             <div class="capella__drag-n-drop">
                 <div class="capella__contents">
                     <div class="capella__logo">

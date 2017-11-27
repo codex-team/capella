@@ -1,9 +1,9 @@
 html, body {
-    height: 100%
+    height: 100%;
 }
 body {
     background-size: cover;
-    background: var(--bg-main) url(/public/app/img/space-bg.jpg);
+    background-repeat: no-repeat;
     background-position: center;
     font-family: system-ui;
     font-size: 18px;
@@ -11,4 +11,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5em;
     color: #aea2d9;
+    filter: none;
+    transition: -webkit-filter 0s 0.3s linear, filter 0s 0.3s linear;
 }
