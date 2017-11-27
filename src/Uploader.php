@@ -27,10 +27,25 @@ class Uploader
      */
     const UPLOAD_DIR = 'upload/';
 
+    /**
+     * Check uploads dir
+     */
     public function __construct()
     {
-        if (!file_exists(self::UPLOAD_DIR)) {
-            mkdir(self::UPLOAD_DIR);
+        if (!file_exists(self::UPLOAD_DIR) || !is_writable(self::UPLOAD_DIR))
+        {
+            $errorMessage = self::UPLOAD_DIR.' directory should be writable';
+
+            trigger_error($errorMessage, E_USER_ERROR);
+            error_log($errorMessage);
+
+            \HTTP\Response::InternalServerError();
+
+            \API\Response::error(array(
+                'message' => 'Internal Server Error'
+            ));
+
+            die();
         }
     }
 
