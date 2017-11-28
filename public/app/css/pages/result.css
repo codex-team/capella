@@ -71,7 +71,7 @@
         }
     }
 
-    &__copied-desktop {
+    &__is-copied {
         color: var(--text-white);
 
         svg {
@@ -166,7 +166,7 @@
             }
         }
 
-        &__copied-desktop {
+        &__is-copied {
             display: none;
         }
 

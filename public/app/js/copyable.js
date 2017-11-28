@@ -41,14 +41,14 @@ module.exports = function () {
     console.log('Copyable module initialized');
 
     this.clipboardButton = document.querySelector('.js-result__copy-text');
-    this.copiedLink = document.querySelector('.js-result__copy-link');
+    this.linkToCopy = document.querySelector('.js-result__copy-link');
 
     if (this.clipboardButton) {
-      this.clipboardButton.addEventListener('click', capella.toggleNotification.toggleButtonText, false);
+      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleButtonText, false);
     }
 
-    if (this.copiedLink) {
-      this.copiedLink.addEventListener('click', capella.toggleNotification.toggleCopiedIcon, false);
+    if (this.linkToCopy) {
+      this.linkToCopy.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, false);
     }
   };
 

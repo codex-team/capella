@@ -22,7 +22,7 @@
                 <div class="result__footer-filters">
                     <div name="js-copyable-authorize" class="result__copy">
 
-                        <div class="result__copied-desktop js-result__copied-desktop js-hidden">
+                        <div class="result__is-copied js-result__is-copied js-hidden">
                             <? include(DOCROOT . "public/app/svg/copied.svg") ?> Copied
                         </div>
                         

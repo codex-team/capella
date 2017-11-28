@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function () {
-  const notificationClass = '.js-result__copied-desktop';
+  const notificationClass = '.js-result__is-copied';
   const notificationTextMobile = '.js-result__copy-text';
   const notificationElement = document.querySelector(notificationClass);
   const showTimeout = 3500;
   let notificationIsVisibleTimer;
+  let textIsChangedTimer;
 
   /**
    * Show and hide after showTimeout seconds copy notification
@@ -29,11 +30,15 @@ module.exports = function () {
    * Change clicked elem's text
    */
   let toggleButtonText = function () {
+    if (textIsChangedTimer) {
+      clearTimeout(textIsChangedTimer);
+    }
+
     const cachedText = this.innerHTML;
 
     this.innerHTML =  'Copied';
 
-    setTimeout(function () {
+    textIsChangedTimer = setTimeout(function () {
       document.querySelector(notificationTextMobile).innerHTML = cachedText;
     }, showTimeout);
   };
