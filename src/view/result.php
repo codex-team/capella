@@ -22,13 +22,13 @@
                 <div class="result__footer-filters">
                     <div name="js-copyable-authorize" class="result__copy">
 
-                        <div class="result__copied-desktop js-result__copied-desktop invisible">
+                        <div class="result__copied-desktop js-result__copied-desktop js-hidden">
                             <? include(DOCROOT . "public/app/svg/copied.svg") ?> Copied
                         </div>
                         
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
                         <span class="result__copy-text js-result__copy-text" >Copy link</span>
-                        <a name="js-copyable" class="result__copy-link js-result__copy-link" href="<?= $imageURL ?>"><?= $imageURL ?></a>
+                        <a name="js-copyable" class="result__copy-link js-result__copy-link" href="<?= $imageURL ?>" target="_blank"><?= $imageURL ?></a>
                     </div>
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">

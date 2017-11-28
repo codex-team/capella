@@ -44,11 +44,11 @@ module.exports = function () {
     this.copiedLink = document.querySelector('.js-result__copy-link');
 
     if (this.clipboardButton) {
-      this.clipboardButton.addEventListener('click', toggleButtonText, false);
+      this.clipboardButton.addEventListener('click', capella.toggleNotification.toggleButtonText, false);
     }
 
     if (this.copiedLink) {
-      this.copiedLink.addEventListener('click', toggleCopiedIcon, false);
+      this.copiedLink.addEventListener('click', capella.toggleNotification.toggleCopiedIcon, false);
     }
   };
 
@@ -70,41 +70,6 @@ module.exports = function () {
    */
   let authorize = function (element) {
     element.addEventListener('click', authorizedCopy);
-  };
-
-  /**
-   * Change clicked elem's text
-   */
-  let toggleButtonText = function () {
-    const cachedText = this.innerHTML;
-
-    this.innerHTML =  'Copied';
-
-    setTimeout(function () {
-      document.querySelector('.js-result__copy-text').innerHTML = cachedText;
-    }, 3500);
-  };
-
-  /**
-   * Show Copied notification on desktop
-   */
-  let toggleCopiedIcon = function (event) {
-    let notificationClass = '.js-result__copied-desktop';
-    let urlClass = '.js-result__copy-link';
-    let notificationElement = document.querySelector(notificationClass);
-
-    notificationElement.classList.remove('invisible');
-
-    let iteration = setTimeout(function () {
-      notificationElement.classList.add('invisible');
-    }, 3500);
-
-    if (event.ctrlKey || event.metaKey || event.mousewheel || event.which == 2) {
-      let url = document.querySelector(urlClass).innerHTML;
-
-      window.open(url, '_blank');
-    }
-    clearTimeout(iteration);
   };
 
   /**
