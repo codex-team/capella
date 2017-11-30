@@ -138,7 +138,7 @@
 
         &__copy {
             display: inline-block;
-            margin: 13px 0;
+            margin: 8px 0 13px;
             padding: 0 9px;
             background: var(--bg-button-gray);
             line-height: 33px;
@@ -164,10 +164,6 @@
                     fill: var(--text-gray);
                 }
             }
-        }
-
-        &__is-copied {
-            display: none;
         }
 
         &__footer {

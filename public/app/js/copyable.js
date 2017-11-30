@@ -43,12 +43,9 @@ module.exports = function () {
     this.clipboardButton = document.querySelector('.js-result__copy-text');
     this.linkToCopy = document.querySelector('.js-result__copy-link');
 
-    if (this.clipboardButton) {
-      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleButtonText, false);
-    }
-
-    if (this.linkToCopy) {
+    if (this.linkToCopy || this.clipboardButton) {
       this.linkToCopy.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, false);
+      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, false);
     }
   };
 
