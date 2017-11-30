@@ -94,6 +94,7 @@
     }
 
     &__contents {
+        height: 470px;
         text-align: center;
         p {
             max-width: 430px;
@@ -193,6 +194,7 @@
         }
 
         &__contents {
+            height: auto;
             padding: 0 10px;
 
             p {
