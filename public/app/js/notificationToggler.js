@@ -15,11 +15,11 @@ module.exports = function () {
   /* Timeout after which notificationElement will be hidden */
   const showTimeout = 2000;
 
-  /* Timer to hide notification on desktop */
+  /* Timer to hide notification */
   let notificationIsVisibleTimer;
 
   /**
-   * Show and hide after showTimeout seconds copy-notifications, on desktop
+   * Show and hide after showTimeout seconds copy-notifications
    */
   let toggleCopiedIcon = function (event) {
     /* Don't open link in new window unless one of these keys is pressed */
