@@ -12,3 +12,6 @@ body {
     line-height: 1.5em;
     color: #aea2d9;
 }
+.js-hidden {
+    opacity: 0 !important;
+}

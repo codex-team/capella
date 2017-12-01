@@ -40,10 +40,10 @@ module.exports = function () {
 
     console.log('Copyable module initialized');
 
-    this.clipboardButton = document.querySelector('.js-result__copy-text');
+    this.clipboardButton = document.querySelector('.js-result__copy');
 
     if (this.clipboardButton) {
-      this.clipboardButton.addEventListener('click', toggleButtonText, false);
+      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, true);
     }
   };
 
@@ -65,13 +65,6 @@ module.exports = function () {
    */
   let authorize = function (element) {
     element.addEventListener('click', authorizedCopy);
-  };
-
-  /**
-   * Change clicked elem's text
-   */
-  let toggleButtonText = function () {
-    this.innerHTML = 'Copied';
   };
 
   /**
