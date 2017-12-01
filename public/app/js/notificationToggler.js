@@ -25,9 +25,9 @@ module.exports = function () {
     /* Don't open link in new window unless one of these keys is pressed */
     if (event.ctrlKey || event.metaKey || event.which === 2) {
       return false;
-    } else {
-      event.preventDefault();
     }
+
+    event.preventDefault();
 
     /* Clear timer if it was set previously */
     if (notificationIsVisibleTimer) {

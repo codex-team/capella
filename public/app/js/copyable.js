@@ -40,12 +40,10 @@ module.exports = function () {
 
     console.log('Copyable module initialized');
 
-    this.clipboardButton = document.querySelector('.js-result__copy-text');
-    this.linkToCopy = document.querySelector('.js-result__copy-link');
+    this.clipboardButton = document.querySelector('.js-result__copy');
 
-    if (this.linkToCopy || this.clipboardButton) {
-      this.linkToCopy.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, false);
-      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, false);
+    if (this.clipboardButton) {
+      this.clipboardButton.addEventListener('click', capella.notificationToggler.toggleCopiedIcon, true);
     }
   };
 

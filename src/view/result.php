@@ -25,7 +25,7 @@
                             <? include(DOCROOT . "public/app/svg/copied.svg") ?> Copied
                     </div>
 
-                    <div name="js-copyable-authorize" class="result__copy">
+                    <div name="js-copyable-authorize" class="result__copy js-result__copy">
 
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
                         <span class="result__copy-text js-result__copy-text" >Copy link</span>
