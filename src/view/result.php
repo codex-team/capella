@@ -24,7 +24,7 @@
                     <div class="result__is-copied js-result__is-copied js-hidden">
                             <? include(DOCROOT . "public/app/svg/copied.svg") ?> Copied
                     </div>
-                    
+
                     <div name="js-copyable-authorize" class="result__copy">
 
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
