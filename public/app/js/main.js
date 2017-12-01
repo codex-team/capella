@@ -16,6 +16,7 @@ capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
 capella.progressiveLoading = require('./progressiveLoading');
+capella.notificationToggler = require('./notificationToggler');
 capella.checkForSafari = require('./checkForSafari');
 capella.notifier = require('exports-loader?notifier!codex-notifier');
 

@@ -71,6 +71,14 @@
         }
     }
 
+    &__is-copied {
+        color: var(--text-white);
+
+        svg {
+            margin-right: 10px;
+        }
+    }
+
     &__footer {
         padding: 0 20px;
         background: var(--bg-black);
@@ -120,6 +128,13 @@
     .result {
         justify-content: flex-start;
 
+        &__is-copied {
+            margin-left: 9px;
+            svg {
+                margin-right: 6px;
+            }   
+        }
+
         &__img {
             align-self: flex-start;
             max-width: calc(100% - 30px);
@@ -130,7 +145,7 @@
 
         &__copy {
             display: inline-block;
-            margin: 13px 0;
+            margin: 6px 0 13px;
             padding: 0 9px;
             background: var(--bg-button-gray);
             line-height: 33px;
@@ -143,6 +158,7 @@
             .result__copy-link {
                 position: absolute;
                 top: -200%;
+                left: 13px;
             }
 
             svg {
