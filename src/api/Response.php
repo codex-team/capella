@@ -61,9 +61,9 @@ class Response
      */
     public static function data($data)
     {
-        $blob   = $data['blob'];
-        $type   = $data['type'];
-        $length = $data['length'];
+        $blob = $data;
+        $type = 'image/png';
+        $length = strlen($blob);
 
         if ($type) {
             header("Content-Type: $type");

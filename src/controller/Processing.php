@@ -159,11 +159,7 @@ class Processing
         $blob = $imageProcessing->getImageBlob();
         $length = strlen($blob);
 
-        $imageData = array(
-            'type'    => $type,
-            'blob'    => $blob,
-            'length'  => $length
-        );
+        $imageData = $blob;
 
         return $imageData;
     }
