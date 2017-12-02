@@ -34,7 +34,7 @@ Capella supports these types of images:
 - gif
 - bmp
 
-Please note that each uploaded file would be converted to PNG.
+Please note that each uploaded file will be converted to PNG.
 
 ## Upload API
 
