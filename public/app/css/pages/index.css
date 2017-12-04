@@ -102,8 +102,9 @@
         }
 
         a {
-            color: #8051ff;
-            text-decoration-line: none;
+            text-decoration: none;
+            color: #7a96ff;
+            border-bottom: 2px solid #4d72da;
         }
     }
 
