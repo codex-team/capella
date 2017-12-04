@@ -102,18 +102,9 @@
         }
 
         a {
-            color: #8051ff;
             text-decoration: none;
-            position: relative;
-
-            &::after {
-                content: '';
-                border-bottom: 2px solid #8051ff;
-                position: absolute;
-                left: 0;
-                top: 100%;
-                width: 100%;
-            }
+            color: #7a96ff;
+            border-bottom: 2px solid #4d72da;
         }
     }
 
