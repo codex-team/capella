@@ -15,3 +15,13 @@ body {
 .js-hidden {
     opacity: 0 !important;
 }
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--desktop-large) {
+    body {
+        background-size: 100%;
+    }
+}
