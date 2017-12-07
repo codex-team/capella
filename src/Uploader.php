@@ -103,6 +103,7 @@ class Uploader
         // Convert image
         $image = new Imagick($path);
         $image->setImageFormat(self::TARGET_EXT);
+        $image->setImageCompressionQuality(90);
         $image->writeImage($path);
 
         return $path;
