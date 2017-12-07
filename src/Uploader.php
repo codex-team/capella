@@ -20,7 +20,7 @@ class Uploader
         'image/bmp'
     );
 
-    const TARGET_EXT = 'png';
+    const TARGET_EXT = 'jpg';
 
     /**
      * Temp files directory
@@ -100,7 +100,7 @@ class Uploader
             throw new \Exception('Wrong source mime-type');
         };
 
-        // Convert image to png
+        // Convert image
         $image = new Imagick($path);
         $image->setImageFormat(self::TARGET_EXT);
         $image->writeImage($path);
