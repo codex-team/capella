@@ -100,8 +100,14 @@ class Uploader
             throw new \Exception('Wrong source mime-type');
         };
 
-        // Convert image
+        // Get uploaded image
         $image = new Imagick($path);
+
+        // Add white background
+        $image->setImageBackgroundColor(new ImagickPixel('white'));
+        $image = $image->flattenImages();
+
+        // Convert image to jpg
         $image->setImageFormat(self::TARGET_EXT);
         $image->setImageCompressionQuality(90);
         $image->writeImage($path);
