@@ -43,4 +43,17 @@ class Response
         self::response(500, 'Internal Server Error');
     }
 
+    /**
+     * Set cache headers
+     *
+     * @param integer $secondsToCache — cache lifetime in seconds
+     */
+    public static function cache($secondsToCache = 3600)
+    {
+        $expiresTimestamp = gmdate('D, d M Y H:i:s', time() + $secondsToCache) . ' GMT';
+        header('Expires: '.$expiresTimestamp);
+        header('Pragma: cache');
+        header('Cache-Control: max-age='.$secondsToCache);
+    }
+
 }
