@@ -105,7 +105,7 @@ class Uploader
 
         // Add white background
         $image->setImageBackgroundColor(new ImagickPixel('white'));
-        $image = $image->flattenImages();
+        $image = $image->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 
         // Convert image to jpg
         $image->setImageFormat(self::TARGET_EXT);
