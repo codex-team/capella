@@ -60,7 +60,7 @@ class Response
     public static function data($data, $cacheLifetime = 2 * 24 * 60 * 60)
     {
         $blob = $data;
-        $type = 'image/jpg';
+        $type = 'image/jpeg';
         $length = strlen($blob);
 
         if ($type) {
