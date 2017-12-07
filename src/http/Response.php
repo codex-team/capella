@@ -51,9 +51,23 @@ class Response
     public static function cache($secondsToCache = 3600)
     {
         $expiresTimestamp = gmdate('D, d M Y H:i:s', time() + $secondsToCache) . ' GMT';
-        header('Expires: '.$expiresTimestamp);
-        header('Pragma: cache');
-        header('Cache-Control: max-age='.$secondsToCache);
+
+        /**
+         * The Expires entity-header field gives the date/time
+         * after which the response is considered stale.
+         *
+         * https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.21
+         */
+        header('Expires: ' . $expiresTimestamp);
+
+        /**
+         * The Cache-Control general-header field is used to specify
+         * directives that MUST be obeyed by all caching mechanisms
+         * along the request/response chain.
+         *
+         * https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+         */
+        header('Cache-Control: max-age=' . $secondsToCache);
     }
 
 }
