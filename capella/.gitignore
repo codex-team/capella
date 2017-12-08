@@ -9,6 +9,7 @@ config.php
 
 # Ignore install.php
 install.php
+!tools/install.php
 
 # Ignore dev env
 .idea/
