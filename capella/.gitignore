@@ -8,8 +8,7 @@ upload/
 config.php
 
 # Ignore install.php
-install.php
-!tools/install.php
+/install.php
 
 # Ignore dev env
 .idea/
