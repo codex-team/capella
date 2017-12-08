@@ -18,7 +18,7 @@ RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
 
 # Set timezone
 RUN rm /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 RUN "date"
 
 WORKDIR /var/www
