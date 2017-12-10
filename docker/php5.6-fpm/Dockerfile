@@ -5,7 +5,10 @@ MAINTAINER CodeX Team <github.com/codex-team>
 RUN echo "deb http://ftp.ru.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list
 
 RUN apt-get update
-RUN apt-get install -y libz-dev
+RUN apt-get install -y \
+    libz-dev \
+    git \
+    unzip
 
 # Install memcache
 RUN pecl install memcache
