@@ -1,27 +1,29 @@
 html, body {
-    height: 100%
+    height: 100%;
 }
 body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     background-size: cover;
-    background: var(--bg-main) url(/public/app/img/space-bg.jpg);
-    background-position: center;
+    background-repeat: no-repeat;
     font-family: system-ui;
+    background-position: top center;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5em;
     color: #aea2d9;
-}
-.js-hidden {
-    opacity: 0 !important;
+    filter: none;
+    transition: -webkit-filter 0s 0.3s linear, filter 0s 0.3s linear;
 }
 
 /**
 * Mobile viewport styles
 * =================================
 */
-@media (--desktop-large) {
+@media (--mobile) {
     body {
-        background-size: 100%;
+        align-items: stretch;
     }
 }

@@ -78,7 +78,7 @@ const plugins = [
 ];
 
 const watchOptions = {
-  aggregateTimeOut: 100,
+  aggregateTimeout: 100,
 };
 
 /**

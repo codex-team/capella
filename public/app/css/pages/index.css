@@ -1,9 +1,23 @@
+.js-blur-image {
+    position: absolute;
+    z-index: -1;
+    top: -5px; /*Get rid of blurred filter edges*/
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+    background: #11173e url(/public/app/img/small-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+}
 .capella {
+    position: relative;
     display: flex;
+    flex-basis: 100%;
     align-items: stretch;
     justify-content: center;
     min-height: 100%;
-
+    
     &__uploading {
         display: none;
     }
@@ -114,10 +128,10 @@
     }
 
     &__button {
-        display: inline-block;
-        vertical-align: middle;
+        display: flex;
+        align-items: center;
         padding: 0 30px;
-        margin-top: 32px;
+        margin: 50px auto 0;;
         border: 0;
         border-radius: 25px;
         background: var(--bg-button);
@@ -142,7 +156,7 @@
     }
 
     &__input {
-        margin-top: 40px;
+        margin-top: 20px;
         padding-bottom: 10px;
         background: transparent;
         border-color: transparent;
@@ -196,10 +210,6 @@
             margin-bottom: 50px;
         }
 
-        &__button {
-            margin: 50px auto 0;
-        }
-
         &__contents {
             height: auto;
             padding: 0 10px;
@@ -218,8 +228,6 @@
                 }
             }
         }
-
-
     }
 
 }
