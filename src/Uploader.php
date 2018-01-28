@@ -20,7 +20,7 @@ class Uploader
         'image/bmp'
     );
 
-    const TARGET_EXT = 'png';
+    const TARGET_EXT = 'jpg';
 
     /**
      * Temp files directory
@@ -100,9 +100,16 @@ class Uploader
             throw new \Exception('Wrong source mime-type');
         };
 
-        // Convert image to png
+        // Get uploaded image
         $image = new Imagick($path);
+
+        // Add white background
+        $image->setImageBackgroundColor(new ImagickPixel('white'));
+        $image = $image->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+
+        // Convert image to jpg
         $image->setImageFormat(self::TARGET_EXT);
+        $image->setImageCompressionQuality(90);
         $image->writeImage($path);
 
         return $path;

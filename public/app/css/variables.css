@@ -27,6 +27,7 @@
 /**
 * Custom media queries
 */
+@custom-media --desktop-large all and (min-width: 1450px);
 @custom-media --desktop all and (min-width: 1050px);
 @custom-media --tablet all and (max-width: 1050px);
 @custom-media --mobile all and (max-width: 980px);

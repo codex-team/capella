@@ -81,7 +81,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>cURL Enabled</th>
             <?php if (extension_loaded('curl')): ?>
                 <td class="pass">Pass</td>
-            <?php else: ?>
+            <?php else: $failed = TRUE ?>
                 <td class="fail">Capella can use the <a href="http://php.net/curl">cURL</a> extension to upload images by link.</td>
             <?php endif ?>
         </tr>
@@ -97,7 +97,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>Image Processing</th>
             <?php if (class_exists("Imagick")): ?>
                 <td class="pass">Pass</td>
-            <?php else: ?>
+            <?php else: $failed = TRUE ?>
                 <td class="fail">Capella uses <a href="http://php.net/imagick">ImageMagick</a> class to process images.</td>
             <?php endif ?>
         </tr>
@@ -105,7 +105,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>Short open tags</th>
             <?php if (ini_get('short_open_tag')): ?>
                 <td class="pass">Pass</td>
-            <?php else: ?>
+            <?php else: $failed = TRUE ?>
                 <td class="fail">Capella requires <a href="http://php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> param to be enabled in php.ini.</td>
             <?php endif ?>
         </tr>

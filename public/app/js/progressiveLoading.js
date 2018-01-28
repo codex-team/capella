@@ -26,9 +26,7 @@ module.exports = function () {
         fullImage.classList.add('js-image-loaded'),
         fullImage.style.backgroundImage = 'url(' + fullImageUrl + ')';
 
-        setTimeout(function () {
-          blurImage.style.background = 'transparent';
-        }, 1500);
+        blurImage.style.background = 'transparent';
       };
     });
   };

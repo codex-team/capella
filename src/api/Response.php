@@ -54,16 +54,14 @@ class Response
     /**
      * Echo data to the page
      *
-     * @param array $data
-     *    $data['type'] string - mime-type
-     *    $data['blob'] string - blob
-     *    $data['length'] int - size
+     * @param string $data - blob image
+     * @param integer $cacheLifetime - set cache lifetime in seconds
      */
-    public static function data($data)
+    public static function data($data, $cacheLifetime = 2 * 24 * 60 * 60)
     {
-        $blob   = $data['blob'];
-        $type   = $data['type'];
-        $length = $data['length'];
+        $blob = $data;
+        $type = 'image/jpeg';
+        $length = strlen($blob);
 
         if ($type) {
             header("Content-Type: $type");
@@ -71,6 +69,10 @@ class Response
 
         if ($length) {
             header("Content-Length: $length");
+        }
+
+        if ($cacheLifetime) {
+            \HTTP\Response::cache($cacheLifetime);
         }
 
         echo $blob;

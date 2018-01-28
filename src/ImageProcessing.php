@@ -196,31 +196,17 @@ class ImageProcessing
     {
         $this->path = $path;
 
-        // Trying to get cached image
-        $blob = \Cache\Cache::instance()->get($this->path);
+        try {
 
-        // If no cached image then create it
-        if ( !$blob ) {
+            $readResult = @$this->imagick->readImage($path);
 
-            try {
+        } catch (\Exception $e) {
 
-                $readResult = @$this->imagick->readImage($path);
+            \HTTP\Response::NotFound();
 
-            } catch (Exception $e) {
-
-                \HTTP\Response::NotFound();
-
-                die();
-
-            }
-
-            $blob = $this->imagick->getImageBlob();
-
-            \Cache\Cache::instance()->set($this->path, $blob);
+            die();
 
         }
-
-        $this->imagick->readImageBlob($blob);
 
         $this->extension = $this->imagick->getImageFormat();
         if (!$this->isValidExtension($this->extension)) {
