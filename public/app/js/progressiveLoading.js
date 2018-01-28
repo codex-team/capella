@@ -29,8 +29,8 @@ module.exports = function () {
         fullImage.style.backgroundImage = 'url(' + fullImageUrl + ')';
 
         setTimeout(function () {
-          mask.style.filter = 'none';
           blurImage.style.background = 'transparent';
+          mask.style.filter = 'none';
         }, 500);
       };
     });
