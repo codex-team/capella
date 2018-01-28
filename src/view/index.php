@@ -37,8 +37,10 @@
                         <img src="/public/app/svg/cloud-computing.svg">
                         Drop file to upload
                     </div>
+                </div>
             </div>
         </div>
+        <div class="js-mask" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></div>     
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>

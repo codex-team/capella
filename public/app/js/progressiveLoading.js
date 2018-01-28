@@ -18,15 +18,18 @@ module.exports = function () {
 
       let fullImage = document.querySelector('.js-full-image'),
           fullImageUrl = fullImage.getAttribute('data-src'),
-          img = new Image();
+          img = new Image(),
+          mask = document.querySelector('.js-mask');
 
       img.src = fullImageUrl;
 
       img.onload = function () {
         fullImage.classList.add('js-image-loaded'),
+
         fullImage.style.backgroundImage = 'url(' + fullImageUrl + ')';
 
         setTimeout(function () {
+          mask.style.filter = 'none';
           blurImage.style.background = 'transparent';
         }, 500);
       };
