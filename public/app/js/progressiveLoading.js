@@ -21,7 +21,7 @@ module.exports = function () {
           img = new Image();
 
       img.src = fullImageUrl;
-      blurImage.style.filter = 'blur(5px) opacity(0.6)';
+      blurImage.style.filter = 'blur(5px)';
       blurImage.style.transition = 'filter 1.5s';
 
       img.onload = function () {
