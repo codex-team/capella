@@ -27,7 +27,7 @@ module.exports = function () {
       img.onload = function () {
         fullImage.classList.add('js-image-loaded'),
 
-        fullImage.style.backgroundImage = 'url(' + fullImageUrl + ')';
+        fullImage.style.background = '#11173e ' + 'url(' + fullImageUrl + ')';
 
         setTimeout(function () {
           blurImage.style.background = 'transparent';
