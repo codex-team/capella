@@ -1,17 +1,15 @@
 .js-blur-image {
     position: absolute;
     z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
     background: #11173e url(/public/app/img/small-bg.jpg);
     min-height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    overflow: hidden;
-    margin: -10px;
 }
 .capella {
     position: relative;
