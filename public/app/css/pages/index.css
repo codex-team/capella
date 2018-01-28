@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url(/public/app/img/small-bg.jpg);
+    background: #11173e url(/public/app/img/small-bg.jpg);
     min-height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
