@@ -4,6 +4,7 @@ html, body {
 body {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     background-size: cover;
     background-repeat: no-repeat;
     font-family: system-ui;
@@ -15,4 +16,14 @@ body {
     color: #aea2d9;
     filter: none;
     transition: -webkit-filter 0s 0.3s linear, filter 0s 0.3s linear;
+}
+
+/**
+* Mobile viewport styles
+* =================================
+*/
+@media (--mobile) {
+    body {
+        align-items: stretch;
+    }
 }

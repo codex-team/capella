@@ -128,10 +128,10 @@
     }
 
     &__button {
-        display: inline-block;
-        vertical-align: middle;
+        display: flex;
+        align-items: center;
         padding: 0 30px;
-        margin-top: 32px;
+        margin: 50px auto 0;;
         border: 0;
         border-radius: 25px;
         background: var(--bg-button);
@@ -156,7 +156,7 @@
     }
 
     &__input {
-        margin-top: 40px;
+        margin-top: 20px;
         padding-bottom: 10px;
         background: transparent;
         border-color: transparent;
@@ -208,10 +208,6 @@
 
         &__logo {
             margin-bottom: 50px;
-        }
-
-        &__button {
-            margin: 50px auto 0;
         }
 
         &__contents {
