@@ -1,19 +1,19 @@
 .js-blur-image {
     position: absolute;
     z-index: -1;
-    top: -5px;
+    top: -5px; /*Get rid of blurred filter edges*/
     bottom: -5px;
     left: -5px;
     right: -5px;
     background: #11173e url(/public/app/img/small-bg.jpg);
-    min-height: 100%;
-    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-size: cover;
+    background-position: top center;
 }
 .capella {
     position: relative;
     display: flex;
+    flex-basis: 100%;
     align-items: stretch;
     justify-content: center;
     min-height: 100%;
@@ -232,8 +232,6 @@
                 }
             }
         }
-
-
     }
 
 }

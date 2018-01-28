@@ -2,10 +2,12 @@ html, body {
     height: 100%;
 }
 body {
+    display: flex;
+    justify-content: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
     font-family: system-ui;
+    background-position: top center;
     font-size: 18px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
