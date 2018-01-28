@@ -13,8 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <script src="https://rawgit.com/codex-team/hawk.client/master/hawk.js" onload="hawk.init('<?= $_SERVER['HAWK_TOKEN'] ?>');" async></script>
     </head>
-    <body class="js-full-image" data-src="/public/app/img/space-bg.jpg">
-        <div class="capella js-blur-image">
+    <body class="js-full-image" data-src="/public/app/img/space-bg.jpg">     
+        <div class="capella">
             <div class="capella__drag-n-drop">
                 <div class="capella__contents">
                     <div class="capella__logo">
@@ -39,8 +39,8 @@
                     </div>
                 </div>
             </div>
+            <div class="js-blur-image"></div>
         </div>
-        <div class="js-mask" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></div>     
         <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>

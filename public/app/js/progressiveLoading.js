@@ -18,10 +18,11 @@ module.exports = function () {
 
       let fullImage = document.querySelector('.js-full-image'),
           fullImageUrl = fullImage.getAttribute('data-src'),
-          img = new Image(),
-          mask = document.querySelector('.js-mask');
+          img = new Image();
 
       img.src = fullImageUrl;
+      blurImage.style.filter = 'blur(25px) opacity(0.6)';
+      blurImage.style.transition = 'filter 1.5s';
 
       img.onload = function () {
         fullImage.classList.add('js-image-loaded'),
@@ -30,7 +31,7 @@ module.exports = function () {
 
         setTimeout(function () {
           blurImage.style.background = 'transparent';
-          mask.style.filter = 'none';
+          blurImage.style.filter = 'none';
         }, 500);
       };
     });
