@@ -39,9 +39,8 @@ export default class Clipboard {
      * Handle paste events
      */
     function pasteHandler(e) {
-      console.log('PASTER WAS CALLED');
-      // We need to check if event.clipboardData is supported (Chrome)
-      var isChrome = /Chrome/.test(window.navigator.userAgent) && /Google Inc/.test(window.navigator.vendor);
+      /** We need to check if event.clipboardData is supported (Chrome) */
+      let isChrome = /Chrome/.test(window.navigator.userAgent) && /Google Inc/.test(window.navigator.vendor);
 
       if (e.clipboardData && isChrome) {
         /** Get the items from the clipboard */
@@ -81,7 +80,7 @@ export default class Clipboard {
      */
     function checkInput() {
       // Store the pasted content in a variable
-      var child = pasteCatcher.childNodes[0];
+      let child = pasteCatcher.childNodes[0];
 
       // Clear the inner html to make sure we're always
       // getting the latest inserted content
@@ -111,7 +110,7 @@ export default class Clipboard {
     function loadXHR(url) {
       return new Promise(function (resolve, reject) {
         try {
-          var xhr = new XMLHttpRequest();
+          let xhr = new XMLHttpRequest();
 
           xhr.open('GET', url);
           xhr.responseType = 'blob';
