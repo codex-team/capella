@@ -11,7 +11,9 @@
   "node": true,
 
   // Define globals exposed by CodeX Team
-  "predef": [],
+  "predef": [
+    "capella"
+  ],
 
   // Allow ES6.
   "esversion": 6,
