@@ -48,8 +48,6 @@ export default class Clipboard {
    * @param event
    */
   pasteHandler(event) {
-    // event.stopPropagation();
-
     let clipboard = event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData;
 
     /**
@@ -89,7 +87,7 @@ export default class Clipboard {
     /**
      * We need to check if event.clipboardData is supported (Chrome)
      */
-    if (!window.Clipboard) {
+    if (window.Clipboard) {
       /**
        * Prevent pasting image data
        */
