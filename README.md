@@ -33,6 +33,7 @@ Capella supports these types of images:
 - png
 - gif
 - bmp
+- tiff
 
 Please note that each uploaded file will be converted to JPG.
 

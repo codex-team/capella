@@ -86,6 +86,9 @@
         "FileReader": true,
         "File": true,
         "Blob": true,
-        "capella": true
+        "capella": true,
+        "Image": true,
+        "Promise": true,
+        "XMLHttpRequest": true
     }
 }

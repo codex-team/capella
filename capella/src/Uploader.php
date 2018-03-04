@@ -17,7 +17,8 @@ class Uploader
         'image/png',
         'image/jpeg',
         'image/gif',
-        'image/bmp'
+        'image/bmp',
+        'image/tiff'
     );
 
     const TARGET_EXT = 'jpg';
@@ -97,7 +98,7 @@ class Uploader
 
         if ( ! $this->isValidMimeType($mimeType) ) {
             unlink($path);
-            throw new \Exception('Wrong source mime-type');
+            throw new \Exception('Wrong source mime-type: ' . $mimeType);
         };
 
         // Get uploaded image
@@ -154,7 +155,7 @@ class Uploader
         };
 
         if ( ! $this->isValidMimeType($mime) ) {
-            throw new \Exception('Wrong source mime-type');
+            throw new \Exception('Wrong source mime-type: ' . $mime);
         };
 
         // Copy temp file to upload dir

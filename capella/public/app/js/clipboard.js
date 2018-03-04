@@ -1,35 +1,71 @@
 /**
  * Paste from clipboard module
+ *
+ * Thanks to http://joelb.me/blog/2011/code-snippet-accessing-clipboard-images-with-javascript/
  */
 export default class Clipboard {
   /**
    * Initialization of Clipboard module
    */
   constructor() {
-    document.body.addEventListener('paste', this.pasteFromClipboard);
+    /**
+     * Variable for contenteditable element which will catch pasted
+     * image if browser can't works with images in clipboardData
+     */
+    this.pasteCatcher = null;
+
+    /**
+     * We start by checking if the browser supports the
+     * Clipboard object. If not, we need to create a
+     * contenteditable element that catches all pasted data
+     */
+    if (!window.Clipboard) {
+      this.pasteCatcher = document.createElement('DIV');
+
+      /** Safari allows images to be pasted into contenteditable elements */
+      this.pasteCatcher.setAttribute('contenteditable', true);
+
+      /** We can hide the element and append it to the body */
+      this.pasteCatcher.style.opacity = 0;
+      this.pasteCatcher.style.position = 'absolute';
+      document.body.appendChild(this.pasteCatcher);
+
+      /**
+       * Add global paste listener
+       */
+      document.body.addEventListener('paste', event => {
+        this.pasteCatcher.focus();
+        this.pasteHandler(event);
+      });
+    } else {
+      /**
+       * Add the paste event listener to the page body
+       */
+      document.body.addEventListener('paste', event => {
+        this.pasteHandler(event);
+      });
+    }
   }
 
   /**
-   * Pasted image from clipboard
+   * Paste handler
+   *
+   * @param event
    */
-  pasteFromClipboard(event) {
-    let clipboard = (event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData);
-
-    /**
-     * items - for images
-     * data - for links
-     */
-    let items = clipboard.items;
-    let data = clipboard.getData('Text');
-    let blob = null;
-
-    event.stopPropagation();
-    event.preventDefault();
+  pasteHandler(event) {
+    let clipboard = event.clipboardData  || event.originalEvent.clipboardData || window.clipboardData;
 
     /**
      * Checking if clipboard has a link
      */
+    let data = clipboard.getData('Text');
+
     if (data) {
+      /**
+       * Prevent pasting text data
+       */
+      event.preventDefault();
+
       /**
        * Parsing on valid URL
        */
@@ -37,33 +73,154 @@ export default class Clipboard {
 
       if (data.match(regex)) {
         capella.uploader.upload({'link': data});
+        return;
       } else {
         document.getElementById('uploadLinkField').value = data;
       }
     }
 
-    if (items) {
+    /**
+     * Try to catch pasted image
+     */
+    this.pasteImageHandler(event);
+  }
+
+  /**
+   * Trying to get Image from clipboardData or pasteCatcher element
+   */
+  pasteImageHandler(event) {
+    /**
+     * We need to check if event.clipboardData is supported (Chrome)
+     */
+    if (window.Clipboard) {
       /**
-       * Checking all clipboard's files and choosing last image file
+       * Prevent pasting image data
        */
-      for (let i = items.length - 1; i >= 0; --i) {
-        if (items[i].type.indexOf('image') === 0) {
-          blob = items[i].getAsFile();
-          break;
+      event.preventDefault();
+
+      if (!event.clipboardData) {
+        return;
+      }
+
+      /**
+       * Get items from the clipboard
+       */
+      let items = event.clipboardData.items;
+
+      if (items) {
+        /**
+         * Loop through all items, looking for any kind of image
+         */
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+            /**
+             * We need to represent the image as a file
+             */
+            let blob = items[i].getAsFile();
+
+            /**
+             * Upload image blob to server
+             */
+            capella.uploader.uploadBlob(blob);
+
+            break;
+          }
         }
       }
-    }
-
-    if (blob !== null) {
+    } else {
       /**
-       * FilerReader is used for asynchronous image reading from blob: function at onload
+       * If we can't handle clipboard data directly (Safari),
+       * we need to read what was pasted from the contenteditable element
+       *
+       * This is a cheap trick to make sure we read the data
+       * AFTER it has been inserted.
        */
-      let reader = new FileReader();
-
-      reader.onload = function () {
-        capella.uploader.uploadBlob(blob);
-      };
-      reader.readAsDataURL(blob);
+      setTimeout(() => this.checkPasteCatcher(), 50);
     }
   }
+
+  /**
+   * Parse the pasteCatcher element for any IMG child
+   */
+  checkPasteCatcher() {
+    /** Store the pasted content in a variable */
+    let child = this.pasteCatcher.querySelector('IMG');
+
+    /**
+     * Clear the inner html to make sure we're always
+     * getting the latest inserted content
+     */
+    this.pasteCatcher.innerHTML = '';
+
+    if (child) {
+      /**
+       * If the user pastes an image, the src attribute
+       * will represent the image as a base64 encoded string.
+       */
+      if (child.tagName === 'IMG') {
+        this.createImage(child.src)
+          .then((blob) => capella.uploader.uploadBlob(blob))
+          .catch(console.log);
+      }
+    }
+  }
+
+  /**
+   * Creates a new blob image from a given blob source
+   *
+   * @param {string} source - uri to blob image "blob:http://..."
+   *
+   * @returns {Promise<Blob>}
+   */
+  createImage(source) {
+    return new Promise((resolve, reject) => {
+      let pastedImage = new Image();
+
+      pastedImage.onload = () => {
+        /** Try to get blob image by it's source url */
+        this.loadXHR(source)
+          .then(resolve)
+          .catch(reject);
+      };
+
+      pastedImage.src = source;
+    });
+  }
+
+  /**
+   * Return blob data by url
+   *
+   * Blob URI/URL was created by JavaScript, refers to data that your
+   * browser currently has in memory (only in current page), and does
+   * not refer to data the exists on the host.
+   * https://www.w3.org/TR/FileAPI/#DefinitionOfScheme
+   *
+   * @param {string} url - uri to blob image "blob:http://..."
+   *
+   * @returns {Promise<Blob>}
+   */
+  loadXHR(url) {
+    return new Promise((resolve, reject) => {
+      try {
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.onerror = function () {
+          reject('Network error.');
+        };
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject('Loading error: ' + xhr.statusText);
+          }
+        };
+        xhr.send();
+      } catch(err) {
+        reject(err.message);
+      }
+    });
+  }
 }
+
