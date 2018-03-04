@@ -25,35 +25,13 @@ export default class Clipboard {
       this.pasteCatcher.style.opacity = 0;
       document.body.appendChild(this.pasteCatcher);
 
-      /** as long as we make sure it is always in focus */
-      this.pasteCatcher.focus();
-      document.addEventListener('click', () => {
-        this.pasteCatcher.focus();
-      });
-
       /**
-       * Add paste listener
+       * Add global paste listener
        */
       document.body.addEventListener('paste', event => {
+        this.pasteCatcher.focus();
         this.pasteHandler(event);
       });
-
-      // /**
-      //  * Add paste listener for catcher
-      //  */
-      // this.pasteCatcher.addEventListener('paste', event => {
-      //   event.stopPropagation();
-      //   this.pasteHandler(event);
-      // });
-      //
-      // /**
-      //  * Add global listener which will dispatch event
-      //  */
-      // document.body.addEventListener('paste', event => {
-      //   event.stopPropagation();
-      //   event.preventDefault();
-      //   this.pasteCatcher.dispatchEvent(event);
-      // });
     } else {
       /**
        * Add the paste event listener to the page body
