@@ -166,7 +166,7 @@ export default class Clipboard {
   }
 
   /**
-   * Creates a new blob image from a given source
+   * Creates a new blob image from a given blob source
    *
    * @param {string} source - uri to blob image "blob:http://..."
    *
@@ -189,7 +189,11 @@ export default class Clipboard {
 
   /**
    * Return blob data by url
-   * Need to get blob image from blob:http://... path
+   *
+   * Blob URI/URL was created by JavaScript, refers to data that your
+   * browser currently has in memory (only in current page), and does
+   * not refer to data the exists on the host.
+   * https://www.w3.org/TR/FileAPI/#DefinitionOfScheme
    *
    * @param {string} url - uri to blob image "blob:http://..."
    *
