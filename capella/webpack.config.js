@@ -1,97 +1,93 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
+module.exports = {
+  /**
+   * Define entry point
+   */
+  entry: './public/app/entry.js',
 
-/**
- * Define entry point
- */
-const entry = './public/app/entry.js';
+  /**
+   * Set bundle params
+   */
+  output: {
+    path: path.resolve(__dirname, 'public', 'build'),
+    filename: 'bundle.js',
+    library: 'capella'
+  },
 
-/**
- * Set bundle params
- *
- * filename       - main bundle file from package.json
- * library        - module name from package.json
- * libraryTarget  - "umd" is a way for your library to work with all the module
- *                  definitions (and where aren't modules at all).
- *                  It will work with CommonJS, AMD and as global variable.
- */
-const output = {
-  filename: './public/build/bundle.js',
-  library: 'capella',
-};
-
-const useModule = {
-  rules: [
-    {
-      test: /.js$/,
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'babel-loader',
-          query: {
-            presets: [ 'es2015' ],
+  /**
+   * Loaders are used to transform certain types of modules
+   */
+  module: {
+    rules: [
+      /**
+       * Process js files
+       */
+      {
+        test: /\.js$/,
+        exclude: [ /node_modules/ ],
+        use: [
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: [ 'env' ],
+            },
           },
-        },
-        {
-          loader: 'eslint-loader',
-          options: {
-            fix: true,
+          {
+            loader: 'eslint-loader',
+            options: {
+              fix: true,
+            },
           },
-        },
-      ],
-    },
-    {
-      test: /.css$/,
-      exclude: [ /node_modules/ ],
-      use: ExtractTextPlugin.extract([ {
-        loader: 'css-loader',
-        options: {
-          minimize: 1,
-          importLoaders: 1,
-        },
+        ]
       },
-        'postcss-loader' 
-      ]),
-    },
+
+      /**
+       * Process css files
+       */
+      {
+        test: /\.css$/,
+        exclude: [ /node_modules/ ],
+        use: ExtractTextPlugin.extract([
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: 1,
+              importLoaders: 1,
+            },
+          },
+          'postcss-loader'
+        ]),
+      }
+    ]
+  },
+
+  /**
+   * Adding plugins to configuration
+   */
+  plugins: [
+    /** Used for migrating to newer webpack version */
+    new webpack.LoaderOptionsPlugin({ options: {} }),
+
+    /** Build separated styles bundle */
+    new ExtractTextPlugin('bundle.css'),
   ],
+
+  /**
+   * Rebuild bundles on files changes
+   * Param --watch is a key for the command in the package.json scripts
+   */
+  watchOptions: {
+    aggregateTimeout: 50,
+  },
+
+  /**
+   * Optimization params
+   */
+  optimization: {
+    noEmitOnErrors: true,
+    splitChunks: false
+  }
 };
-
-/**
- * List of plugins to run
- */
-const plugins = [
-  /** Build separated styles bundle */
-  new ExtractTextPlugin({
-    filename: './public/build/bundle.css',
-    allChunks: true,
-  }),
-
-  /** Minify JS and CSS */
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-  }),
-
-  /** Block biuld if errors found */
-  new webpack.NoEmitOnErrorsPlugin(),
-];
-
-const watchOptions = {
-  aggregateTimeOut: 100,
-};
-
-/**
- * Final webpack config
- */
-const config = {
-  entry,
-  output,
-  module: useModule,
-  plugins,
-  watch: true,
-  watchOptions,
-  devtool: NODE_ENV === 'development' ? 'source-map' : false,
-};
-
-module.exports = config;

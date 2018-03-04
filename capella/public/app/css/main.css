@@ -8,5 +8,5 @@
 @import url('pages/index.css');
 @import url('pages/result.css');
 
-@import url('~codex-notifier/notifier.css');
+@import url('codex-notifier/notifier.css');
 @import url('notifier.css');
