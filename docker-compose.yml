@@ -3,21 +3,18 @@ version: '2'
 services:
     memcached:
         image: memcached:alpine
-        container_name: Capella_Memcached
         ports:
             - 11211:11211
     php:
-        build: php5.6-fpm
-        container_name: Capella_PHP
+        build: docker/php5.6-fpm
         links:
             - memcached
         volumes:
-            - ../capella:/var/www
+            - ./capella:/var/www
     nginx:
-        build: nginx
-        container_name: Capella_NGINX
+        build: docker/nginx
         ports:
-            - 80:80
+            - 8081:80
         links:
             - php
             - memcached
