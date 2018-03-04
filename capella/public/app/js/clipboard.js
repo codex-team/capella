@@ -97,16 +97,25 @@ export default class Clipboard {
        */
       event.preventDefault();
 
-      /** Get the items from the clipboard */
+      /**
+       * Get the items from the clipboard
+       */
       let items = event.clipboardData.items;
 
       if (items) {
-        /** Loop through all items, looking for any kind of image */
+        /**
+         * Loop through all items, looking for any kind of image
+         */
         for (let i = 0; i < items.length; i++) {
           if (items[i].type.indexOf('image') !== -1) {
-            /** We need to represent the image as a file */
+            /**
+             * We need to represent the image as a file
+             */
             let blob = items[i].getAsFile();
 
+            /**
+             * Upload image blob to server
+             */
             capella.uploader.uploadBlob(blob);
 
             break;
@@ -143,7 +152,6 @@ export default class Clipboard {
     this.pasteCatcher.innerHTML = '';
 
     if (child) {
-      console.log(child);
       /**
        * If the user pastes an image, the src attribute
        * will represent the image as a base64 encoded string.
