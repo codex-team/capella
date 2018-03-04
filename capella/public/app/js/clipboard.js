@@ -47,18 +47,18 @@ export default class Clipboard {
         let items = e.clipboardData.items;
 
         if (items) {
-          // Loop through all items, looking for any kind of image
+          /** Loop through all items, looking for any kind of image */
           for (let i = 0; i < items.length; i++) {
             if (items[i].type.indexOf('image') !== -1) {
-              // We need to represent the image as a file,
+              /** We need to represent the image as a file */
               let blob = items[i].getAsFile();
 
-              // and use a URL or webkitURL (whichever is available to the browser)
-              // to create a temporary URL to the object
+              /** and use a URL or webkitURL (whichever is available to the browser) */
+              /** to create a temporary URL to the object */
               let URLObj = window.URL || window.webkitURL;
               let source = URLObj.createObjectURL(blob);
 
-              // The URL can then be used as the source of an image
+              /** The URL can then be used as the source of an image */
               createImage(source);
             }
           }
@@ -79,20 +79,20 @@ export default class Clipboard {
      * Parse the input in the paste catcher element
      */
     function checkInput() {
-      // Store the pasted content in a variable
+      /** Store the pasted content in a variable */
       let child = pasteCatcher.childNodes[0];
 
-      // Clear the inner html to make sure we're always
-      // getting the latest inserted content
+      /**
+       * Clear the inner html to make sure we're always
+       * getting the latest inserted content
+       */
       pasteCatcher.innerHTML = '';
 
-      console.log(child);
-
-
       if (child) {
-        console.log(child);
-        // If the user pastes an image, the src attribute
-        // will represent the image as a base64 encoded string.
+        /**
+         * If the user pastes an image, the src attribute
+         * will represent the image as a base64 encoded string.
+         */
         if (child.tagName === 'IMG') {
           createImage(child.src);
         }
