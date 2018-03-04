@@ -83,19 +83,21 @@ export default class Clipboard {
   }
 
   /**
-   * Handle Image paste events
+   * Trying to get Image from clipboardData or pasteCatcher element
    */
   pasteImageHandler(event) {
     /**
      * We need to check if event.clipboardData is supported (Chrome)
      */
-    let isChrome = /Chrome/.test(window.navigator.userAgent) && /Google Inc/.test(window.navigator.vendor);
-
-    if (event.clipboardData && isChrome) {
+    if (!window.Clipboard) {
       /**
        * Prevent pasting image data
        */
       event.preventDefault();
+
+      if (!event.clipboardData) {
+        return;
+      }
 
       /**
        * Get the items from the clipboard
@@ -130,20 +132,16 @@ export default class Clipboard {
        * This is a cheap trick to make sure we read the data
        * AFTER it has been inserted.
        */
-      setTimeout(() => this.checkPasteCatcher(), 1);
+      setTimeout(() => this.checkPasteCatcher(), 50);
     }
   }
 
   /**
-   * Parse the input in the paste catcher element
+   * Parse the pasteCatcher element for any IMG child
    */
   checkPasteCatcher() {
-    if (!this.pasteCatcher) {
-      return;
-    }
-
     /** Store the pasted content in a variable */
-    let child = this.pasteCatcher.childNodes[0];
+    let child = this.pasteCatcher.querySelector('IMG');
 
     /**
      * Clear the inner html to make sure we're always
@@ -167,9 +165,9 @@ export default class Clipboard {
   /**
    * Creates a new blob image from a given source
    *
-   * @param source
+   * @param {string} source - uri to blob image "blob:http://..."
    *
-   * @returns {Promise<any>}
+   * @returns {Promise<Blob>}
    */
   createImage(source) {
     return new Promise((resolve, reject) => {
@@ -190,9 +188,9 @@ export default class Clipboard {
    * Return blob data by url
    * Need to get blob image from blob:http://... path
    *
-   * @param url
+   * @param {string} url - uri to blob image "blob:http://..."
    *
-   * @returns {Promise<any>}
+   * @returns {Promise<Blob>}
    */
   loadXHR(url) {
     return new Promise((resolve, reject) => {
