@@ -8,28 +8,31 @@ export default class Clipboard {
    * Initialization of Clipboard module
    */
   constructor() {
-    // document.body.addEventListener('paste', this.pasteFromClipboard);
+    let pasteCatcher;
 
-    // We start by checking if the browser supports the
-    // Clipboard object. If not, we need to create a
-    // contenteditable element that catches all pasted data
+    /**
+     * We start by checking if the browser supports the
+     * Clipboard object. If not, we need to create a
+     * contenteditable element that catches all pasted data
+     */
     if (!window.Clipboard) {
-      var pasteCatcher = document.createElement('div');
+      pasteCatcher = document.createElement('DIV');
 
-      // Firefox allows images to be pasted into contenteditable elements
+      /** Firefox allows images to be pasted into contenteditable elements */
       pasteCatcher.setAttribute('contenteditable', '');
 
-      // We can hide the element and append it to the body,
+      /** We can hide the element and append it to the body */
       pasteCatcher.style.opacity = 0;
       document.body.appendChild(pasteCatcher);
 
-      // as long as we make sure it is always in focus
+      /** as long as we make sure it is always in focus */
       pasteCatcher.focus();
-      document.addEventListener('click', function () {
+      document.addEventListener('click', () => {
         pasteCatcher.focus();
       });
     }
-    // Add the paste event listener
+
+    /** Add the paste event listener */
     document.body.addEventListener('paste', pasteHandler);
 
     /**
@@ -40,36 +43,35 @@ export default class Clipboard {
       // We need to check if event.clipboardData is supported (Chrome)
       var isChrome = /Chrome/.test(window.navigator.userAgent) && /Google Inc/.test(window.navigator.vendor);
 
-      console.log('isChrome', isChrome);
-
       if (e.clipboardData && isChrome) {
-        console.log('clipboardData is supported');
-        // Get the items from the clipboard
-        var items = e.clipboardData.items;
+        /** Get the items from the clipboard */
+        let items = e.clipboardData.items;
 
         if (items) {
           // Loop through all items, looking for any kind of image
-          for (var i = 0; i < items.length; i++) {
+          for (let i = 0; i < items.length; i++) {
             if (items[i].type.indexOf('image') !== -1) {
               // We need to represent the image as a file,
-              var blob = items[i].getAsFile();
+              let blob = items[i].getAsFile();
 
               // and use a URL or webkitURL (whichever is available to the browser)
               // to create a temporary URL to the object
-              var URLObj = window.URL || window.webkitURL;
-              var source = URLObj.createObjectURL(blob);
+              let URLObj = window.URL || window.webkitURL;
+              let source = URLObj.createObjectURL(blob);
 
               // The URL can then be used as the source of an image
               createImage(source);
             }
           }
         }
-        // If we can't handle clipboard data directly (Firefox),
-        // we need to read what was pasted from the contenteditable element
       } else {
-        console.log('clipboardData is NOT supported');
-        // This is a cheap trick to make sure we read the data
-        // AFTER it has been inserted.
+        /**
+         * If we can't handle clipboard data directly (Safari),
+         * we need to read what was pasted from the contenteditable element
+         *
+         * This is a cheap trick to make sure we read the data
+         * AFTER it has been inserted.
+         */
         setTimeout(checkInput, 1);
       }
     }
