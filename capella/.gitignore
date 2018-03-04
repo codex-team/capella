@@ -1,0 +1,25 @@
+# Ignore vendor dir
+vendor/
+
+# Ignore upload dir
+upload/
+
+# Ignore all config files
+config.php
+
+# Ignore install.php
+/install.php
+
+# Ignore dev env
+.idea/
+
+# Ignore environment settings
+.env
+
+# Node
+node_modules/
+npm-debug.log
+
+# Ignore updates for composer.lock
+composer.lock
+.DS_Store

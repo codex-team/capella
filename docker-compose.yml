@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+    memcached:
+        image: memcached:alpine
+        ports:
+            - 11211:11211
+    php:
+        build: docker/php5.6-fpm
+        links:
+            - memcached
+        volumes:
+            - ./capella:/var/www
+    nginx:
+        build: docker/nginx
+        ports:
+            - 8081:80
+        links:
+            - php
+            - memcached
+        volumes_from:
+            - php
