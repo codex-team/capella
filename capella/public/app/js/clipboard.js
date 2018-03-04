@@ -8,6 +8,10 @@ export default class Clipboard {
    * Initialization of Clipboard module
    */
   constructor() {
+    /**
+     * Variable for contenteditable element which will catch pasted
+     * image if browser can't works with images in clipboardData
+     */
     this.pasteCatcher = null;
 
     /**
@@ -19,10 +23,11 @@ export default class Clipboard {
       this.pasteCatcher = document.createElement('DIV');
 
       /** Safari allows images to be pasted into contenteditable elements */
-      this.pasteCatcher.setAttribute('contenteditable', '');
+      this.pasteCatcher.setAttribute('contenteditable', true);
 
       /** We can hide the element and append it to the body */
       this.pasteCatcher.style.opacity = 0;
+      this.pasteCatcher.style.position = 'absolute';
       document.body.appendChild(this.pasteCatcher);
 
       /**
@@ -98,7 +103,7 @@ export default class Clipboard {
       }
 
       /**
-       * Get the items from the clipboard
+       * Get items from the clipboard
        */
       let items = event.clipboardData.items;
 
