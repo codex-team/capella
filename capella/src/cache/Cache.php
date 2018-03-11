@@ -10,20 +10,24 @@ namespace Cache;
  *
  * @example get instance
  * $cache = \Cache\Cache::instance();
- *
  * @example set object
  * $cache->set($key, $data[, $exp]);
- *
  * @example get object
  * $data = $cache->get($key);
- *
  * @example delete object
  * $cache->delete($key);
  */
 
 class Cache
 {
+    /**
+     * @var \Memcache
+     */
     private $memcacheObj;
+
+    /**
+     * @var Cache
+     */
     private static $_instance = null;
 
     public static function instance()
@@ -38,8 +42,9 @@ class Cache
     /**
      * Get object
      *
-     * @param string $key — cache key
-     * @return array|null|string — cached data
+     * @param string $key - cache key
+     *
+     * @return mixed - cached data
      */
     public function get($key)
     {
@@ -51,7 +56,7 @@ class Cache
 
         $cacheObj = $this->memcacheObj->get($key);
 
-        if(!empty($cacheObj)) {
+        if (!empty($cacheObj)) {
             return $cacheObj;
         }
 
@@ -61,11 +66,11 @@ class Cache
     /**
      * Set object
      *
-     * @param string $key — cache key
-     * @param * $obj — data to cache
-     * @param integer $timeOfLife — cached data life time
+     * @param string $key        - cache key
+     * @param mixed  $obj        - data to cache
+     * @param int    $timeOfLife - cached data life time
      */
-    public function set($key, $obj, $timeOfLife = 60 * 60)
+    public function set($key, $obj, $timeOfLife = 3600)
     {
         if (is_null($this->memcacheObj)) {
             return;
@@ -79,7 +84,7 @@ class Cache
     /**
      * Delete object
      *
-     * @param string $key — cache key
+     * @param string $key - cache key
      */
     public function delete($key)
     {
@@ -99,14 +104,15 @@ class Cache
     {
         if (!class_exists('\Memcache')) {
             $this->memcacheObj = null;
+
             return;
-        };
+        }
 
         /** Set default config params */
-        $config = array(
+        $config = [
             'host' => 'localhost',
             'port' => 11211
-        );
+        ];
 
         $pathToConfig = dirname(__FILE__) . '/config.php';
 
@@ -119,21 +125,30 @@ class Cache
 
         if (!$this->memcacheObj->addServer($config['host'], $config['port'])) {
             $this->memcacheObj = null;
-        };
+        }
     }
 
     /**
      * Prevent cloning of instance
      */
-    private function __clone() {}
-    private function __sleep () {}
-    private function __wakeup () {}
+    private function __clone()
+    {
+    }
+
+    private function __sleep()
+    {
+    }
+
+    private function __wakeup()
+    {
+    }
 
     /**
      * Generate key for input string
      *
-     * @param string $string — string to hash
-     * @return string — hashed string
+     * @param string $string - string to hash
+     *
+     * @return string - hashed string
      */
     private function generateKey($string)
     {

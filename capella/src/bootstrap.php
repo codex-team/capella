@@ -3,14 +3,14 @@
 /**
  * Autoload vendor
  */
-require_once DOCROOT.'vendor/autoload.php';
+require_once DOCROOT . 'vendor/autoload.php';
 
 /**
  * Load Dotenv
+ *
  * @see https://github.com/vlucas/phpdotenv
  */
-if (is_file(DOCROOT.'.env'))
-{
+if (is_file(DOCROOT . '.env')) {
     $dotenv = new Dotenv\Dotenv(DOCROOT);
     $dotenv->load();
 }
@@ -23,19 +23,18 @@ if (is_file(DOCROOT.'.env'))
 if (isset($_SERVER['HAWK_TOKEN'])) {
     \Hawk\HawkCatcher::instance($_SERVER['HAWK_TOKEN']);
     \Hawk\HawkCatcher::enableHandlers(
-        FALSE,      // exceptions
-        TRUE,       // errors
-        TRUE        // shutdown
+        false,  // exceptions
+        true,       // errors
+        true     // shutdown
     );
 }
-
 
 /**
  * Autoload classes
  */
-require_once DOCROOT.'src/autoload.php';
+require_once DOCROOT . 'src/autoload.php';
 
 /**
  * Router
  */
-require_once DOCROOT.'src/router.php';
+require_once DOCROOT . 'src/router.php';

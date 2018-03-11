@@ -10,7 +10,7 @@ class Response
     /**
      * Return json encoded data
      *
-     * @param {mixed} $responseData
+     * @param mixed $responseData
      */
     public static function json($responseData)
     {
@@ -20,14 +20,14 @@ class Response
     /**
      * Return json encoded data with success = true
      *
-     * @param {array} $data
+     * @param array $data
      */
     public static function success($data)
     {
         $response = array_merge(
-            array(
+            [
                 'success' => true
-            ),
+            ],
             $data
         );
 
@@ -37,14 +37,14 @@ class Response
     /**
      * Return json encoded data with success = false
      *
-     * @param {array} $data
+     * @param array $data
      */
     public static function error($data)
     {
         $response = array_merge(
-            array(
+            [
                 'success' => false
-            ),
+            ],
             $data
         );
 
@@ -54,10 +54,10 @@ class Response
     /**
      * Echo data to the page
      *
-     * @param string $data - blob image
-     * @param integer $cacheLifetime - set cache lifetime in seconds
+     * @param string $data          - blob image
+     * @param int    $cacheLifetime - set cache lifetime in seconds (default: one year)
      */
-    public static function data($data, $cacheLifetime = 2 * 24 * 60 * 60)
+    public static function data($data, $cacheLifetime = 31536000)
     {
         $blob = $data;
         $type = 'image/jpeg';
@@ -77,5 +77,4 @@ class Response
 
         echo $blob;
     }
-
 }

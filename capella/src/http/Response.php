@@ -46,9 +46,15 @@ class Response
     /**
      * Set cache headers
      *
-     * @param integer $secondsToCache — cache lifetime in seconds
+     * To mark a response as "already expired," an origin server sends an
+     * Expires date that is equal to the Date header value. (See the rules
+     * for expiration calculations in section 13.2.4.)
+     *
+     * @see https://www.ietf.org/rfc/rfc2616.txt
+     *
+     * @param int $secondsToCache - cache lifetime in seconds
      */
-    public static function cache($secondsToCache = 3600)
+    public static function cache($secondsToCache = 31536000)
     {
         $expiresTimestamp = gmdate('D, d M Y H:i:s', time() + $secondsToCache) . ' GMT';
 
@@ -69,5 +75,4 @@ class Response
          */
         header('Cache-Control: max-age=' . $secondsToCache);
     }
-
 }
