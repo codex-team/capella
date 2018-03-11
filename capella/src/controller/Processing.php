@@ -24,6 +24,9 @@ namespace Controller;
  */
 class Processing
 {
+    /**
+     * @var array
+     */
     const FILTERS = array(
         'crop' => array(
             'title' => 'crop',
@@ -96,10 +99,6 @@ class Processing
         $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
-
-        /** TODO return to get image from cloud */
-        // $storage = new \AWS\Storage();
-        // $imageUrl = $storage->getImageURL($imageId);
 
         /** TODO Rashardkodit' */
         $imageUrl = 'upload/' . $imageId . '.' . \Uploader::TARGET_EXT;

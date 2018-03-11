@@ -1,6 +1,5 @@
 {
     "require": {
-        "aws/aws-sdk-php": "^3.36",
         "codex-team/hawk.php": "^1.0",
         "vlucas/phpdotenv": "^2.4"
     }
