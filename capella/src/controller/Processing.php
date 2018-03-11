@@ -2,10 +2,6 @@
 
 namespace Controller;
 
-use API;
-use Cache\Cache;
-use HTTP;
-
 /**
  * Class Processing
  *
@@ -52,7 +48,7 @@ class Processing
         /**
          * Trying to get cached image
          */
-        $imageData = Cache::instance()->get($requestUri);
+        $imageData = \Cache\Cache::instance()->get($requestUri);
 
         /**
          * If no cached image then create it
@@ -68,9 +64,9 @@ class Processing
 
             } catch (\Exception $e) {
 
-                HTTP\Response::BadRequest();
+                \HTTP\Response::BadRequest();
 
-                API\Response::error(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
 
@@ -80,13 +76,13 @@ class Processing
             /**
              * Cache imageData result
              */
-            Cache::instance()->set($requestUri, $imageData);
+            \Cache\Cache::instance()->set($requestUri, $imageData);
         }
 
         /**
          * Return imageData
          */
-        API\Response::data($imageData);
+        \API\Response::data($imageData);
     }
 
     /**
@@ -100,7 +96,7 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-        $dispatcher = new Dispatcher($requestUri, self::FILTERS);
+        $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
@@ -113,7 +109,7 @@ class Processing
             /**
              * Return 404
              */
-            HTTP\Response::NotFound();
+            \HTTP\Response::NotFound();
             die();
         }
 

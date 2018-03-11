@@ -1,7 +1,5 @@
 <?php
 
-namespace Controller;
-
 /**
  * Class UriDispatcher
  *
@@ -18,7 +16,7 @@ namespace Controller;
  * );
  *
  * @example parse uri
- * $dispatcher = new \Controller\Dispatcher($uri, FILTERS);
+ * $dispatcher = new \Router\Dispatcher($uri, FILTERS);
  * $imageData  = array(
  *    'id'      => $dispatcher->id,
  *    'filters' => $dispatcher->parsedFilters,
