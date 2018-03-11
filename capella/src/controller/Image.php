@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use HTTP;
+
 /**
  * Show Capella page with uploaded image
  */
@@ -14,6 +16,9 @@ class Image
             /** Get the image id from  request URI */
             $imageId = explode('/', $requestUri)[2];
 
+            /** Check if image exist */
+            \Methods::getPathToImageSource($imageId);
+
             /** Create a link to the image */
             $imageURL = \Methods::getImageUri($imageId);
 
@@ -22,7 +27,7 @@ class Image
 
         } catch (\Exception $e) {
 
-            \HTTP\Response::NotFound();
+            HTTP\Response::NotFound();
 
             die();
 
