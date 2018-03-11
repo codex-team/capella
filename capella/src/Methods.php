@@ -5,7 +5,7 @@ class Methods
     /**
      * ID generator
      *
-     * @return {string} generated ID
+     * @return string generated ID
      */
     public static function generateId()
     {
@@ -21,19 +21,21 @@ class Methods
     /**
      * Get image uri to capella server
      *
-     * @return {string} image uri
+     * @param string $id - image's id
+     *
+     * @return string image uri
      */
     public static function getImageUri($id)
     {
         $domain = self::getDomainAndProtocol();
 
-        return $domain."/".$id;
+        return $domain . "/" . $id;
     }
 
     /**
      * Get server domain name and protocol
      *
-     * @return {string} $protocol.$domain
+     * @return string $protocol.$domain
      */
     public static function getDomainAndProtocol()
     {
@@ -50,7 +52,7 @@ class Methods
 
         $host = $_SERVER['HTTP_HOST'];
 
-        return $protocol.$host;
+        return $protocol . $host;
     }
 
     /**

@@ -2,15 +2,22 @@
 
 
 /**
- * Parent class, witch describes acceptable extension,
+ * Parent class, which describes acceptable extension,
  * file size and methods that check these parameters.
  */
 class Uploader
 {
-    const MAX_FILE_SIZE = 15 * 1024*1024*8;  // 15MB
+    /**
+     * Max size for files in bytes
+     *
+     * @var integer
+     */
+    const MAX_FILE_SIZE = 15 * 1024*1024;
 
     /**
      * Acceptable MIME-types
+     *
+     * @var array
      */
     const MIME_TYPES = array(
         'image/jpg',
@@ -21,10 +28,17 @@ class Uploader
         'image/tiff'
     );
 
+    /**
+     * Extension for saved files
+     *
+     * @var string
+     */
     const TARGET_EXT = 'jpg';
 
     /**
      * Temp files directory
+     *
+     * @var string
      */
     const UPLOAD_DIR = 'upload/';
 
@@ -52,63 +66,61 @@ class Uploader
 
     /**
      * Check extension
+     *
+     * @param string $mime
+     *
+     * @return bool
      */
     protected function isValidMimeType($mime)
     {
-        if ( ! in_array($mime, self::MIME_TYPES) ) {
-            return false;
-        }
-
-        return true;
+        return in_array($mime, self::MIME_TYPES);
     }
 
     /**
      * Check file size
+     *
+     * @param $size
+     *
+     * @return bool
      */
     protected function isValidSize($size)
     {
-        if ( (int) $size > self::MAX_FILE_SIZE ) {
-            return false;
-        }
-
-        return true;
+        return (int) $size <= self::MAX_FILE_SIZE;
     }
 
     /**
      * Save file to uploads dir
      *
-     * @param $filepath - path to the file or url
-     *
-     * @throws Exception
+     * @param string $filepath - path to the file or url
      *
      * @return string - path to saved file
      *
+     * @throws \Exception
      */
     protected function saveFileToUploadDir($filepath)
     {
-        // Generate filename
+        /** Generate filename */
         $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
 
-        // Save file to uploads dir
+        /** Save file to uploads dir */
         file_put_contents($path, file_get_contents($filepath));
 
-        // Get MIME-type from file
+        /** Get MIME-type from file */
         $mimeType = mime_content_type($path);
-        $ext = explode('/', $mimeType)[1];
 
-        if ( ! $this->isValidMimeType($mimeType) ) {
+        if ( !$this->isValidMimeType($mimeType) ) {
             unlink($path);
             throw new \Exception('Wrong source mime-type: ' . $mimeType);
         };
 
-        // Get uploaded image
+        /** Get uploaded image */
         $image = new Imagick($path);
 
-        // Add white background
+        /** Add white background */
         $image->setImageBackgroundColor(new ImagickPixel('white'));
         $image = $image->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
 
-        // Convert image to jpg
+        /** Convert image to jpg */
         $image->setImageFormat(self::TARGET_EXT);
         $image->setImageCompressionQuality(90);
         $image->writeImage($path);
@@ -117,20 +129,24 @@ class Uploader
     }
 
     /**
-     * Upload file to cloud and return capella url
+     * Wrapper for saving image. Returns image's URL.
      *
-     * @param $filepath - path to file
-     * @param $label - name of file
+     * Upgrade this function if you need to upload image
+     * to a cloud or insert data to DB.
+     *
+     * @param $file - temp file
+     *
      * @return string - img url
+     *
+     * @throws \Exception
      */
-    protected function uploadToCloud($filepath, $label)
+    protected function saveImage($file)
     {
-        /** TODO return to get image from cloud */
-        // $storage = new \AWS\Storage();
-        // $label = $storage->uploadImage($filepath, $label);
+        /** Copy temp file to upload dir */
+        $filepath = $this->saveFileToUploadDir($file);
+        $label = explode('.', basename($filepath))[0];
 
-        // TODO insert file info to database
-
+        /** Get image's URL by id */
         $imgURI = \Methods::getImageUri($label);
 
         return $imgURI;
@@ -139,10 +155,13 @@ class Uploader
     /**
      * Check and upload image
      *
-     * @param {string} $file      path to image
-     * @param {string} $size      image size
-     * @param {string} $mime      image mime-type
-     * @return {string}           uploaded image uri
+     * @param string $file - path to image
+     * @param string $size - image size
+     * @param string $mime - image mime-type
+     *
+     * @return string - uploaded image uri
+     *
+     * @throws \Exception
      */
     protected function upload($file, $size, $mime)
     {
@@ -158,16 +177,8 @@ class Uploader
             throw new \Exception('Wrong source mime-type: ' . $mime);
         };
 
-        // Copy temp file to upload dir
-        $filepath = $this->saveFileToUploadDir($file);
-        $label = explode('.', basename($filepath))[0];
-
-
-        // Upload file and get its ID
-        $imgURI = $this->uploadToCloud($filepath, $label);
-
-        // Delete temp file
-        // unlink($filepath);
+        /** Upload file and get its ID */
+        $imgURI = $this->saveImage($file);
 
         return $imgURI;
     }
@@ -175,8 +186,11 @@ class Uploader
     /**
      * Public function for file uploading via POST form-data
      *
-     * @param {array} $data       image file from $_FILES
-     * @return {string}           uploaded image uri
+     * @param array $data - image file from $_FILES
+     *
+     * @return string - uploaded image uri
+     *
+     * @throws \Exception
      */
     public function uploadFile($data)
     {
@@ -192,12 +206,15 @@ class Uploader
     /**
      * Public function for uploading image by url
      *
-     * @param {string} $url       path to image
-     * @return {string}           uploaded image uri
+     * @param {string} $url - path to image
+     *
+     * @return string - uploaded image uri
+     *
+     * @throws \Exception
      */
     public function uploadLink($url)
     {
-        // Get link info
+        /** Get link info */
         $headers = @get_headers($url, 1);
 
         if ( !$headers ) {

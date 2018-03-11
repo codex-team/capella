@@ -28,6 +28,8 @@ class ImageProcessing
      * ImageProcessing constructor
      *
      * @param string $path - local path to image
+     *
+     * @throws \Exception
      */
     public function __construct($path)
     {
@@ -93,8 +95,8 @@ class ImageProcessing
      * $image->resizeImage(400,300);
      * $image->resizeImage(100);
      *
-     * @param {int} $resizeWidth
-     * @param {int} $resizeHeight
+     * @param int $resizeWidth
+     * @param int $resizeHeight
      *
      * @throws Exception
      */
@@ -129,7 +131,7 @@ class ImageProcessing
      * @example pixelize image by pixels count
      * $image->pixelizeImage(15);
      *
-     * @param {int} $pixels
+     * @param int $pixels
      *
      * @throws Exception
      */
@@ -167,7 +169,8 @@ class ImageProcessing
     /**
      * Defines available image formats
      *
-     * @param string $extension - we want to validate
+     * @param string $extension - ext we want to check
+     *
      * @return bool
      */
     private function isValidExtension($extension)
@@ -189,7 +192,8 @@ class ImageProcessing
     /**
      * Read image from local path
      *
-     * @param {String} $path local path to image
+     * @param string $path - local path to image
+     *
      * @throws Exception
      */
     private function readImage($path)
