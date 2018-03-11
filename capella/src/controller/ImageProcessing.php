@@ -1,5 +1,10 @@
 <?php
 
+namespace Controller;
+
+use HTTP;
+use Imagick;
+
 /**
  * Class ImageProcessing
  *
@@ -52,7 +57,7 @@ class ImageProcessing
      * @param int|null $x - crop x
      * @param int|null $y - crop y
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function cropImage($cropWidth, $cropHeight = null, $x = null, $y = null)
     {
@@ -98,7 +103,7 @@ class ImageProcessing
      * @param int $resizeWidth
      * @param int $resizeHeight
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function resizeImage($resizeWidth, $resizeHeight = 0)
     {
@@ -133,7 +138,7 @@ class ImageProcessing
      *
      * @param int $pixels
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function pixelizeImage($pixels)
     {
@@ -194,7 +199,7 @@ class ImageProcessing
      *
      * @param string $path - local path to image
      *
-     * @throws Exception
+     * @throws \Exception
      */
     private function readImage($path)
     {
@@ -202,11 +207,11 @@ class ImageProcessing
 
         try {
 
-            $readResult = @$this->imagick->readImage($path);
+            @$this->imagick->readImage($path);
 
         } catch (\Exception $e) {
 
-            \HTTP\Response::NotFound();
+            HTTP\Response::NotFound();
 
             die();
 
