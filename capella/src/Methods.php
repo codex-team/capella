@@ -9,12 +9,12 @@ class Methods
      */
     public static function generateId()
     {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0x0fff ) | 0x4000,
-            mt_rand( 0, 0x3fff ) | 0x8000,
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
 
@@ -40,9 +40,10 @@ class Methods
      *
      * @param $id - image's id
      *
+     * @throws \Exception
+     *
      * @return string
      *
-     * @throws \Exception
      */
     public static function getPathToImageSource($id)
     {
@@ -62,15 +63,11 @@ class Methods
      */
     public static function getDomainAndProtocol()
     {
-        if ( isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+        if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
             isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
-
             $protocol = 'https://';
-
         } else {
-
             $protocol = 'http://';
-
         }
 
         $host = $_SERVER['HTTP_HOST'];
@@ -81,11 +78,10 @@ class Methods
     /**
      * Check for AJAX request
      *
-     * @return boolean
+     * @return bool
      */
     public static function isAjax()
     {
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest');
     }
-
 }

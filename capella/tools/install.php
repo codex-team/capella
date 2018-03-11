@@ -7,7 +7,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
     clearstatcache();
 } else {
     // Clearing the realpath() cache is only possible PHP 5.3+
-    clearstatcache(TRUE);
+    clearstatcache(true);
 }
 ?>
 
@@ -50,30 +50,30 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
         */ ?>
     </p>
 
-    <?php $failed = FALSE ?>
+    <?php $failed = false ?>
 
     <table cellspacing="0">
         <tr>
             <th>PHP Version</th>
             <?php if (version_compare(PHP_VERSION, '5.3.3', '>=')): ?>
                 <td class="pass"><?php echo PHP_VERSION ?></td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">Capella requires PHP 5.3.3 or newer, this version is <?php echo PHP_VERSION ?>.</td>
             <?php endif ?>
         </tr>
         <tr>
             <th>Uploads Directory</th>
-            <?php if (is_dir(DOCROOT.'upload') AND is_writable(DOCROOT.'upload')): ?>
-                <td class="pass"><?php echo DOCROOT.'upload/' ?></td>
-            <?php else: $failed = TRUE ?>
-                <td class="fail">The <code><?php echo DOCROOT.'upload/' ?></code> directory is not writable.</td>
+            <?php if (is_dir(DOCROOT . 'upload') and is_writable(DOCROOT . 'upload')): ?>
+                <td class="pass"><?php echo DOCROOT . 'upload/' ?></td>
+            <?php else: $failed = true ?>
+                <td class="fail">The <code><?php echo DOCROOT . 'upload/' ?></code> directory is not writable.</td>
             <?php endif ?>
         </tr>
         <tr>
             <th>SPL Enabled</th>
             <?php if (function_exists('spl_autoload_register')): ?>
                 <td class="pass">Pass</td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">PHP <a href="http://www.php.net/spl">SPL</a> is either not loaded or not compiled in.</td>
             <?php endif ?>
         </tr>
@@ -81,15 +81,15 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>cURL Enabled</th>
             <?php if (extension_loaded('curl')): ?>
                 <td class="pass">Pass</td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">Capella can use the <a href="http://php.net/curl">cURL</a> extension to upload images by link.</td>
             <?php endif ?>
         </tr>
         <tr>
             <th>URI Determination</th>
-            <?php if (isset($_SERVER['REQUEST_URI']) OR isset($_SERVER['PHP_SELF']) OR isset($_SERVER['PATH_INFO'])): ?>
+            <?php if (isset($_SERVER['REQUEST_URI']) or isset($_SERVER['PHP_SELF']) or isset($_SERVER['PATH_INFO'])): ?>
                 <td class="pass">Pass</td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">Neither <code>$_SERVER['REQUEST_URI']</code>, <code>$_SERVER['PHP_SELF']</code>, or <code>$_SERVER['PATH_INFO']</code> is available.</td>
             <?php endif ?>
         </tr>
@@ -97,7 +97,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>Image Processing</th>
             <?php if (class_exists("Imagick")): ?>
                 <td class="pass">Pass</td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">Capella uses <a href="http://php.net/imagick">ImageMagick</a> class to process images.</td>
             <?php endif ?>
         </tr>
@@ -105,13 +105,13 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
             <th>Short open tags</th>
             <?php if (ini_get('short_open_tag')): ?>
                 <td class="pass">Pass</td>
-            <?php else: $failed = TRUE ?>
+            <?php else: $failed = true ?>
                 <td class="fail">Capella requires <a href="http://php.net/manual/en/ini.core.php#ini.short-open-tag">short_open_tag</a> param to be enabled in php.ini.</td>
             <?php endif ?>
         </tr>
     </table>
 
-    <?php if ($failed === TRUE): ?>
+    <?php if ($failed === true): ?>
         <p id="results" class="fail">✘ Capella may not work correctly with your environment.</p>
     <?php else: ?>
         <p id="results" class="pass">✔ Your environment passed all requirements.<br />

@@ -10,23 +10,23 @@ class Uploader
     /**
      * Max size for files in bytes
      *
-     * @var integer
+     * @var int
      */
-    const MAX_FILE_SIZE = 15 * 1024*1024;
+    const MAX_FILE_SIZE = 15 * 1024 * 1024;
 
     /**
      * Acceptable MIME-types
      *
      * @var array
      */
-    const MIME_TYPES = array(
+    const MIME_TYPES = [
         'image/jpg',
         'image/png',
         'image/jpeg',
         'image/gif',
         'image/bmp',
         'image/tiff'
-    );
+    ];
 
     /**
      * Extension for saved files
@@ -47,18 +47,17 @@ class Uploader
      */
     public function __construct()
     {
-        if (!file_exists(self::UPLOAD_DIR) || !is_writable(self::UPLOAD_DIR))
-        {
-            $errorMessage = self::UPLOAD_DIR.' directory should be writable';
+        if (!file_exists(self::UPLOAD_DIR) || !is_writable(self::UPLOAD_DIR)) {
+            $errorMessage = self::UPLOAD_DIR . ' directory should be writable';
 
             trigger_error($errorMessage, E_USER_ERROR);
             error_log($errorMessage);
 
             \HTTP\Response::InternalServerError();
 
-            \API\Response::error(array(
+            \API\Response::error([
                 'message' => 'Internal Server Error'
-            ));
+            ]);
 
             die();
         }
@@ -93,9 +92,10 @@ class Uploader
      *
      * @param string $filepath - path to the file or url
      *
+     * @throws \Exception
+     *
      * @return string - path to saved file
      *
-     * @throws \Exception
      */
     protected function saveFileToUploadDir($filepath)
     {
@@ -108,10 +108,10 @@ class Uploader
         /** Get MIME-type from file */
         $mimeType = mime_content_type($path);
 
-        if ( !$this->isValidMimeType($mimeType) ) {
+        if (!$this->isValidMimeType($mimeType)) {
             unlink($path);
             throw new \Exception('Wrong source mime-type: ' . $mimeType);
-        };
+        }
 
         /** Get uploaded image */
         $image = new Imagick($path);
@@ -138,9 +138,10 @@ class Uploader
      *
      * @param $file - temp file
      *
+     * @throws \Exception
+     *
      * @return string - img url
      *
-     * @throws \Exception
      */
     protected function saveImage($file)
     {
@@ -161,23 +162,24 @@ class Uploader
      * @param string $size - image size
      * @param string $mime - image mime-type
      *
+     * @throws \Exception
+     *
      * @return string - uploaded image uri
      *
-     * @throws \Exception
      */
     protected function upload($file, $size, $mime)
     {
-        if ( !$file || !$size || !$mime) {
+        if (!$file || !$size || !$mime) {
             throw new \Exception('Source is damaged');
-        };
+        }
 
-        if ( ! $this->isValidSize($size) ) {
+        if (! $this->isValidSize($size)) {
             throw new \Exception('Source is too big');
-        };
+        }
 
-        if ( ! $this->isValidMimeType($mime) ) {
+        if (! $this->isValidMimeType($mime)) {
             throw new \Exception('Wrong source mime-type: ' . $mime);
-        };
+        }
 
         /** Upload file and get its ID */
         $imgURI = $this->saveImage($file);
@@ -190,9 +192,10 @@ class Uploader
      *
      * @param array $data - image file from $_FILES
      *
+     * @throws \Exception
+     *
      * @return string - uploaded image uri
      *
-     * @throws \Exception
      */
     public function uploadFile($data)
     {
@@ -210,16 +213,17 @@ class Uploader
      *
      * @param {string} $url - path to image
      *
+     * @throws \Exception
+     *
      * @return string - uploaded image uri
      *
-     * @throws \Exception
      */
     public function uploadLink($url)
     {
         /** Get link info */
         $headers = @get_headers($url, 1);
 
-        if ( !$headers ) {
+        if (!$headers) {
             throw new \Exception('Can\'t get headers for this URL');
         }
 

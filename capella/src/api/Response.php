@@ -25,9 +25,9 @@ class Response
     public static function success($data)
     {
         $response = array_merge(
-            array(
+            [
                 'success' => true
-            ),
+            ],
             $data
         );
 
@@ -42,9 +42,9 @@ class Response
     public static function error($data)
     {
         $response = array_merge(
-            array(
+            [
                 'success' => false
-            ),
+            ],
             $data
         );
 
@@ -54,8 +54,8 @@ class Response
     /**
      * Echo data to the page
      *
-     * @param string $data - blob image
-     * @param integer $cacheLifetime - set cache lifetime in seconds (default: one year)
+     * @param string $data          - blob image
+     * @param int    $cacheLifetime - set cache lifetime in seconds (default: one year)
      */
     public static function data($data, $cacheLifetime = 31536000)
     {
@@ -77,5 +77,4 @@ class Response
 
         echo $blob;
     }
-
 }

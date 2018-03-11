@@ -9,8 +9,8 @@ use HTTP;
  */
 class Image
 {
-    public function __construct($requestUri) {
-
+    public function __construct($requestUri)
+    {
         try {
 
             /** Get the image id from  request URI */
@@ -23,16 +23,11 @@ class Image
             $imageURL = \Methods::getImageUri($imageId);
 
             /** Render page */
-            require_once DOCROOT."src/view/result.php";
-
+            require_once DOCROOT . "src/view/result.php";
         } catch (\Exception $e) {
-
             HTTP\Response::NotFound();
 
             die();
-
         }
-
     }
-
 }

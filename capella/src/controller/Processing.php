@@ -13,16 +13,12 @@ use HTTP;
  *
  * @example get full size image
  *    capella.pics/aaaa-bbbb-cccc-ddddeeee
- *
  * @example resize filter
  *    capella.pics/aaaa-bbbb-cccc-ddddeeee/resize/100x100
- *
  * @example crop filter
  *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100
- *
  * @example crop filter with specified coordinates
  *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60
- *
  * @example usage of two composed filters
  *    capella.pics/aaaa-bbbb-cccc-ddddeeee/crop/300x100&40,60/resize/1000x1000
  */
@@ -31,21 +27,20 @@ class Processing
     /**
      * @var array
      */
-    const FILTERS = array(
-        'crop' => array(
+    const FILTERS = [
+        'crop' => [
             'title' => 'crop',
             'pattern' => '{width|int}[x{height|int}[&{x|int},{y|int}]]'
-        ),
-        'resize' => array(
+        ],
+        'resize' => [
             'title' => 'resize',
             'pattern' => '{width|int}[x{height|int}]'
-        ),
-        'pixelize' => array(
+        ],
+        'pixelize' => [
             'title' => 'pixelize',
             'pattern' => '{pixels|int}'
-        )
-    );
-
+        ]
+    ];
 
     public function __construct($requestUri)
     {
@@ -57,22 +52,19 @@ class Processing
         /**
          * If no cached image then create it
          */
-        if ( !$imageData ) {
+        if (!$imageData) {
 
             /**
              * Try to process url or throw error message and code 400
              */
             try {
-
                 $imageData = $this->returnImage($requestUri);
-
             } catch (\Exception $e) {
-
                 HTTP\Response::BadRequest();
 
-                API\Response::error(array(
+                API\Response::error([
                     'message' => $e->getMessage()
-                ));
+                ]);
 
                 die();
             }
@@ -94,9 +86,10 @@ class Processing
      *
      * @param string $requestUri
      *
+     * @throws \Exception
+     *
      * @return string - image blob
      *
-     * @throws \Exception
      */
     protected function returnImage($requestUri)
     {
@@ -120,7 +113,6 @@ class Processing
         $imageProcessing = new \ImageProcessing($imageUrl);
 
         foreach ($filters as $filter) {
-
             switch ($filter['filter']) {
 
                 case 'crop':
@@ -157,7 +149,6 @@ class Processing
 
                     break;
             }
-
         }
 
         $blob = $imageProcessing->getImageBlob();

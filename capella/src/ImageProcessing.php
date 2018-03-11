@@ -5,10 +5,8 @@
  *
  * @example create new class with image from path in constructor
  * $image = new ImageProcessing("C:/Users/image.png");
- *
  * @example use filters
  * $image->resizeImage(400,300);
- *
  * @example getImageBlob returns the image sequence as a blob
  * $image->getImageBlob();
  */
@@ -22,7 +20,7 @@ class ImageProcessing
 
     private $imagick;
 
-    private $validExtensions = array('png', 'gif', 'jpeg');
+    private $validExtensions = ['png', 'gif', 'jpeg'];
 
     /**
      * ImageProcessing constructor
@@ -42,15 +40,14 @@ class ImageProcessing
      *
      * @example crop image with coordinates
      * $image->cropImage(100,100,0,10);
-     *
      * @example crop image by center coordinate
      * $image->cropImage(200,150);
      * $image->cropImage(100);
      *
-     * @param int $cropWidth
-     * @param int $cropHeight
-     * @param int|null $x - crop x
-     * @param int|null $y - crop y
+     * @param int      $cropWidth
+     * @param int      $cropHeight
+     * @param int|null $x          - crop x
+     * @param int|null $y          - crop y
      *
      * @throws Exception
      */
@@ -67,7 +64,6 @@ class ImageProcessing
         }
 
         if ($x == null || $y == null) {
-
             $ratio = max($cropHeight / $this->height, $cropWidth / $this->width);
 
             $this->imagick->scaleImage($ratio * $this->width, $ratio * $this->height);
@@ -78,11 +74,8 @@ class ImageProcessing
             $y = $this->height / 2 - $cropHeight / 2;
 
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
-
         } else {
-
             $this->imagick->cropImage($cropWidth, $cropHeight, $x, $y);
-
         }
 
         $this->recalculateDimensions();
@@ -107,19 +100,13 @@ class ImageProcessing
         }
 
         if ($resizeWidth == 0) {
-
             $this->imagick->scaleImage(0, $resizeHeight);
-
         } elseif ($resizeHeight == 0) {
-
             $this->imagick->scaleImage($resizeWidth, 0);
-
         } else {
-
             $ratio = min($resizeHeight / $this->height, $resizeWidth / $this->width);
 
             $this->imagick->scaleImage($ratio * $this->width, $ratio * $this->height);
-
         }
 
         $this->recalculateDimensions();
@@ -142,17 +129,13 @@ class ImageProcessing
         }
 
         if ($this->width > $this->height) {
-
             $ratio = $this->width / $pixels;
             $this->resizeImage($this->width / $ratio, 0);
             $this->resizeImage($this->width * $ratio, 0);
-
         } else {
-
             $ratio = $this->height / $pixels;
             $this->resizeImage(0, $this->height / $ratio);
             $this->resizeImage(0, $this->height * $ratio);
-
         }
     }
 
@@ -201,15 +184,11 @@ class ImageProcessing
         $this->path = $path;
 
         try {
-
             $readResult = @$this->imagick->readImage($path);
-
         } catch (\Exception $e) {
-
             \HTTP\Response::NotFound();
 
             die();
-
         }
 
         $this->extension = $this->imagick->getImageFormat();
