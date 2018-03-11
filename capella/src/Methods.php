@@ -1,7 +1,5 @@
 <?php
 
-use Controller\Uploader;
-
 class Methods
 {
     /**
@@ -48,7 +46,7 @@ class Methods
      */
     public static function getPathToImageSource($id)
     {
-        $imageUrl = 'upload/' . $id . '.' . Uploader::TARGET_EXT;
+        $imageUrl = 'upload/' . $id . '.' . \Uploader::TARGET_EXT;
 
         if (!file_exists($imageUrl)) {
             throw new \Exception('File does not exist');

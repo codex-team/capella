@@ -2,9 +2,6 @@
 
 namespace Controller;
 
-use API;
-use HTTP;
-
 /**
  * Class for processing uploading form or AJAX upload
  */
@@ -24,9 +21,9 @@ class Form
 
             } else {
 
-                HTTP\Response::BadRequest();
+                \HTTP\Response::BadRequest();
 
-                API\Response::error(array(
+                \API\Response::error(array(
                     'message' => 'File or link is missing'
                 ));
 
@@ -34,9 +31,9 @@ class Form
 
         } else {
 
-            HTTP\Response::MethodNotAllowed();
+            \HTTP\Response::MethodNotAllowed();
 
-            API\Response::error(array(
+            \API\Response::error(array(
                 'message' => 'Method not allowed'
             ));
 
@@ -53,15 +50,15 @@ class Form
 
         if ( empty($_FILES['file']['name']) ) {
 
-            HTTP\Response::BadRequest();
+            \HTTP\Response::BadRequest();
 
-            API\Response::error(array(
+            \API\Response::error(array(
                 'message' => 'File is missing'
             ));
 
         } else {
 
-            $uploader = new Uploader();
+            $uploader = new \Uploader();
 
             try {
 
@@ -71,9 +68,9 @@ class Form
 
             } catch (\Exception $e) {
 
-                HTTP\Response::BadRequest();
+                \HTTP\Response::BadRequest();
 
-                API\Response::error(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
             }
@@ -89,15 +86,15 @@ class Form
     {
         if ( empty($_POST['link']) ) {
 
-            HTTP\Response::BadRequest();
+            \HTTP\Response::BadRequest();
 
-            API\Response::error(array(
+            \API\Response::error(array(
                 'message' => 'Link is missing'
             ));
 
         } else {
 
-            $uploader = new Uploader();
+            $uploader = new \Uploader();
 
             try {
 
@@ -107,9 +104,9 @@ class Form
 
             } catch (\Exception $e) {
 
-                HTTP\Response::BadRequest();
+                \HTTP\Response::BadRequest();
 
-                API\Response::error(array(
+                \API\Response::error(array(
                     'message' => $e->getMessage()
                 ));
 
@@ -126,9 +123,9 @@ class Form
      */
     protected function returnImageLink($link)
     {
-        HTTP\Response::OK();
+        \HTTP\Response::OK();
 
-        API\Response::success(array(
+        \API\Response::success(array(
             'message' => 'Image uploaded',
             'id' => basename($link),
             'url' => $link

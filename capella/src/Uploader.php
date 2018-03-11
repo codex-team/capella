@@ -1,10 +1,5 @@
 <?php
 
-namespace Controller;
-
-use API;
-use HTTP;
-use Imagick, ImagickPixel;
 
 /**
  * Parent class, which describes acceptable extension,
@@ -59,9 +54,9 @@ class Uploader
             trigger_error($errorMessage, E_USER_ERROR);
             error_log($errorMessage);
 
-            HTTP\Response::InternalServerError();
+            \HTTP\Response::InternalServerError();
 
-            API\Response::error(array(
+            \API\Response::error(array(
                 'message' => 'Internal Server Error'
             ));
 
