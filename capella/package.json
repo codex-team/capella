@@ -1,6 +1,6 @@
 {
   "name": "codex.capella",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with the simple API.",
   "scripts": {
     "build": "webpack --mode development --progress --display-error-details --display-entrypoints --display-reasons --watch",
@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/codex-team/capella.git"
   },
-  "author": "",
+  "author": {
+    "name" : "CodeX",
+    "email" : "team@ifmo.su",
+    "url" : "https://ifmo.su/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codex-team/capella/issues"

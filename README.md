@@ -9,18 +9,20 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 ## Content
 
 * [Usage](#usage)
+* [Capella SDKs](#capella-sdks)
 * [Upload API](#upload-api)
     * [Request](#request)
     * [Response](#response)
     * [Example](#example)
 * [Get image](#get-image)
     * [Filters](#filters)
+* [Issues and improvements](#issues-and-improvements)
 
 ## Usage
 
-1. Open [capella.pics](https://capella.pics) or use [API](#upload-api) to upload an image.
+1. Use [capella.pics](https://capella.pics) site, [SDK](#capella-sdks) or [API](#upload-api) to upload an image.
 
-2. Get image by given URL with applied filters.
+2. Add filters to uploaded image's URL and get processed image.
 
 ### File requirements
 
@@ -35,7 +37,15 @@ Capella supports these types of images:
 - bmp
 - tiff
 
-Please note that each uploaded file will be converted to JPG.
+Please note that each uploaded file will be converted to JPG with white background.
+
+## Capella SDKs
+
+- [PHP](https://github.com/codex-team/capella.php)
+- [Node.js](https://github.com/codex-team/capella.nodejs)
+- [Go](https://github.com/codex-team/capella.go)
+- [Python](https://github.com/codex-team/pycapella)
+- [Scala](https://github.com/codex-team/capella.scala)
 
 ## Upload API
 
@@ -275,7 +285,7 @@ You can also drop a few lines to [CodeX Team's email](mailto:team@ifmo.su).
 
 MIT
 
-Copyright (c) 2017 CodeX Team <team@ifmo.su>
+Copyright (c) 2018 CodeX Team <team@ifmo.su>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
