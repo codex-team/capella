@@ -19,7 +19,7 @@ class Methods
     }
 
     /**
-     * Get image uri to capella server
+     * Get image uri to Capella server
      *
      * @param string $id - image's id
      *
@@ -30,6 +30,29 @@ class Methods
         $domain = self::getDomainAndProtocol();
 
         return $domain . "/" . $id;
+    }
+
+    /**
+     * Return path to image source by id
+     *
+     * If you store images in a cloud then upgrade this function
+     * for getting image's source from the cloud
+     *
+     * @param $id - image's id
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public static function getPathToImageSource($id)
+    {
+        $imageUrl = 'upload/' . $id . '.' . \Uploader::TARGET_EXT;
+
+        if (!file_exists($imageUrl)) {
+            throw new \Exception('File does not exist');
+        }
+
+        return $imageUrl;
     }
 
     /**

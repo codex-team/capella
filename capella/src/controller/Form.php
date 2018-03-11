@@ -7,8 +7,8 @@ namespace Controller;
  */
 class Form
 {
-    public function __construct() {
-
+    public function __construct()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ( isset($_FILES['file']) ) {
@@ -44,10 +44,9 @@ class Form
     /**
      * Function processed uploading file
      */
-    protected function uploadFile() {
-
-        # TODO add multiple file uploading support
-        # This way we have $_FILES['files'] as a one file or array with files
+    protected function uploadFile()
+    {
+        /** This way we have $_FILES['files'] as a one file or array with files */
 
         if ( empty($_FILES['file']['name']) ) {
 
@@ -83,8 +82,8 @@ class Form
     /**
      * Function processed uploading by link
      */
-    protected function uploadLink() {
-
+    protected function uploadLink()
+    {
         if ( empty($_POST['link']) ) {
 
             \HTTP\Response::BadRequest();
@@ -122,8 +121,8 @@ class Form
      *
      * @param string $link
      */
-    protected function returnImageLink($link) {
-
+    protected function returnImageLink($link)
+    {
         \HTTP\Response::OK();
 
         \API\Response::success(array(

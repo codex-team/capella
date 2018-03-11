@@ -23,7 +23,14 @@ namespace Cache;
 
 class Cache
 {
+    /**
+     * @var \Memcache
+     */
     private $memcacheObj;
+
+    /**
+     * @var Cache
+     */
     private static $_instance = null;
 
     public static function instance()
@@ -38,8 +45,9 @@ class Cache
     /**
      * Get object
      *
-     * @param string $key — cache key
-     * @return array|null|string — cached data
+     * @param string $key - cache key
+     *
+     * @return mixed - cached data
      */
     public function get($key)
     {
@@ -61,11 +69,11 @@ class Cache
     /**
      * Set object
      *
-     * @param string $key — cache key
-     * @param * $obj — data to cache
-     * @param integer $timeOfLife — cached data life time
+     * @param string $key - cache key
+     * @param mixed $obj - data to cache
+     * @param integer $timeOfLife - cached data life time
      */
-    public function set($key, $obj, $timeOfLife = 60 * 60)
+    public function set($key, $obj, $timeOfLife = 3600)
     {
         if (is_null($this->memcacheObj)) {
             return;
@@ -79,7 +87,7 @@ class Cache
     /**
      * Delete object
      *
-     * @param string $key — cache key
+     * @param string $key - cache key
      */
     public function delete($key)
     {
@@ -132,8 +140,8 @@ class Cache
     /**
      * Generate key for input string
      *
-     * @param string $string — string to hash
-     * @return string — hashed string
+     * @param string $string - string to hash
+     * @return string - hashed string
      */
     private function generateKey($string)
     {

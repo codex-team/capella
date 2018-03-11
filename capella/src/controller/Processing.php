@@ -89,10 +89,10 @@ class Processing
      * Return image data by requestUri
      *
      * @param string $requestUri
-     * @return array - image data
-     *        $imageData['type'] string - image mime-type
-     *        $imageData['blob'] string - blob image
-     *        $imageData['length'] int - image size
+     *
+     * @return string - image blob
+     *
+     * @throws \Exception
      */
     protected function returnImage($requestUri)
     {
@@ -100,15 +100,17 @@ class Processing
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
-        /** TODO Rashardkodit' */
-        $imageUrl = 'upload/' . $imageId . '.' . \Uploader::TARGET_EXT;
-
-        if (!file_exists($imageUrl)) {
-
+        /**
+         * Try to get path to image by id
+         */
+        try {
+            $imageUrl = \Methods::getPathToImageSource($imageId);
+        } catch (\Exception $e) {
+            /**
+             * Return 404
+             */
             \HTTP\Response::NotFound();
-
             die();
-
         }
 
         $imageProcessing = new \ImageProcessing($imageUrl);
@@ -154,12 +156,8 @@ class Processing
 
         }
 
-        $type = 'image/' . strtolower($imageProcessing->extension);
         $blob = $imageProcessing->getImageBlob();
-        $length = strlen($blob);
 
-        $imageData = $blob;
-
-        return $imageData;
+        return $blob;
     }
 }

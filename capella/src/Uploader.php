@@ -133,6 +133,8 @@ class Uploader
      *
      * Upgrade this function if you need to upload image
      * to a cloud or insert data to DB.
+     * Also upgrade function \Methods::getPathToImageSource()
+     * to set up getting image source.
      *
      * @param $file - temp file
      *
