@@ -24,4 +24,4 @@ RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 RUN "date"
 
-WORKDIR /var/www/capella/capella
+WORKDIR /var/www/capella
