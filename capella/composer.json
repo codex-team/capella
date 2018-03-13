@@ -1,7 +1,9 @@
 {
     "require": {
         "codex-team/hawk.php": "^1.0",
-        "vlucas/phpdotenv": "^2.4",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10"
     },
     "scripts": {
