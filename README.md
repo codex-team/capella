@@ -4,7 +4,7 @@ Cloud service for image storage and delivery. Upload files and accept image-filt
 
 Made with :heart: by [CodeX Team](https://ifmo.su)
 
-![](capella/drag-n-drop.gif)
+[![](capella/drag-n-drop.gif)](https://capella.pics/image/0351d892-44ba-4c5f-9d34-0af0f9e33651)
 
 ## Content
 
