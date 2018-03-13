@@ -43,7 +43,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
     <h1>Environment Tests</h1>
 
     <p>
-        The following tests have been run to determine if <a href="http://capella.pics/">Capella</a> will work in your environment.
+        The following tests have been run to determine if <a href="https://github.com/codex-team/capella">Capella</a> will work in your environment.
         <? /*
         If any of the tests have failed, consult the documentation
         for more information on how to correct the problem.
@@ -55,10 +55,11 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
     <table cellspacing="0">
         <tr>
             <th>PHP Version</th>
-            <?php if (version_compare(PHP_VERSION, '5.3.3', '>=')): ?>
+            <?php $requiredPhpVersion = '5.3.3' ?>
+            <?php if (version_compare(PHP_VERSION, $requiredPhpVersion, '>=')): ?>
                 <td class="pass"><?php echo PHP_VERSION ?></td>
             <?php else: $failed = true ?>
-                <td class="fail">Capella requires PHP 5.3.3 or newer, this version is <?php echo PHP_VERSION ?>.</td>
+                <td class="fail">Capella requires PHP <?php echo $requiredPhpVersion ?> or newer, this version is <?php echo PHP_VERSION ?>.</td>
             <?php endif ?>
         </tr>
         <tr>
@@ -126,11 +127,11 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
 
     <table cellspacing="0">
         <tr>
-            <th>Memcache</th>
-            <?php if (class_exists("Memcache")): ?>
+            <th>Memcached</th>
+            <?php if (class_exists("Memcache") || class_exists("Memcached")): ?>
                 <td class="pass">Pass</td>
             <?php else: ?>
-                <td class="fail">Capella uses <a href="http://php.net/memcache">Memcache</a> to reduce the load on the server.</td>
+                <td class="fail">Capella supports using <a href="https://memcached.org">Memcached</a> to reduce the load on the server. Please install <a href="http://php.net/memcache">memcache</a> or <a href="http://php.net/memcached">memcached</a> PHP extension.</td>
             <?php endif ?>
         </tr>
     </table>
