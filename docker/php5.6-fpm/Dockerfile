@@ -7,7 +7,6 @@ RUN echo "deb http://ftp.ru.debian.org/debian/ jessie main contrib non-free" >> 
 RUN apt-get update
 RUN apt-get install -y \
     libz-dev \
-    git \
     unzip
 
 # Install memcache
@@ -15,7 +14,8 @@ RUN pecl install memcache
 RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
 
 # Install Imagick
-RUN apt-get -y install libmagickwand-dev imagemagick
+RUN apt-get install -y \
+    libmagickwand-dev imagemagick
 RUN pecl install imagick
 RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
 
@@ -24,4 +24,4 @@ RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 RUN "date"
 
-WORKDIR /var/www
+WORKDIR /var/www/capella/capella

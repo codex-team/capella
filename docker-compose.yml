@@ -10,7 +10,7 @@ services:
         links:
             - memcached
         volumes:
-            - ./capella:/var/www
+            - ./capella:/var/www/capella
     nginx:
         build: docker/nginx
         ports:
