@@ -37,7 +37,7 @@ Capella supports these types of images:
 - bmp
 - tiff
 
-Please note that each uploaded file will be converted to JPG with white background.
+Please note that each uploaded file will be converted to JPG with a white background.
 
 ## Capella SDKs
 
