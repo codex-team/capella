@@ -1,8 +1,11 @@
-# Ignore vendor dir
+# Ignore dir for vendor modules
 vendor/
 
-# Ignore upload dir
+# Ignore dir for uploads
 upload/
+
+# Ignore environment settings
+.env
 
 # Ignore all config files
 config.php
@@ -13,13 +16,9 @@ config.php
 # Ignore dev env
 .idea/
 
-# Ignore environment settings
-.env
-
 # Node
 node_modules/
 npm-debug.log
 
-# Ignore updates for composer.lock
-composer.lock
+# Other
 .DS_Store

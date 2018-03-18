@@ -9,6 +9,10 @@ RUN apt-get install -y \
     libz-dev \
     unzip
 
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+
 # Install memcache
 RUN pecl install memcache
 RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
