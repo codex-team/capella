@@ -33,6 +33,12 @@ class ImageProcessing
     {
         $this->imagick = new Imagick();
         $this->readImage($path);
+
+        /** Fix image's orientation */
+        $this->autoRotateImage();
+
+        /** Remove all additional image's data */
+        $this->imagick->stripImage();
     }
 
     /**
@@ -197,5 +203,33 @@ class ImageProcessing
         }
 
         $this->recalculateDimensions();
+    }
+
+    /**
+     * Rotate image right by orientation's params
+     */
+    private function autoRotateImage()
+    {
+        $orientation = $this->imagick->getImageOrientation();
+
+        switch ($orientation) {
+            /** rotate 180 degrees */
+            case imagick::ORIENTATION_BOTTOMRIGHT:
+                $this->imagick->rotateimage("#000", 180);
+                break;
+
+            /** rotate 90 degrees CW */
+            case imagick::ORIENTATION_RIGHTTOP:
+                $this->imagick->rotateimage("#000", 90);
+                break;
+
+            /** rotate 90 degrees CCW */
+            case imagick::ORIENTATION_LEFTBOTTOM:
+                $this->imagick->rotateimage("#000", -90);
+                break;
+        }
+
+        /** Save image's orientation */
+        $this->imagick->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
     }
 }

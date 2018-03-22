@@ -4,7 +4,7 @@ Cloud service for image storage and delivery. Upload files and accept image-filt
 
 Made with :heart: by [CodeX Team](https://ifmo.su)
 
-![](capella/drag-n-drop.gif)
+[![](docs/assets/drag-n-drop.gif)](https://capella.pics/image/0351d892-44ba-4c5f-9d34-0af0f9e33651)
 
 ## Content
 
@@ -16,6 +16,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
     * [Example](#example)
 * [Get image](#get-image)
     * [Filters](#filters)
+* [Development and deployment](#development-and-deployment)
 * [Issues and improvements](#issues-and-improvements)
 
 ## Usage
@@ -37,7 +38,7 @@ Capella supports these types of images:
 - bmp
 - tiff
 
-Please note that each uploaded file will be converted to JPG with white background.
+Please note that each uploaded file will be converted to JPG with a white background.
 
 ## Capella SDKs
 
@@ -272,6 +273,10 @@ Example: `https://capella.pics/<image_id>/pixelize/20`
 
 [codex-stickers-pixelize-20]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/20
 [codex-stickers-pixelize-50]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/50
+
+## Development and deployment
+
+You can run your own Capella for usage or development. Follow our  [development](docs/development.md) and [deployment](docs/deployment.md) guides.
 
 ## Issues and improvements
 

@@ -2,11 +2,13 @@
 
 namespace Cache;
 
+use Env;
+
 /**
  * @singleton
  * Cache class
  *
- * Requires php driver for Memcache
+ * Requires php driver for Memcache[d]
  *
  * @example get instance
  * $cache = \Cache\Cache::instance();
@@ -21,7 +23,7 @@ namespace Cache;
 class Cache
 {
     /**
-     * @var \Memcache
+     * @var \Memcache|\Memcached
      */
     private $memcacheObj;
 
@@ -78,7 +80,24 @@ class Cache
 
         $key = self::generateKey($key);
 
-        $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, $timeOfLife);
+        /**
+         * Memcached and Memcache require not equal number or params
+         */
+        if (get_class($this->memcacheObj) == 'Memcached') {
+            /**
+             * Memcached()->set() requires 3 params: $key, $value, $expire
+             *
+             * @link http://php.net/manual/en/memcached.set.php
+             */
+            $this->memcacheObj->set($key, $obj, $timeOfLife);
+        } else {
+            /**
+             * Memcache()->set() requires 4 params: $key, $value, $flag, $expire
+             *
+             * @link http://php.net/manual/en/memcache.set.php
+             */
+            $this->memcacheObj->set($key, $obj, MEMCACHE_COMPRESSED, $timeOfLife);
+        }
     }
 
     /**
@@ -102,30 +121,51 @@ class Cache
      */
     private function __construct()
     {
-        if (!class_exists('\Memcache')) {
-            $this->memcacheObj = null;
+        $this->memcacheObj = null;
 
+        /**
+         * If cache was disabled in .env
+         */
+        if (Env::getBool('DISABLE_CACHE')) {
             return;
         }
 
-        /** Set default config params */
-        $config = [
-            'host' => 'localhost',
-            'port' => 11211
-        ];
+        /** Use Memcached module */
+        if (class_exists('\Memcached')) {
+            $this->memcacheObj = new \Memcached();
 
-        $pathToConfig = dirname(__FILE__) . '/config.php';
+        /** Use Memcache module */
+        } elseif (class_exists('\Memcache')) {
+            $this->memcacheObj = new \Memcache();
 
-        /** Override default config params */
-        if (file_exists($pathToConfig)) {
-            $config = include "config.php";
+        /** If no drivers were found */
+        } else {
+            return;
         }
 
-        $this->memcacheObj = new \Memcache();
+        /**
+         * Get config params
+         */
+        $config = $this->getConfig();
 
         if (!$this->memcacheObj->addServer($config['host'], $config['port'])) {
             $this->memcacheObj = null;
         }
+    }
+
+    /**
+     * Get config params from env of use defaults
+     *
+     * @return array
+     */
+    private function getConfig()
+    {
+        $config = [
+            'host' => Env::get('CACHE_HOST') || 'localhost',
+            'port' => Env::get('CACHE_PORT') || 11211
+        ];
+
+        return $config;
     }
 
     /**
