@@ -208,10 +208,11 @@ class ImageProcessing
     /**
      * Rotate image right by orientation's params
      */
-    private function autoRotateImage() {
+    private function autoRotateImage()
+    {
         $orientation = $this->imagick->getImageOrientation();
 
-        switch($orientation) {
+        switch ($orientation) {
             /** rotate 180 degrees */
             case imagick::ORIENTATION_BOTTOMRIGHT:
                 $this->imagick->rotateimage("#000", 180);

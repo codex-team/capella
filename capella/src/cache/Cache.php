@@ -2,6 +2,8 @@
 
 namespace Cache;
 
+use Env;
+
 /**
  * @singleton
  * Cache class
@@ -119,6 +121,15 @@ class Cache
      */
     private function __construct()
     {
+        $this->memcacheObj = null;
+
+        /**
+         * If cache was disabled in .env
+         */
+        if (Env::getBool('DISABLE_CACHE')) {
+            return;
+        }
+
         /** Use Memcached module */
         if (class_exists('\Memcached')) {
             $this->memcacheObj = new \Memcached();
@@ -129,8 +140,6 @@ class Cache
 
         /** If no drivers were found */
         } else {
-            $this->memcacheObj = null;
-
             return;
         }
 
@@ -145,26 +154,16 @@ class Cache
     }
 
     /**
-     * Get config params with priority:
-     * - from config.php
-     * - defaults
+     * Get config params from env of use defaults
      *
      * @return array
      */
     private function getConfig()
     {
-        /** Set default config params */
         $config = [
-            'host' => 'localhost',
-            'port' => 11211
+            'host' => Env::get('CACHE_HOST') || 'localhost',
+            'port' => Env::get('CACHE_PORT') || 11211
         ];
-
-        $pathToConfig = dirname(__FILE__) . '/config.php';
-
-        /** Override default config params */
-        if (file_exists($pathToConfig)) {
-            $config = include "config.php";
-        }
 
         return $config;
     }
