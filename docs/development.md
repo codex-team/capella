@@ -40,7 +40,9 @@ docker exec -i capella_php_1 composer csfix
 
 ## Watch server's logs 
 
-If you need to watch Capella server's logs then connect
+If you need to watch Capella server's logs then connect to nginx container and open `/var/log/nginx/capella_error.log`
+
+You can watch the end of logs file with the following command:
 
 ```shell
 docker exec -i capella_nginx_1 tail -f /var/log/nginx/capella_error.log

@@ -16,6 +16,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
     * [Example](#example)
 * [Get image](#get-image)
     * [Filters](#filters)
+* [Development and deployment](#development-and-deployment)
 * [Issues and improvements](#issues-and-improvements)
 
 ## Usage
@@ -272,6 +273,10 @@ Example: `https://capella.pics/<image_id>/pixelize/20`
 
 [codex-stickers-pixelize-20]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/20
 [codex-stickers-pixelize-50]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/50
+
+## Development and deployment
+
+You can run your own Capella for usage or development. Follow our  [development](docs/development.md) and [deployment](docs/deployment.md) guides.
 
 ## Issues and improvements
 
