@@ -7,7 +7,7 @@ To run a local copy of Capella you'll need:
 
 ## Setting up the environment
 
-Follow the [deployment guide](development.md) to run a local copy of Capella.
+Follow the [deployment guide](deployment.md) to run a local copy of Capella.
 
 ## Build scripts and styles
 
