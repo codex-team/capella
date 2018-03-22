@@ -13,12 +13,6 @@ config.php
 # Ignore install.php
 /install.php
 
-# Ignore dev env
-.idea/
-
 # Node
 node_modules/
 npm-debug.log
-
-# Other
-.DS_Store
