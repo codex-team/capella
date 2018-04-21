@@ -16,7 +16,6 @@ capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
 capella.notificationToggler = require('./notificationToggler');
-capella.checkForSafari = require('./checkForSafari');
 capella.notifier = require('exports-loader?notifier!codex-notifier');
 
 capella.uploadScreen = new UploadScreen();
@@ -26,7 +25,6 @@ capella.dnd = new DNDFileUploader('.capella');
 
 capella.init = function () {
   capella.copyable.init();
-  capella.checkForSafari.init();
 };
 
 module.exports = capella;
