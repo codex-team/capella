@@ -167,10 +167,6 @@
     }
 }
 
-.safari .capella__uploading {
-    margin-top: 250px;
-}
-
 /**
 * Mobile viewport styles
 * =================================
@@ -211,7 +207,7 @@
 
         &--loading {
            .capella__uploading {
-                margin-top: 100px;
+                margin-top: 0;
 
                 &-progress {
                     width: 200px;

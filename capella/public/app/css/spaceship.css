@@ -1,10 +1,6 @@
-.safari #startup {
-    display: none;
-}
-
 .spaceship {
     animation: sniff 10s linear infinite;
-    transform-origin: center;
+    /*transform-origin: center;*/
 }
 
 .spaceship__nozzle {
@@ -25,10 +21,10 @@
         transform: rotate3d(-0.1, 0.1, 0, 20deg) scale(.6, .6);
     }
     50% {
-        transform: rotate3d(0,0,0,0) scale(.6, .6);
+        transform: rotate3d(0, 0, 0, 0) scale(.6, .6);
     }
     85% {
-        transform: rotate3d(0,0,0,0) scale(.6, .6);
+        transform: rotate3d(0, 0, 0, 0) scale(.6, .6);
     }
     90% {
         transform: rotate3d(-0.1, 0.1, 0, -20deg) scale(.6, .6);
