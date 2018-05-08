@@ -34,18 +34,25 @@ If you need no dev-dependencies and you are going to run Capella on production t
 docker exec -i capella_php_1 composer install --no-dev
 ```
 
-4. Create `.env` config file in a subfolder `capella` with Capella's sources and fill up params.
+4. Create `upload` dir for images in a subfolder `capella` with Capella's sources and set permissions.
+
+```shell
+cd capella
+mkdir upload
+chmod 777 upload
+```
+
+5. Create `.env` config file and fill up params.
 
 You can copy env file skeleton from sample file `capella/capella/.env.sample`.
 
 ```shell
-cd capella
 cp .env.sample .env
 ```
 
 Capella uses [Hawk](https://hawk.so) as error catching service. You can create an account and add a new project.
 
-5. Open [http://localhost:8081](http://localhost:8081) and see
+6. Open [http://localhost:8081](http://localhost:8081) and see
 
 ![](assets/capella-localhost.jpeg)
 
