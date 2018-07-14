@@ -131,7 +131,7 @@ class ImageProcessing
     public function pixelizeImage($pixels)
     {
         if (!$pixels) {
-            throw new \Exception('Uncorrect ratio');
+            throw new \Exception('Incorrect ratio');
         }
 
         if ($this->width > $this->height) {

@@ -94,7 +94,7 @@ class Uploader
      *
      * @throws \Exception
      *
-     * @return string - path to saved file
+     * @return array - saved file data
      *
      */
     protected function saveFileToUploadDir($filepath)
@@ -125,7 +125,33 @@ class Uploader
         $image->setImageCompressionQuality(90);
         $image->writeImage($path);
 
-        return $path;
+        /** Save image resolution */
+        $width = $image->getImageWidth();
+        $height = $image->getImageHeight();
+
+        /** Get image size in bytes */
+        $imageSize = strlen($image->getImageBlob());
+
+        /**
+         * Finding main color
+         * 1) resize to 1x1 image with gaussian blur
+         * 2) get color of top left pixel
+         * 3) convert color from rgb to hex
+         */
+        $image->resizeImage(1, 1, Imagick::FILTER_GAUSSIAN, 1);
+        $color = $image->getImagePixelColor(1, 1)->getColor();
+        $colorHex = sprintf("#%02x%02x%02x", $color['r'], $color['g'], $color['b']);
+
+        $imageData = [
+            'filepath' => $path,
+            'width' => $width,
+            'height' => $height,
+            'color' => $colorHex,
+            'mime' => 'image/' . self::TARGET_EXT,
+            'size' => $imageSize,
+        ];
+
+        return $imageData;
     }
 
     /**
@@ -140,19 +166,19 @@ class Uploader
      *
      * @throws \Exception
      *
-     * @return string - img url
+     * @return array - image data
      *
      */
     protected function saveImage($file)
     {
         /** Copy temp file to upload dir */
-        $filepath = $this->saveFileToUploadDir($file);
-        $label = explode('.', basename($filepath))[0];
+        $imageData = $this->saveFileToUploadDir($file);
+        $label = explode('.', basename($imageData['filepath']))[0];
 
         /** Get image's URL by id */
-        $imgURI = \Methods::getImageUri($label);
+        $imageData['link'] = \Methods::getImageUri($label);
 
-        return $imgURI;
+        return $imageData;
     }
 
     /**
@@ -164,7 +190,7 @@ class Uploader
      *
      * @throws \Exception
      *
-     * @return string - uploaded image uri
+     * @return array - uploaded image data
      *
      */
     protected function upload($file, $size, $mime)
@@ -182,9 +208,9 @@ class Uploader
         }
 
         /** Upload file and get its ID */
-        $imgURI = $this->saveImage($file);
+        $imageData = $this->saveImage($file);
 
-        return $imgURI;
+        return $imageData;
     }
 
     /**
@@ -194,7 +220,7 @@ class Uploader
      *
      * @throws \Exception
      *
-     * @return string - uploaded image uri
+     * @return array - uploaded image data
      *
      */
     public function uploadFile($data)
@@ -215,7 +241,7 @@ class Uploader
      *
      * @throws \Exception
      *
-     * @return string - uploaded image uri
+     * @return array - uploaded image data
      *
      */
     public function uploadLink($url)
