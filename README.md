@@ -81,7 +81,7 @@ Each response will have at least `success` and `message` fields.
 | `mime`    | String  | Mime type of the uploaded image |
 | `width`   | Integer | Image's width                   |
 | `height`  | Integer | Image's height                  |
-| `color`   | String  | Average color of the image      |
+| `color`   | String  | Average hex color of the image  |
 | `size`    | Integer | Image's size in bytes           |
 
 ```json
