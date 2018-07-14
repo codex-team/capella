@@ -50,9 +50,9 @@ class Form
             $uploader = new \Uploader();
 
             try {
-                $link = $uploader->uploadFile($_FILES['file']);
+                $imageData = $uploader->uploadFile($_FILES['file']);
 
-                $this->returnImageLink($link);
+                $this->returnImageData($imageData);
             } catch (\Exception $e) {
                 HTTP\Response::BadRequest();
 
@@ -78,9 +78,9 @@ class Form
             $uploader = new \Uploader();
 
             try {
-                $link = $uploader->uploadLink($_POST['link']);
+                $imageData = $uploader->uploadLink($_POST['link']);
 
-                $this->returnImageLink($link);
+                $this->returnImageData($imageData);
             } catch (\Exception $e) {
                 HTTP\Response::BadRequest();
 
@@ -94,16 +94,21 @@ class Form
     /**
      * Return success result with image link
      *
-     * @param string $link
+     * @param string $imageData
      */
-    protected function returnImageLink($link)
+    protected function returnImageData($imageData)
     {
         HTTP\Response::OK();
 
         API\Response::success([
             'message' => 'Image uploaded',
-            'id' => basename($link),
-            'url' => $link
+            'id' => basename($imageData['link']),
+            'url' => $imageData['link'],
+            'mime' => $imageData['mime'],
+            'width' => $imageData['width'],
+            'height' => $imageData['height'],
+            'color' => $imageData['color'],
+            'size' => $imageData['size']
         ]);
     }
 }

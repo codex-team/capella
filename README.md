@@ -78,13 +78,22 @@ Each response will have at least `success` and `message` fields.
 | `message` | String  | `Image uploaded`                |
 | `id`      | String  | Image id                        |
 | `url`     | String  | Full link to the uploaded image |
+| `mime`    | String  | Mime type of the uploaded image |
+| `width`   | Integer | Image's width                   |
+| `height`  | Integer | Image's height                  |
+| `color`   | String  | Average color of the image      |
+| `size`    | Integer | Image's size in bytes           |
 
 ```json
 {
     "success": true,
     "message": "Image uploaded",
     "id": "69256e83-66e1-449a-b0c2-5414d332e3a6",
-    "url": "https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6"
+    "url": "https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6",
+    "width": 1080,
+    "height": 700,
+    "color": "#9d908d",
+    "size": "176769"
 }
 ```
 
