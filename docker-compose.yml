@@ -3,8 +3,6 @@ version: '2'
 services:
     memcached:
         image: memcached:alpine
-        ports:
-            - 11211:11211
     php:
         build: docker/php5.6-fpm
         links:
