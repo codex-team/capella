@@ -125,7 +125,7 @@ Each response will have at least `success` and `message` fields.
 | `Source is damaged`              | Source has no data, size or mime-type |
 | `Can't get headers for this URL` | Wrong url was passed                  |
 
-### Example
+### Examples
 
 #### CURL
 
@@ -177,9 +177,9 @@ print(response)
 
 ## Get image
 
-You can get each uploaded image by the following URL scheme.
+You can get each uploaded image by the following URL scheme with or without extension.
 
-`https://capella.pics/<image_id>`
+`https://capella.pics/<image_id>` or `https://capella.pics/<image_id>.jpg`
 
 [![](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)](https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6)
 
