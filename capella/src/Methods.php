@@ -29,7 +29,30 @@ class Methods
     {
         $domain = self::getDomainAndProtocol();
 
-        return $domain . "/" . $id;
+        return $domain . "/" . $id . "." . Uploader::TARGET_EXT;
+    }
+
+    /**
+     * Get image's id from name
+     *
+     * 52df7fbf-ff1d-44e7-803a-e9f04d03d542.jpg
+     *   -> 52df7fbf-ff1d-44e7-803a-e9f04d03d542
+     *
+     * @param string $name
+     * @return string
+     */
+    public static function imageNameToId($name)
+    {
+        $defaultExtension = Uploader::TARGET_EXT;
+
+        /**
+         * Allow getting images with extension at the end of uri
+         */
+        if (preg_match('/(?P<id>[\w-]+)\.'.$defaultExtension.'$/', $name, $matches)) {
+            return $matches['id'];
+        }
+
+        return $name;
     }
 
     /**

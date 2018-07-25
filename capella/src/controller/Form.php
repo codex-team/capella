@@ -4,6 +4,7 @@ namespace Controller;
 
 use API;
 use HTTP;
+use Uploader;
 
 /**
  * Class for processing uploading form or AJAX upload
@@ -94,7 +95,7 @@ class Form
     /**
      * Return success result with image link
      *
-     * @param string $imageData
+     * @param array $imageData
      */
     protected function returnImageData($imageData)
     {
@@ -102,7 +103,10 @@ class Form
 
         API\Response::success([
             'message' => 'Image uploaded',
-            'id' => basename($imageData['link']),
+            /**
+             * Get ID as name without extension
+             */
+            'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT),
             'url' => $imageData['link'],
             'mime' => $imageData['mime'],
             'width' => $imageData['width'],

@@ -3,6 +3,7 @@
 namespace Controller;
 
 use HTTP;
+use Methods;
 
 /**
  * Show Capella page with uploaded image
@@ -15,6 +16,7 @@ class Image
 
             /** Get the image id from  request URI */
             $imageId = explode('/', $requestUri)[2];
+            $imageId = Methods::imageNameToId($imageId);
 
             /** Check if image exist */
             \Methods::getPathToImageSource($imageId);
