@@ -79,6 +79,11 @@ class Dispatcher
         $this->pathParts = explode('/', $this->path);
         $this->id = $this->pathParts[0];
 
+        /**
+         * Find image id if image name was passed
+         */
+        $this->id = \Methods::imageNameToId($this->id);
+
         /** Slices filters and additional parameters list from pathParts */
         $this->rawFilters = array_slice($this->pathParts, 1);
 

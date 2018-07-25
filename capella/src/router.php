@@ -37,7 +37,6 @@ switch ($alias) {
         new \Controller\Form();
         break;
 
-
     /**
      * Process uri
      */
