@@ -161,8 +161,8 @@ class Cache
     private function getConfig()
     {
         $config = [
-            'host' => Env::get('CACHE_HOST') || 'localhost',
-            'port' => Env::get('CACHE_PORT') || 11211
+            'host' => Env::get('CACHE_HOST') ?: 'localhost',
+            'port' => Env::get('CACHE_PORT') ?: 11211
         ];
 
         return $config;
