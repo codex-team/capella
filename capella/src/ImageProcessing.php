@@ -146,6 +146,78 @@ class ImageProcessing
     }
 
     /**
+     * Add a cover for target image
+     *
+     * @param string $color
+     * @param int $width
+     * @param float $maxWidthRatio
+     * @param int $margin
+     * @throws ImagickException
+     */
+    public function addCover($color, $width = 1000, $maxWidthRatio = 0.6, $margin = 10)
+    {
+        /**
+         * Count max image's width to be placed onto cover
+         */
+        $maxImageWidth = $width * $maxWidthRatio;
+
+        /**
+         * Resize image if it is wider than target part of cover's width
+         */
+        if ($this->width > $maxImageWidth) {
+            $this->resizeImage($maxImageWidth);
+        }
+
+        /**
+         * Count cover's height
+         *
+         * •-------------------------•  -
+         * | cover                   |  | margin
+         * |      •-----------•      |  -
+         * |      |           |      |  |
+         * |      |   image   |      |  | image's height
+         * |      |           |      |  |
+         * |      •-----------•      |  -
+         * |                         |  | margin
+         * •-------------------------•  -
+         *        |-----------|
+         *         image's width is not more
+         *         than the 60% of cover's width
+         */
+        $coverHeight = $margin * 2 + $this->height;
+
+        /**
+         * Create a new image as a cover
+         */
+        $cover = new Imagick();
+        $cover->newImage($width, $coverHeight, new ImagickPixel($color));
+        $cover->setImageFormat('png');
+
+        /**
+         * Count image's position
+         */
+        $imagePosition = [
+            'x' => $width / 2 - $this->width / 2,
+            'y' => $margin
+        ];
+
+        /**
+         * Compose cover and image
+         */
+        $cover->compositeImage($this->imagick, Imagick::COMPOSITE_IN, $imagePosition['x'], $imagePosition['y']);
+
+        /**
+         * Save composed image as a processed image
+         */
+        $this->imagick = $cover;
+
+        /**
+         * Update dimensions
+         */
+        $this->recalculateDimensions();
+    }
+
+    /**
      * Get image blob
      *
      * @return string - blob image
