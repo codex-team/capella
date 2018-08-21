@@ -148,10 +148,10 @@ class ImageProcessing
     /**
      * Add a cover for target image
      *
-     * @param string $color
-     * @param int $width
-     * @param float $maxWidthRatio
-     * @param int $margin
+     * @param string $color - hex code of image without hash symbol. Ex: eff2f5
+     * @param int $width - width of cover for image
+     * @param float $maxWidthRatio - max part of cover's width to stretch image
+     * @param int $margin - number pof pixels up and down image on cover
      * @throws ImagickException
      */
     public function addCover($color, $width = 1000, $maxWidthRatio = 0.6, $margin = 10)
@@ -190,7 +190,7 @@ class ImageProcessing
          * Create a new image as a cover
          */
         $cover = new Imagick();
-        $cover->newImage($width, $coverHeight, new ImagickPixel($color));
+        $cover->newImage($width, $coverHeight, new ImagickPixel('#' . $color));
         $cover->setImageFormat('png');
 
         /**

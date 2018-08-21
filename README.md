@@ -175,7 +175,7 @@ response = json.loads(r.content)
 print(response)
 ```
 
-## Get image
+## Getting image
 
 You can get each uploaded image by the following URL scheme with or without extension.
 
@@ -284,9 +284,27 @@ Example: `https://capella.pics/<image_id>/pixelize/20`
 [codex-stickers-pixelize-20]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/20
 [codex-stickers-pixelize-50]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/pixelize/50
 
+#### Cover
+
+Place image to cover.
+
+| Param   | Type   | Description                           |
+|---------|--------|---------------------------------------|
+| `color` | String | Hex code of image without hash symbol | 
+
+Example: `https://capella.pics/<image_id>/cover/eff2f5`
+
+| Filter          | Result                                                          |
+|-----------------|-----------------------------------------------------------------|
+| `/cover/eff2f5` | [![][codex-stickers-cover-eff2f5]][codex-stickers-cover-eff2f5] |
+| `/cover/fbb`    | [![][codex-stickers-cover-fbb]][codex-stickers-cover-fbb]       |
+
+[codex-stickers-cover-eff2f5]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/cover/eff2f5
+[codex-stickers-cover-fbb]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/cover/fbb
+
 ## Development and deployment
 
-You can run your own Capella for usage or development. Follow our  [development](docs/development.md) and [deployment](docs/deployment.md) guides.
+You can run your own Capella for usage or development. Follow our [development](docs/development.md) and [deployment](docs/deployment.md) guides.
 
 ## Issues and improvements
 
@@ -295,27 +313,3 @@ Ask a question or report a bug on the [create issue page](https://github.com/cod
 Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
 
 You can also drop a few lines to [CodeX Team's email](mailto:team@ifmo.su).
-
-## License
-
-MIT
-
-Copyright (c) 2018 CodeX Team <team@ifmo.su>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
