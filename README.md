@@ -294,13 +294,13 @@ Place image to cover.
 
 Example: `https://capella.pics/<image_id>/cover/eff2f5`
 
-| Filter          | Result                                                          |
-|-----------------|-----------------------------------------------------------------|
-| `/cover/eff2f5` | [![][codex-stickers-cover-eff2f5]][codex-stickers-cover-eff2f5] |
-| `/cover/fbb`    | [![][codex-stickers-cover-fbb]][codex-stickers-cover-fbb]       |
+| Filter                | Result                                                                      |
+|-----------------------|-----------------------------------------------------------------------------|
+| `/cover/eff2f5`       | [![][codex-stickers-cover-eff2f5]][codex-stickers-cover-eff2f5]             |
+| `/crop/150/cover/fee` | [![][codex-stickers-crop-150-cover-fee]][codex-stickers-crop-150-cover-fee] |
 
 [codex-stickers-cover-eff2f5]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/cover/eff2f5
-[codex-stickers-cover-fbb]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/cover/fbb
+[codex-stickers-crop-150-cover-fee]: https://capella.pics/69256e83-66e1-449a-b0c2-5414d332e3a6/crop/150/cover/fee
 
 ## Development and deployment
 
