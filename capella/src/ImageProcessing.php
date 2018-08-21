@@ -148,14 +148,25 @@ class ImageProcessing
     /**
      * Add a cover for target image
      *
-     * @param string $color - hex code of image without hash symbol. Ex: eff2f5
+     * @param string $color - hex code of cover's color without hash symbol. Ex: eff2f5
      * @param int $width - width of cover for image
      * @param float $maxWidthRatio - max part of cover's width to stretch image
      * @param int $margin - number pof pixels up and down image on cover
-     * @throws ImagickException
+     * @throws Exception|ImagickException
      */
     public function addCover($color, $width = 1000, $maxWidthRatio = 0.6, $margin = 10)
     {
+        /**
+         * Check for color validness
+         * - Color must be a hexadecimal digit
+         * - 3 or 6 symbols string length
+         */
+        $isValidColor = ctype_xdigit($color) && (strlen($color) == 6 || strlen($color) == 3);
+
+        if (!$isValidColor) {
+            throw new \Exception("Color must be in a hex format without hash symbol");
+        }
+
         /**
          * Count max image's width to be placed onto cover
          */

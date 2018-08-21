@@ -38,7 +38,7 @@ Capella supports these types of images:
 - bmp
 - tiff
 
-Please note that each uploaded file will be converted to JPG with a white background.
+Please note that each uploaded file will be converted to JPG with a white background and quality 90.
 
 ## Capella SDKs
 
@@ -288,9 +288,9 @@ Example: `https://capella.pics/<image_id>/pixelize/20`
 
 Place image to cover.
 
-| Param   | Type   | Description                           |
-|---------|--------|---------------------------------------|
-| `color` | String | Hex code of image without hash symbol | 
+| Param   | Type   | Description                                   |
+|---------|--------|-----------------------------------------------|
+| `color` | String | Hex code of cover's color without hash symbol | 
 
 Example: `https://capella.pics/<image_id>/cover/eff2f5`
 

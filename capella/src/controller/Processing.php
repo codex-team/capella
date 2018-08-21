@@ -159,13 +159,7 @@ class Processing
 
                     $color = $params['color'];
 
-                    $width = isset($params['width']) ? $params['width'] : null;
-
-                    if ($width) {
-                        $imageProcessing->addCover($color, $width);
-                    } else {
-                        $imageProcessing->addCover($color);
-                    }
+                    $imageProcessing->addCover($color);
 
                     break;
             }
