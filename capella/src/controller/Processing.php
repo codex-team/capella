@@ -39,6 +39,10 @@ class Processing
         'pixelize' => [
             'title' => 'pixelize',
             'pattern' => '{pixels|int}'
+        ],
+        'cover' => [
+            'title' => 'cover',
+            'pattern' => '{color|string}'
         ]
     ];
 
@@ -146,6 +150,16 @@ class Processing
                     $pixels = $params['pixels'];
 
                     $imageProcessing->pixelizeImage($pixels);
+
+                    break;
+
+                case 'cover':
+
+                    $params = $filter['params'];
+
+                    $color = $params['color'];
+
+                    $imageProcessing->addCover($color);
 
                     break;
             }

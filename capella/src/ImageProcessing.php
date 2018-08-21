@@ -146,6 +146,89 @@ class ImageProcessing
     }
 
     /**
+     * Add a cover for target image
+     *
+     * @param string $color - hex code of cover's color without hash symbol. Ex: eff2f5
+     * @param int $width - width of cover for image
+     * @param float $maxWidthRatio - max part of cover's width to stretch image
+     * @param int $margin - number pof pixels up and down image on cover
+     * @throws Exception|ImagickException
+     */
+    public function addCover($color, $width = 1000, $maxWidthRatio = 0.6, $margin = 10)
+    {
+        /**
+         * Check for color validness
+         * - Color must be a hexadecimal digit
+         * - 3 or 6 symbols string length
+         */
+        $isValidColor = ctype_xdigit($color) && (strlen($color) == 6 || strlen($color) == 3);
+
+        if (!$isValidColor) {
+            throw new \Exception("Color must be in a hex format without hash symbol");
+        }
+
+        /**
+         * Count max image's width to be placed onto cover
+         */
+        $maxImageWidth = $width * $maxWidthRatio;
+
+        /**
+         * Resize image if it is wider than target part of cover's width
+         */
+        if ($this->width > $maxImageWidth) {
+            $this->resizeImage($maxImageWidth);
+        }
+
+        /**
+         * Count cover's height
+         *
+         * •-------------------------•  -
+         * | cover                   |  | margin
+         * |      •-----------•      |  -
+         * |      |           |      |  |
+         * |      |   image   |      |  | image's height
+         * |      |           |      |  |
+         * |      •-----------•      |  -
+         * |                         |  | margin
+         * •-------------------------•  -
+         *        |-----------|
+         *         image's width is not more
+         *         than the 60% of cover's width
+         */
+        $coverHeight = $margin * 2 + $this->height;
+
+        /**
+         * Create a new image as a cover
+         */
+        $cover = new Imagick();
+        $cover->newImage($width, $coverHeight, new ImagickPixel('#' . $color));
+        $cover->setImageFormat('png');
+
+        /**
+         * Count image's position
+         */
+        $imagePosition = [
+            'x' => $width / 2 - $this->width / 2,
+            'y' => $margin
+        ];
+
+        /**
+         * Compose cover and image
+         */
+        $cover->compositeImage($this->imagick, Imagick::COMPOSITE_IN, $imagePosition['x'], $imagePosition['y']);
+
+        /**
+         * Save composed image as a processed image
+         */
+        $this->imagick = $cover;
+
+        /**
+         * Update dimensions
+         */
+        $this->recalculateDimensions();
+    }
+
+    /**
      * Get image blob
      *
      * @return string - blob image
