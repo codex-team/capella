@@ -1,6 +1,6 @@
 {
   "name": "codex.capella",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with the simple API.",
   "scripts": {
     "build": "webpack --mode production",
