@@ -10,8 +10,6 @@ let UploadScreen = require('./uploadScreen').default;
 /**
  * Require modules
  */
-capella.ajax = require('codex.ajax');
-capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
 capella.notificationToggler = require('./notificationToggler');

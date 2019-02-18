@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@codexteam/ajax@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@codexteam/ajax/-/ajax-4.0.0.tgz#eab2bf2cc8dcdf73c464db494c07aa67fa2a3338"
+  integrity sha512-wdK2TsUrfkLCv9LX5PYP5QLD547f9XA/nanLY0m5MRhJHZXDup1EGR2032ZBL54eMA8FWnfZ7O79z5gH/nhGxg==
+
 "@webassemblyjs/ast@1.8.3":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.3.tgz#63a741bd715a6b6783f2ea5c6ab707516aa215eb"
@@ -1296,16 +1301,6 @@ codex-notifier@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/codex-notifier/-/codex-notifier-1.1.1.tgz#0fad9876781b793da316bed7f0cd11454a3f3393"
   integrity sha512-IAcSO8O9i+limw4XknDXvBTOI3bXwGy3xNauBCYx4F1+hfNMhhkL3lzDnmAEcvwgiuY4P7W5hWB05sNi9W+31Q==
-
-codex.ajax@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/codex.ajax/-/codex.ajax-2.3.1.tgz#705b298799601be9bdc56d40603b3c91a0cd3a15"
-  integrity sha1-cFsph5lgG+m9xW1AYDs8kaDNOhU=
-
-codex.transport@^3.2.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/codex.transport/-/codex.transport-3.2.1.tgz#9ed49b7ea090a14d7343c453f19a2a2455db57ef"
-  integrity sha512-SiqmE0gB6YvrYnHWbznTXtilF3rreS1s8NmwfH7ICRP8Bk2eEzqfHcOvbmdjcsoBO6fnv3spI//05ZnoeFksEg==
 
 collection-visit@^1.0.0:
   version "1.0.0"
