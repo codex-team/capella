@@ -1,7 +1,6 @@
 'use strict';
 
-
-const capella = {};
+let capella = {};
 
 let Uploader = require('./uploader').default;
 let Clipboard = require('./clipboard').default;
@@ -16,7 +15,7 @@ capella.transport = require('codex.transport');
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
 capella.notificationToggler = require('./notificationToggler');
-capella.notifier = require('exports-loader?notifier!codex-notifier');
+capella.notifier = require('codex-notifier');
 
 capella.uploadScreen = new UploadScreen();
 capella.uploader = new Uploader();

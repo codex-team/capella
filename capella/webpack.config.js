@@ -6,15 +6,18 @@ module.exports = {
   /**
    * Define entry point
    */
-  entry: './public/app/entry.js',
+  entry: {
+    capella: './public/app/entry.js',
+    hawk: './public/app/js/hawk.js'
+  },
 
   /**
    * Set bundle params
    */
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
-    filename: 'bundle.js',
-    library: 'capella'
+    filename: '[name].bundle.js',
+    library: '[name]'
   },
 
   /**

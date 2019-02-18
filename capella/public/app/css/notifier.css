@@ -1,4 +1,4 @@
-.cdx-notifies {
+body .cdx-notifies {
     left: auto;
     right: 75px;
     bottom: 78px;
@@ -9,9 +9,7 @@
     }
 }
 
-
-
-.cdx-notify {
+body .cdx-notify {
     border-radius: 1px;
     font-size: 15px;
     padding: 20px 33px;
