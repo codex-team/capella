@@ -13,3 +13,4 @@ plugins:
     postcss-font-family-system-ui: {}
     autoprefixer:
         browsers: ['last 2 versions', '> 1%']
+    cssnano: {}

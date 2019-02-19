@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   /**
@@ -35,7 +35,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             query: {
-              presets: [ 'env' ],
+              presets: [ '@babel/preset-env' ],
             },
           },
           {
@@ -52,17 +52,11 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        exclude: [ /node_modules/ ],
-        use: ExtractTextPlugin.extract([
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: 1,
-              importLoaders: 1,
-            },
-          },
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
           'postcss-loader'
-        ]),
+        ]
       }
     ]
   },
@@ -75,7 +69,9 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({ options: {} }),
 
     /** Build separated styles bundle */
-    new ExtractTextPlugin('bundle.css'),
+    new MiniCssExtractPlugin({
+      filename: 'bundle.css',
+    })
   ],
 
   /**
