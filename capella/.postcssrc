@@ -1,5 +1,5 @@
 plugins:
-    postcss-smart-import: {}
+    postcss-import: {}
     postcss-custom-properties: {}
     postcss-custom-media: {}
     postcss-media-minmax: {}
@@ -13,3 +13,4 @@ plugins:
     postcss-font-family-system-ui: {}
     autoprefixer:
         browsers: ['last 2 versions', '> 1%']
+    cssnano: {}

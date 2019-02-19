@@ -2,11 +2,10 @@
 @import url('variables.css');
 @import url('base.css');
 @import url('spaceship.css');
+@import url('notifier.css');
+
 /**
  * Pages
  */
 @import url('pages/index.css');
 @import url('pages/result.css');
-
-@import url('codex-notifier/notifier.css');
-@import url('notifier.css');

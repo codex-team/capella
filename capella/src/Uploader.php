@@ -199,11 +199,11 @@ class Uploader
             throw new \Exception('Source is damaged');
         }
 
-        if (! $this->isValidSize($size)) {
+        if (!$this->isValidSize($size)) {
             throw new \Exception('Source is too big');
         }
 
-        if (! $this->isValidMimeType($mime)) {
+        if (!$this->isValidMimeType($mime)) {
             throw new \Exception('Wrong source mime-type: ' . $mime);
         }
 

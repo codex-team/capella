@@ -1,5 +1,14 @@
 'use strict';
 
+const ajax = require('@codexteam/ajax');
+
+/**
+ * @typedef {Object} AjaxResponse
+ * @property {String} body
+ * @property {Number} code
+ * @property {Object} headers
+ */
+
 /**
  * @class Uploader
  * Handle images uploading
@@ -27,20 +36,24 @@ export default class Uploader {
   }
 
   /**
-   * Init codex.transport to select image from user's computer
+   * Select image from user's computer
    */
   uploadByTransport() {
-    capella.transport.init({
-      url: this.uploadUrl,
-      multiple: false,
-      accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp,  image/tiff',
-      data: {},
-      before: this.before,
-      progress: this.progress,
-      success: this.success,
-      error: this.error,
-      after: this.after
-    });
+    Promise.resolve()
+      .then(() => this.before({}))
+      .then(() => {
+        return ajax.transport({
+          url: this.uploadUrl,
+          multiple: false,
+          accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp, image/tiff',
+          progress: this.progress,
+          fieldName: 'file'
+        });
+      })
+      .then(this.success)
+      .catch((err) => {
+        this.error(err);
+      });
   }
 
   /**
@@ -81,16 +94,20 @@ export default class Uploader {
    * @param {*} data — data to send
    */
   upload(data) {
-    capella.ajax.call({
-      type: 'POST',
-      url: this.uploadUrl,
-      data: data,
-      before: this.before.bind(this),
-      progress: this.progress,
-      success: this.success,
-      error: this.error,
-      after: this.after
-    });
+    Promise.resolve()
+      .then(() => this.before(data))
+      .then(() => {
+        return ajax.post({
+          url: this.uploadUrl,
+          data: data,
+          type: ajax.contentType.FORM,
+          progress: this.progress,
+        });
+      })
+      .then(this.success)
+      .catch((err) => {
+        this.error(err);
+      });
   }
 
   /**
@@ -113,7 +130,7 @@ export default class Uploader {
   }
 
   /**
-   *  Handle upload progress
+   * Handle upload progress
    *
    * @param percentage — upload percentage
    */
@@ -125,20 +142,16 @@ export default class Uploader {
   /**
    * Successful upload handler
    *
-   * @param {Object} response — response object
-   * @param {Boolean} response.success — upload status
-   * @param {String} response.url — if upload was successful, contains uploaded image url
-   * @param {String} response.id — if upload was succesful, contains uploaded image id
-   * @param {String} response.message — if upload failed, contains reason
+   * @param {AjaxResponse} response
    */
   success(response) {
-    console.log(response);
+    const responseBody = response.body;
 
-    if (response.success) {
+    if (responseBody.success) {
       capella.uploadScreen.progress(100);
 
       /** Redirect to uploaded image */
-      window.location.href = '/image/' + response.id;
+      window.location.href = '/image/' + responseBody.id;
     } else {
       capella.uploadScreen.hide();
     }
@@ -147,18 +160,15 @@ export default class Uploader {
   /**
    * Upload error handler
    *
-   * @param {Error} error — raised error
+   * @param {AjaxResponse} response
    */
   error(response) {
+    const responseBody = response.body;
+
     capella.notifier.show({
-      message: '<i class=\'cdx-notify__warning-sign\'></i>' + response.message,
+      message: '<i class=\'cdx-notify__warning-sign\'></i>' + responseBody.message,
       time: 7000
     });
     capella.uploadScreen.hide();
   }
-
-  /**
-   * Method to call after upload
-   */
-  after() {}
 }

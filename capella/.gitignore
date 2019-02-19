@@ -1,9 +1,6 @@
 # Ignore dir for vendor modules
 vendor/
 
-# Ignore dir for uploads
-upload/
-
 # Ignore environment settings
 .env
 

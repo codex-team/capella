@@ -11,9 +11,10 @@
         <meta name="keywords" content="cloud service,upload files,image storage">
         <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
         <? $hawkToken = Env::get('HAWK_TOKEN') ?>
         <? if ($hawkToken): ?>
-            <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $hawkToken ?>');" async></script>
+        <script src="/public/build/hawk.bundle.js?v=<?= filemtime('public/build/hawk.bundle.js') ?>" onload="hawk.init('<?= $hawkToken ?>');" async></script>
         <? endif ?>
     </head>
     <body class="body--black">
@@ -29,11 +30,11 @@
                     </div>
 
                     <div name="js-copyable-authorize" class="result__copy js-result__copy">
-
                         <? include(DOCROOT . "public/app/svg/icon-copy.svg") ?>
                         <span class="result__copy-text js-result__copy-text" >Copy link</span>
                         <a name="js-copyable" class="result__copy-link js-result__copy-link" href="<?= $imageURL ?>" target="_blank"><?= $imageURL ?></a>
                     </div>
+
                     <input type="text" value="+  /resize___x___" name="">
                     <input type="text" value="+  /crop___x___" name="">
                 </div>
@@ -47,6 +48,6 @@
                 </div>
             </div>
         </div>
-        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
+        <script src="/public/build/capella.bundle.js?v=<?= filemtime('public/build/capella.bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>

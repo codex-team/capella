@@ -11,9 +11,10 @@
         <meta name="keywords" content="cloud service,upload files,image storage">
         <meta name="image" property="og:image" content="<?= \Methods::getDomainAndProtocol(); ?>/meta_img.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
         <? $hawkToken = Env::get('HAWK_TOKEN') ?>
         <? if ($hawkToken): ?>
-            <script src="https://cdn.rawgit.com/codex-team/hawk.client/5f545116/hawk.js" onload="hawk.init('<?= $hawkToken ?>');" async></script>
+            <script src="/public/build/hawk.bundle.js?v=<?= filemtime('public/build/hawk.bundle.js') ?>" onload="hawk.init('<?= $hawkToken ?>');" async></script>
         <? endif ?>
     </head>
     <body>
@@ -42,6 +43,6 @@
                     </div>
             </div>
         </div>
-        <script src="/public/build/bundle.js?v=<?= filemtime('public/build/bundle.js') ?>" onload="capella.init();"></script>
+        <script src="/public/build/capella.bundle.js?v=<?= filemtime('public/build/capella.bundle.js') ?>" onload="capella.init();"></script>
     </body>
 </html>
