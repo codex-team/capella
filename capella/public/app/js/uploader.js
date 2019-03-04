@@ -40,14 +40,14 @@ export default class Uploader {
    */
   uploadByTransport() {
     Promise.resolve()
-      .then(() => this.before({}))
       .then(() => {
         return ajax.transport({
           url: this.uploadUrl,
           multiple: false,
           accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp, image/tiff',
           progress: this.progress,
-          fieldName: 'file'
+          fieldName: 'file',
+          beforeSend: this.before
         });
       })
       .then(this.success)
@@ -95,13 +95,13 @@ export default class Uploader {
    */
   upload(data) {
     Promise.resolve()
-      .then(() => this.before(data))
       .then(() => {
         return ajax.post({
           url: this.uploadUrl,
           data: data,
           type: ajax.contentType.FORM,
           progress: this.progress,
+          beforeSend: this.before
         });
       })
       .then(this.success)
