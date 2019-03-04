@@ -25,7 +25,8 @@ class Uploader
         'image/jpeg',
         'image/gif',
         'image/bmp',
-        'image/tiff'
+        'image/tiff',
+        'video/mp4'
     ];
 
     /**
@@ -102,16 +103,36 @@ class Uploader
         /** Generate filename */
         $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
 
-        /** Save file to uploads dir */
-        file_put_contents($path, file_get_contents($filepath));
-
         /** Get MIME-type from file */
-        $mimeType = mime_content_type($path);
+        $mimeType = mime_content_type($filepath);
 
         if (!$this->isValidMimeType($mimeType)) {
-            unlink($path);
+            unlink($filepath);
             throw new \Exception('Wrong source mime-type: ' . $mimeType);
         }
+
+        if ($mimeType == 'video/mp4') {
+            $ffmpeg = FFMpeg\FFMpeg::create();
+            $video = $ffmpeg->open($filepath);
+//
+            $video->save(new FFMpeg\Format\Video\X264(), $path . '.mp4');
+
+//            var_dump($video);
+
+            $imageData = [
+                'filepath' => $path,
+                'width' => 400, // $width,
+                'height' => 300, // $height,
+                'color' => '#000', // $colorHex,
+                'mime' => $mimeType,
+                'size' => 1500, // $imageSize,
+            ];
+//
+            return $imageData;
+        }
+
+        /** Save file to uploads dir */
+        file_put_contents($path, file_get_contents($filepath));
 
         /** Get uploaded image */
         $image = new Imagick($path);

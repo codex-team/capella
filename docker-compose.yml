@@ -18,3 +18,12 @@ services:
             - memcached
         volumes_from:
             - php
+    ngrok:
+        image: wernight/ngrok
+#        command: 'ngrok http nginx:80'
+        ports:
+            - '4040:4040'
+        links:
+            - nginx
+        environment:
+            - NGROK_PORT=nginx:80

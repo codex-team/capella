@@ -6,6 +6,11 @@
 require_once DOCROOT . 'vendor/autoload.php';
 
 /**
+ * Set default timezone
+ */
+date_default_timezone_set('Europe/Moscow');
+
+/**
  * Load Dotenv
  *
  * @see https://github.com/vlucas/phpdotenv

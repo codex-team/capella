@@ -1,10 +1,11 @@
 FROM php:5.6-fpm
 
-MAINTAINER CodeX Team <github.com/codex-team>
+MAINTAINER CodeX <github.com/codex-team>
 
-RUN echo "deb http://ftp.ru.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list
-
+# Update lists
 RUN apt-get update
+
+# Install neccessary packages
 RUN apt-get install -y \
     libz-dev \
     unzip
@@ -19,9 +20,14 @@ RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
 
 # Install Imagick
 RUN apt-get install -y \
-    libmagickwand-dev imagemagick
+    libmagickwand-dev \
+    imagemagick
 RUN pecl install imagick
 RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
+
+# Install FFMpeg
+RUN apt-get install -y \
+    ffmpeg
 
 # Set timezone
 RUN rm /etc/localtime

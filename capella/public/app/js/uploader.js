@@ -40,14 +40,14 @@ export default class Uploader {
    */
   uploadByTransport() {
     Promise.resolve()
-      .then(() => this.before({}))
       .then(() => {
         return ajax.transport({
           url: this.uploadUrl,
           multiple: false,
-          accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp, image/tiff',
+          accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp, image/tiff, video/mp4',
           progress: this.progress,
-          fieldName: 'file'
+          fieldName: 'file',
+          beforeSend: this.before
         });
       })
       .then(this.success)

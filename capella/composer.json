@@ -1,7 +1,8 @@
 {
     "require": {
         "codex-team/hawk.php": "^1.0",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "php-ffmpeg/php-ffmpeg": "^0.13.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10"

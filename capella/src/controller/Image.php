@@ -18,6 +18,8 @@ class Image
             $imageId = explode('/', $requestUri)[2];
             $imageId = Methods::imageNameToId($imageId);
 
+            $imageId = "543d6658-afc2-4fe0-ba2b-5b0e8113d6f8";
+
             /** Check if image exist */
             \Methods::getPathToImageSource($imageId);
 
