@@ -316,4 +316,4 @@ Ask a question or report a bug on the [create issue page](https://github.com/cod
 
 Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
 
-You can also drop a few lines to [CodeX Team's email](mailto:team@ifmo.su).
+You can also drop a few lines to [CodeX Team's email](mailto:team@codex.so).
