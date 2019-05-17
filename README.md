@@ -2,9 +2,13 @@
 
 Cloud service for image storage and delivery. Upload files and accept image-filters on the fly with the simple API.
 
-Made with :heart: by [CodeX Team](https://ifmo.su)
+Made with :heart: by [CodeX](https://codex.so)
 
 [![](docs/assets/drag-n-drop.gif)](https://capella.pics/image/0351d892-44ba-4c5f-9d34-0af0f9e33651)
+
+> :warning: Warning
+>
+> https://capella.pics is currently in beta. Uploading a large number of files is not supported.
 
 ## Content
 
@@ -13,7 +17,7 @@ Made with :heart: by [CodeX Team](https://ifmo.su)
 * [Upload API](#upload-api)
     * [Request](#request)
     * [Response](#response)
-    * [Example](#example)
+    * [Examples](#examples)
 * [Get image](#get-image)
     * [Filters](#filters)
 * [Development and deployment](#development-and-deployment)
@@ -312,4 +316,4 @@ Ask a question or report a bug on the [create issue page](https://github.com/cod
 
 Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
 
-You can also drop a few lines to [CodeX Team's email](mailto:team@ifmo.su).
+You can also drop a few lines to [CodeX Team's email](mailto:team@codex.so).
