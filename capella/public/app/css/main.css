@@ -1,4 +1,9 @@
-@import url('normalize.css');
+/** CSS reset <https://github.com/necolas/normalize.css> */
+@import 'normalize.css';
+
+/**
+ * Base components
+ */
 @import url('variables.css');
 @import url('base.css');
 @import url('spaceship.css');
