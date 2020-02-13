@@ -3,7 +3,9 @@
 namespace Controller;
 
 use API;
+use RateLimiter;
 use HTTP;
+use Methods;
 use Uploader;
 
 /**
@@ -14,6 +16,20 @@ class Form
     public function __construct()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $ip = Methods::getRequestSourceIp();
+            $key = 'uploadsBy_' . $ip;
+
+            $requestAllowed = RateLimiter::instance()->check($key);
+
+            if (!$requestAllowed) {
+                HTTP\Response::TooManyRequests();
+
+                API\Response::error([
+                    'message' => 'Sorry, you cannot upload more than 3 images per minute.'
+                ]);
+                return;
+            }
+
             if (isset($_FILES['file'])) {
                 $this->uploadFile();
             } elseif (isset($_POST['link'])) {

@@ -38,6 +38,12 @@ class Response
         self::response(405, 'Method Not Allowed');
     }
 
+    public static function TooManyRequests($retryAfter = 60)
+    {
+        self::response(429, 'Too Many Requests');
+        header('Retry-After: ' . $retryAfter);
+    }
+
     public static function InternalServerError()
     {
         self::response(500, 'Internal Server Error');

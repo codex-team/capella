@@ -42,6 +42,16 @@ class Cache
     }
 
     /**
+     * Check connection status. Is script connected to database
+     *
+     * @return bool
+     */
+    public function isAlive()
+    {
+        return !!$this->memcacheObj;
+    }
+
+    /**
      * Get object
      *
      * @param string $key - cache key
@@ -114,6 +124,23 @@ class Cache
         $key = $this->generateKey($key);
 
         $this->memcacheObj->delete($key);
+    }
+
+    /**
+     * Increment item's value
+     *
+     * @param string $key   - cache key
+     * @param int    $value - increment the item by value
+     */
+    public function increment($key, $value = 1)
+    {
+        if (is_null($this->memcacheObj)) {
+            return;
+        }
+
+        $key = self::generateKey($key);
+
+        return $this->memcacheObj->increment($key, $value);
     }
 
     /**
