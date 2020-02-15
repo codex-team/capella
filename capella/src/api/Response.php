@@ -14,7 +14,7 @@ class Response
      */
     public static function json($responseData)
     {
-        echo json_encode($responseData);
+        die(json_encode($responseData));
     }
 
     /**
@@ -75,6 +75,6 @@ class Response
             \HTTP\Response::cache($cacheLifetime);
         }
 
-        echo $blob;
+        die($blob);
     }
 }
