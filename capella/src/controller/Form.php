@@ -16,20 +16,10 @@ class Form
     public function __construct()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $ip = Methods::getRequestSourceIp();
-            $key = 'uploadsBy_' . $ip;
+            /** Middleware to reduce image download intensity */
+            $this->checkRateLimits();
 
-            $requestAllowed = RateLimiter::instance()->check($key);
-
-            if (!$requestAllowed) {
-                HTTP\Response::TooManyRequests();
-
-                API\Response::error([
-                    'message' => 'Sorry, you cannot upload more than 3 images per minute.'
-                ]);
-                return;
-            }
-
+            /** Process form data */
             if (isset($_FILES['file'])) {
                 $this->uploadFile();
             } elseif (isset($_POST['link'])) {
@@ -130,5 +120,25 @@ class Form
             'color' => $imageData['color'],
             'size' => $imageData['size']
         ]);
+    }
+
+    /**
+     * Check if client has allowed to upload image
+     */
+    private function checkRateLimits() {
+        if (RateLimiter::instance()->isEnabled()) {
+            $ip = Methods::getRequestSourceIp();
+            $key = 'RATELIMITER_CLIENT_' . $ip;
+
+            $requestAllowed = RateLimiter::instance()->check($key);
+
+            if (!$requestAllowed) {
+                HTTP\Response::TooManyRequests();
+
+                API\Response::error([
+                    'message' => 'Sorry, you cannot upload more than 3 images per minute.'
+                ]);
+            }
+        }
     }
 }

@@ -8,10 +8,22 @@ use Cache\Cache;
  *
  * Simple rate limiter module powered by memcache
  *
+ * @example
+ * if (RateLimiter::instance()->isEnabled()) {
+ *     if (! RateLimiter::instance()->check($key)) {
+ *         // ...reject request
+ *     }
+ * }
  */
 
 class RateLimiter
 {
+    /**
+     * Is RateLimiter enabled and Cache works correctly
+     * @var bool
+     */
+    private $isEnabled;
+
     /**
      * @var RateLimiter
      */
@@ -26,8 +38,30 @@ class RateLimiter
         return self::$_instance;
     }
 
-    public function check($key, $quota = false, $cycle = false)
+    /**
+     * Private variable and public method to prevent variable outer changes
+     *
+     * @return bool
+     */
+    public function isEnabled()
     {
+        return $this->isEnabled;
+    }
+
+    /**
+     * Check if client allowed to do an action
+     *
+     * @param string $key - client identifier
+     * @param int|null $quota - max number of images
+     * @param int|null $cycle - time interval
+     * @return bool|null - if request is allowed
+     */
+    public function check($key, $quota = null, $cycle = null)
+    {
+        if (!$this->isEnabled) {
+            return null;
+        }
+
         $quota = $quota ?: Env::getInt('RATE_LIMITER_QUOTA');
         $cycle = $cycle ?: Env::getInt('RATE_LIMITER_CYCLE');
 
@@ -61,11 +95,28 @@ class RateLimiter
             return;
         }
 
-        /** Is Cache available */
+        /** Check if Cache module set up correctly */
         $cache = \Cache\Cache::instance();
         if (!$cache->isAlive()) {
             throw new Exception('Rate limiter requires enabled cache. Check Memcache connection.');
         }
+
+        /** RateLimiter is ready to work */
+        $this->isEnabled = true;
     }
 
+    /**
+     * Prevent cloning of instance
+     */
+    private function __clone()
+    {
+    }
+
+    private function __sleep()
+    {
+    }
+
+    private function __wakeup()
+    {
+    }
 }
