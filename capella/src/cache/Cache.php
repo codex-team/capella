@@ -60,8 +60,8 @@ class Cache
      */
     public function get($key)
     {
-        if (is_null($this->memcacheObj)) {
-            return null;
+        if (!$this->isAlive()) {
+            return;
         }
 
         $key = $this->generateKey($key);
@@ -84,7 +84,7 @@ class Cache
      */
     public function set($key, $obj, $timeOfLife = 3600)
     {
-        if (is_null($this->memcacheObj)) {
+        if (!$this->isAlive()) {
             return;
         }
 
@@ -117,7 +117,7 @@ class Cache
      */
     public function delete($key)
     {
-        if (is_null($this->memcacheObj)) {
+        if (!$this->isAlive()) {
             return;
         }
 
@@ -134,7 +134,7 @@ class Cache
      */
     public function increment($key, $value = 1)
     {
-        if (is_null($this->memcacheObj)) {
+        if (!$this->isAlive()) {
             return;
         }
 

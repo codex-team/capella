@@ -38,8 +38,12 @@ class Response
         self::response(405, 'Method Not Allowed');
     }
 
-    public static function TooManyRequests($retryAfter = 60)
+    public static function TooManyRequests($retryAfter = null)
     {
+        if (!$retryAfter) {
+            $retryAfter = \RateLimiter::instance()->CYCLE();
+        }
+
         self::response(429, 'Too Many Requests');
         header('Retry-After: ' . $retryAfter);
     }

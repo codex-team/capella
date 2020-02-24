@@ -61,7 +61,7 @@ class Methods
      * If you store images in a cloud then upgrade this function
      * for getting image's source from the cloud
      *
-     * @param $id - image's id
+     * @param string $id - image's id
      *
      * @throws \Exception
      *
@@ -124,5 +124,28 @@ class Methods
         }
 
         return $ip;
+    }
+
+    /**
+     * Get correct word for single or plural items
+     *
+     * @param integer $num - number of items
+     * @param string $nominative - word for 1 item
+     * @param string $genitive_singular - word for 4 items
+     * @param string $genitive_plural - word for 5 items
+     *
+     * @return string
+     */
+    public static function getNumEnding($num, $nominative, $genitive_singular, $genitive_plural)
+    {
+        if ($num > 10 && (floor(($num % 100) / 10)) == 1) {
+            return $genitive_plural;
+        } else {
+            switch ($num % 10) {
+                case 1: return $nominative;
+                case 2: case 3: case 4: return $genitive_singular;
+                case 5: case 6: case 7: case 8: case 9: case 0: return $genitive_plural;
+            }
+        }
     }
 }

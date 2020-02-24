@@ -136,7 +136,7 @@ class Form
                 HTTP\Response::TooManyRequests();
 
                 API\Response::error([
-                    'message' => 'Sorry, you cannot upload more than 3 images per minute.'
+                    'message' => RateLimiter::instance()->errorMessage()
                 ]);
             }
         }
