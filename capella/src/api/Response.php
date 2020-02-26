@@ -15,6 +15,7 @@ class Response
     public static function json($responseData)
     {
         echo json_encode($responseData);
+        die();
     }
 
     /**
@@ -76,5 +77,6 @@ class Response
         }
 
         echo $blob;
+        die();
     }
 }

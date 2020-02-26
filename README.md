@@ -9,6 +9,8 @@ Made with :heart: by [CodeX](https://codex.so)
 > :warning: Warning
 >
 > https://capella.pics is currently in beta. Uploading a large number of files is not supported.
+>
+> At this time any client cannot upload more than **3 images per minute**. This limit can be extened by access tokens. You can get it for your project later.
 
 ## Content
 
@@ -118,16 +120,17 @@ Each response will have at least `success` and `message` fields.
 
 #### List of messages for failed requests
 
-| Message                          |  Description                          |
-|----------------------------------|---------------------------------------|
-| `Method not allowed`             | Request method is not POST            |
-| `File or link is missing`        | No expected data was found            |
-| `File is missing`                | Filename is missing                   |
-| `Link is missing`                | Field link is empty                   |
-| `Wrong source mime-type`         | No support file with this mime-type   |
-| `Source is too big`              | File size exceeds the limit           |
-| `Source is damaged`              | Source has no data, size or mime-type |
-| `Can't get headers for this URL` | Wrong url was passed                  |
+| Code      | Message                          |  Description                              |
+|-----------|----------------------------------|-------------------------------------------|
+| **`400`** | `File or link is missing`        | No expected data was found                |
+| **`400`** | `File is missing`                | Filename is missing                       |
+| **`400`** | `Link is missing`                | Field link is empty                       |
+| **`400`** | `Wrong source mime-type`         | No support file with this mime-type       |
+| **`400`** | `Source is too big`              | File size exceeds the limit               |
+| **`400`** | `Source is damaged`              | Source has no data, size or mime-type     |
+| **`400`** | `Can't get headers for this URL` | Wrong url was passed                      |
+| **`405`** | `Method not allowed`             | Request method is not POST                |
+| **`429`** | `Too Many Requests`              | Client has exceed plan limit. Retry later |
 
 ### Examples
 

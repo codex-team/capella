@@ -3,7 +3,9 @@
 namespace Controller;
 
 use API;
+use RateLimiter;
 use HTTP;
+use Methods;
 use Uploader;
 
 /**
@@ -14,6 +16,10 @@ class Form
     public function __construct()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            /** Middleware to reduce image upload intensity */
+            $this->checkRateLimits();
+
+            /** Process form data */
             if (isset($_FILES['file'])) {
                 $this->uploadFile();
             } elseif (isset($_POST['link'])) {
@@ -114,5 +120,25 @@ class Form
             'color' => $imageData['color'],
             'size' => $imageData['size']
         ]);
+    }
+
+    /**
+     * Check if client has allowed to upload image
+     */
+    private function checkRateLimits() {
+        if (RateLimiter::instance()->isEnabled()) {
+            $ip = Methods::getRequestSourceIp();
+            $key = 'RATELIMITER_CLIENT_' . $ip;
+
+            $requestAllowed = RateLimiter::instance()->check($key);
+
+            if (!$requestAllowed) {
+                HTTP\Response::TooManyRequests();
+
+                API\Response::error([
+                    'message' => RateLimiter::instance()->errorMessage()
+                ]);
+            }
+        }
     }
 }

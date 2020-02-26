@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM php:7.2-fpm
 
 MAINTAINER CodeX Team <github.com/codex-team>
 
@@ -13,9 +13,11 @@ RUN apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
-# Install memcache
-RUN pecl install memcache
-RUN echo extension=memcache.so >> /usr/local/etc/php/conf.d/memcache.ini
+# Install memcached
+RUN apt-get install -y \
+    libmemcached-dev libmemcached11
+RUN pecl install memcached
+RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
 # Install Imagick
 RUN apt-get install -y \

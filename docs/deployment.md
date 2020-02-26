@@ -77,5 +77,5 @@ Will be added soon :wink:
 - mkdir upload; chmod 777 upload
 - apt-get install -y libmagickwand-dev imagemagick
 - install php modules
-- service php5.6-fpm reload
+- service php7.2-fpm reload
 -->

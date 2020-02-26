@@ -8,7 +8,7 @@ use Env;
  * @singleton
  * Cache class
  *
- * Requires php driver for Memcache[d]
+ * Requires php driver for Memcached
  *
  * @example get instance
  * $cache = \Cache\Cache::instance();
@@ -42,6 +42,16 @@ class Cache
     }
 
     /**
+     * Check connection status. Is script connected to database
+     *
+     * @return bool
+     */
+    public function isAlive()
+    {
+        return !!$this->memcacheObj;
+    }
+
+    /**
      * Get object
      *
      * @param string $key - cache key
@@ -50,8 +60,8 @@ class Cache
      */
     public function get($key)
     {
-        if (is_null($this->memcacheObj)) {
-            return null;
+        if (!$this->isAlive()) {
+            return;
         }
 
         $key = $this->generateKey($key);
@@ -74,7 +84,7 @@ class Cache
      */
     public function set($key, $obj, $timeOfLife = 3600)
     {
-        if (is_null($this->memcacheObj)) {
+        if (!$this->isAlive()) {
             return;
         }
 
@@ -107,13 +117,30 @@ class Cache
      */
     public function delete($key)
     {
-        if (is_null($this->memcacheObj)) {
+        if (!$this->isAlive()) {
             return;
         }
 
         $key = $this->generateKey($key);
 
         $this->memcacheObj->delete($key);
+    }
+
+    /**
+     * Increment item's value
+     *
+     * @param string $key   - cache key
+     * @param int    $value - increment the item by value
+     */
+    public function increment($key, $value = 1)
+    {
+        if (!$this->isAlive()) {
+            return;
+        }
+
+        $key = self::generateKey($key);
+
+        return $this->memcacheObj->increment($key, $value);
     }
 
     /**

@@ -45,6 +45,20 @@ class Env
     }
 
     /**
+     * Return int value for param from .env
+     *
+     * @param $param
+     *
+     * @return mixed
+     */
+    public static function getInt($param)
+    {
+        $value = filter_var(self::get($param), FILTER_VALIDATE_INT);
+
+        return $value;
+    }
+
+    /**
      * Return true if debug flag enabled in the .env config file
      *
      * @return bool
