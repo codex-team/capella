@@ -10,7 +10,7 @@ Made with :heart: by [CodeX](https://codex.so)
 >
 > https://capella.pics is currently in beta. Uploading a large number of files is not supported.
 >
-> At this time any client cannot upload more **3 images per minute**. This limit can be extened by access tokens. You can get it for your project later.
+> At this time any client cannot upload more than **3 images per minute**. This limit can be extened by access tokens. You can get it for your project later.
 
 ## Content
 
@@ -54,7 +54,7 @@ Please note that each uploaded file will be converted to JPG with a white backgr
 - [Python](https://github.com/codex-team/pycapella)
 - [Scala](https://github.com/codex-team/capella.scala)
 
-## Upload API 
+## Upload API
 
 ### Request
 

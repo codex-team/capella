@@ -16,7 +16,7 @@ class Form
     public function __construct()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            /** Middleware to reduce image download intensity */
+            /** Middleware to reduce image upload intensity */
             $this->checkRateLimits();
 
             /** Process form data */

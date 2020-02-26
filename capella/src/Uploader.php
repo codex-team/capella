@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Parent class, which describes acceptable extension,
  * file size and methods that check these parameters.

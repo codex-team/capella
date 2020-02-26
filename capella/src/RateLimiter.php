@@ -1,12 +1,11 @@
 <?php
 
-
 use Cache\Cache;
 
 /**
  * @singleton
  *
- * Simple rate limiter module powered by memcache
+ * Simple rate limiter module powered by Memcache
  *
  * @example
  * if (RateLimiter::instance()->isEnabled()) {
@@ -15,7 +14,6 @@ use Cache\Cache;
  *     }
  * }
  */
-
 class RateLimiter
 {
     /**
@@ -68,7 +66,8 @@ class RateLimiter
      *
      * @return int
      */
-    public function QUOTA() {
+    public function QUOTA()
+    {
         return $this->QUOTA;
     }
 
@@ -78,7 +77,8 @@ class RateLimiter
      *
      * @return int
      */
-    public function CYCLE() {
+    public function CYCLE()
+    {
         return $this->CYCLE;
     }
 
