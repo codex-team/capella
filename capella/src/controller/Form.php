@@ -149,7 +149,7 @@ class Form
      * Check request token from POST params
      */
     private function checkProjectToken() {
-        $token = isset($_POST['token']) ? $_POST['token'] : '';
+        $token = !empty($_POST['token']) ? (string) $_POST['token'] : '';
 
         if ($token) {
             $mongoResponse = Mongo::connect()->{DbNames::PROJECTS}->findOne([
