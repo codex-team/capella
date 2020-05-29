@@ -1,5 +1,8 @@
 <?php
 
+use DB\DbNames;
+use DB\Mongo;
+
 /**
  * Parent class, which describes acceptable extension,
  * file size and methods that check these parameters.
@@ -98,6 +101,19 @@ class Uploader
      */
     protected function saveFileToUploadDir($filepath)
     {
+        /** Get file hash */
+        $hash = hash_file('sha256', $filepath);
+
+        /** Check for a hash existing */
+        $mongoResponse = Mongo::connect()->{DbNames::IMAGES}->findOne([
+            'hash' => $hash
+        ]);
+
+        if (!!$mongoResponse) {
+            // File already exist
+            return $mongoResponse;
+        }
+
         /** Generate filename */
         $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
 
@@ -142,13 +158,19 @@ class Uploader
         $colorHex = sprintf("#%02x%02x%02x", $color['r'], $color['g'], $color['b']);
 
         $imageData = [
+            'author' => Methods::getRequestSourceIp(),
             'filepath' => $path,
             'width' => $width,
             'height' => $height,
             'color' => $colorHex,
             'mime' => 'image/' . self::TARGET_EXT,
             'size' => $imageSize,
+            'hash' => $hash,
+            'project-id' => $_POST['project-id']
         ];
+
+        /** Save image data to DB */
+        Mongo::connect()->{DbNames::IMAGES}->insertOne($imageData);
 
         return $imageData;
     }

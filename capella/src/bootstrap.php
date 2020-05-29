@@ -35,6 +35,17 @@ if (isset($_SERVER['HAWK_TOKEN'])) {
 require_once DOCROOT . 'src/autoload.php';
 
 /**
+ * Setup Capella access via GET param 'token'
+ */
+if (isset($_GET['token'])) {
+    /**
+     * Almost endless cookie lifetime is a max integer value
+     * 2147483647 = 2^31 - 1
+     */
+    setcookie('token', $_GET['token'], 2147483647, '/');
+}
+
+/**
  * Router
  */
 require_once DOCROOT . 'src/router.php';

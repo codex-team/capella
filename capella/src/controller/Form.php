@@ -3,9 +3,12 @@
 namespace Controller;
 
 use API;
-use RateLimiter;
+use DB\DbNames;
+use DB\Mongo;
+use Env;
 use HTTP;
 use Methods;
+use RateLimiter;
 use Uploader;
 
 /**
@@ -18,6 +21,9 @@ class Form
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             /** Middleware to reduce image upload intensity */
             $this->checkRateLimits();
+
+            /** Check project's token */
+            $_POST['project-id'] = $this->checkProjectToken();
 
             /** Process form data */
             if (isset($_FILES['file'])) {
@@ -109,10 +115,7 @@ class Form
 
         API\Response::success([
             'message' => 'Image uploaded',
-            /**
-             * Get ID as name without extension
-             */
-            'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT),
+            'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT), // Get ID as name without extension
             'url' => $imageData['link'],
             'mime' => $imageData['mime'],
             'width' => $imageData['width'],
@@ -140,5 +143,32 @@ class Form
                 ]);
             }
         }
+    }
+
+    /**
+     * Check request token from POST params
+     */
+    private function checkProjectToken() {
+        $token = isset($_POST['token']) ? $_POST['token'] : '';
+
+        if ($token) {
+            $mongoResponse = Mongo::connect()->{DbNames::PROJECTS}->findOne([
+                'token' => $token
+            ]);
+
+            if (!!$mongoResponse && $mongoResponse['_id']) {
+                /** Return project's id */
+                return $mongoResponse['_id'];
+            }
+        }
+
+        /**
+         * If project was not found by target token then show an error
+         */
+        HTTP\Response::Forbidden();
+
+        API\Response::error([
+            'message' => 'Project token is bad or missing'
+        ]);
     }
 }

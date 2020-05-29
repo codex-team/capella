@@ -8,6 +8,17 @@ namespace API;
 class Response
 {
     /**
+     * Return clear text data
+     *
+     * @param mixed $data
+     */
+    public static function text($data)
+    {
+        echo $data;
+        die();
+    }
+
+    /**
      * Return json encoded data
      *
      * @param mixed $responseData

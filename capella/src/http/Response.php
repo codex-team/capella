@@ -28,6 +28,11 @@ class Response
         self::response(400, 'Bad Request');
     }
 
+    public static function Forbidden()
+    {
+        self::response(403, 'Forbidden');
+    }
+
     public static function NotFound()
     {
         self::response(404, 'Not Found');

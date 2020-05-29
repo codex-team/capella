@@ -1,6 +1,7 @@
 'use strict';
 
 const ajax = require('@codexteam/ajax');
+const Methods = require('./methods').default;
 
 /**
  * @typedef {Object} AjaxResponse
@@ -33,6 +34,8 @@ export default class Uploader {
     if (this.uploadLinkField) {
       this.uploadLinkField.addEventListener('keydown', this.uploadByUrl.bind(this), false);
     }
+
+    this.token = Methods.getCookie('token');
   }
 
   /**
@@ -47,7 +50,11 @@ export default class Uploader {
           accept: 'image/png, image/gif, image/jpg, image/jpeg, image/bmp, image/tiff',
           progress: this.progress,
           fieldName: 'file',
-          beforeSend: this.before
+          beforeSend: this.before,
+          data: {
+            /** Append token from cookies to data to be sent */
+            token: this.token
+          }
         });
       })
       .then(this.success)
@@ -94,6 +101,9 @@ export default class Uploader {
    * @param {*} data — data to send
    */
   upload(data) {
+    /** Append token from cookies to data to be sent */
+    data.token = this.token;
+
     Promise.resolve()
       .then(() => {
         return ajax.post({
