@@ -23,7 +23,7 @@ class Form
             $this->checkRateLimits();
 
             /** Check project's token */
-            $projectId = $this->tryToFindProjectByToken();
+            $projectId = $this->tryToFindProjectIdByToken();
 
             /** Process form data */
             if (isset($_FILES['file'])) {
@@ -157,7 +157,7 @@ class Form
      *
      * @return string project's _id from MongoDB
      */
-    private function tryToFindProjectByToken() {
+    private function tryToFindProjectIdByToken() {
         $token = !empty($_POST['token']) ? (string) $_POST['token'] : '';
 
         if ($token) {
