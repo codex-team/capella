@@ -32,7 +32,7 @@ export default class Uploader {
     }
 
     if (this.uploadLinkField) {
-      this.uploadLinkField.addEventListener('keydown', this.uploadByUrl.bind(this), false);
+      this.uploadLinkField.addEventListener('keydown', this.handleKeydownEvent.bind(this), false);
     }
 
     this.token = Methods.getCookie('token');
@@ -64,11 +64,11 @@ export default class Uploader {
   }
 
   /**
-   * Handle upload by image url
+   * Handle keydown event on the upload link field
    *
-   * @param e
+   * @param {Event} e
    */
-  uploadByUrl(e) {
+  handleKeydownEvent(e) {
     /** Check for Enter key */
     if (e.keyCode !== 13) {
       return;
@@ -76,7 +76,21 @@ export default class Uploader {
     e.preventDefault();
 
     if (this.uploadLinkField) {
-      this.upload({'link': this.uploadLinkField.value});
+      this.uploadByUrl(this.uploadLinkField.value);
+    }
+  }
+
+  /**
+   * Upload by image url
+   *
+   * @param {string} url
+   */
+  uploadByUrl(url) {
+    if (url) {
+      this.upload({
+        'link': url,
+        'token': this.token
+      });
     }
   }
 
@@ -92,6 +106,9 @@ export default class Uploader {
 
     formData.append('file', file, file.name);
 
+    /** Append token from cookies to data to be sent */
+    formData.append('token', this.token);
+
     this.upload(formData);
   }
 
@@ -101,17 +118,17 @@ export default class Uploader {
    * @param {*} data — data to send
    */
   upload(data) {
-    /** Append token from cookies to data to be sent */
-    data.token = this.token;
-
     Promise.resolve()
+      .then(() => {
+        this.before(data);
+        return Promise.resolve();
+      })
       .then(() => {
         return ajax.post({
           url: this.uploadUrl,
           data: data,
           type: ajax.contentType.FORM,
-          progress: this.progress,
-          beforeSend: this.before
+          progress: this.progress
         });
       })
       .then(this.success)
