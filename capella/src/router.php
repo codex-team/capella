@@ -16,22 +16,30 @@ $alias = explode('/', $requestUri)[1];
 
 
 switch ($alias) {
-    /** Show main page */
+    /**
+     * Show main page
+     */
     case '':
         require_once DOCROOT . "src/view/index.php";
         break;
 
-    /** Show result page */
+    /**
+     * Show result page
+     */
     case 'image':
         new \Controller\Image($requestUri);
         break;
 
-    /** Uploader uri */
+    /**
+     * Uploader uri
+     */
     case 'upload':
         new \Controller\Form();
         break;
 
-    /** Apply new project form */
+    /**
+     * Apply new project form
+     */
     case 'project':
         if (Env::getBool('PROJECT_REGISTRATION_IS_AVAILABLE')) {
             new \Controller\Project();
@@ -41,7 +49,9 @@ switch ($alias) {
             API\Response::text("Project registration is not available.");
         }
 
-    /** Process uri */
+    /**
+     * Process uri
+     */
     default:
         try {
             $processing = new \Controller\Processing($requestUri);

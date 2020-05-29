@@ -23,7 +23,7 @@ class Form
             $this->checkRateLimits();
 
             /** Check project's token */
-            $_POST['project-id'] = $this->checkProjectToken();
+            $_POST['projectId'] = $this->tryToFindProjectByToken();
 
             /** Process form data */
             if (isset($_FILES['file'])) {
@@ -91,7 +91,7 @@ class Form
             $uploader = new \Uploader();
 
             try {
-                $imageData = $uploader->uploadLink($_POST['link']);
+                $imageData = $uploader->uploadLink((string) $_POST['link']);
 
                 $this->returnImageData($imageData);
             } catch (\Exception $e) {
@@ -115,6 +115,9 @@ class Form
 
         API\Response::success([
             'message' => 'Image uploaded',
+            /**
+             * Get ID as name without extension
+             */
             'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT), // Get ID as name without extension
             'url' => $imageData['link'],
             'mime' => $imageData['mime'],
@@ -146,9 +149,11 @@ class Form
     }
 
     /**
-     * Check request token from POST params
+     * Try to find project by given token
+     *
+     * @return string project's _id from MongoDB
      */
-    private function checkProjectToken() {
+    private function tryToFindProjectByToken() {
         $token = !empty($_POST['token']) ? (string) $_POST['token'] : '';
 
         if ($token) {
@@ -156,7 +161,7 @@ class Form
                 'token' => $token
             ]);
 
-            if (!!$mongoResponse && $mongoResponse['_id']) {
+            if (!empty($mongoResponse['_id'])) {
                 /** Return project's id */
                 return $mongoResponse['_id'];
             }

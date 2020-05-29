@@ -60,9 +60,9 @@ class Uploader
             \API\Response::error([
                 'message' => 'Internal Server Error'
             ]);
-
-            die();
         }
+
+
     }
 
     /**
@@ -104,14 +104,11 @@ class Uploader
         /** Get file hash */
         $hash = hash_file('sha256', $filepath);
 
-        /** Check for a hash existing */
-        $mongoResponse = Mongo::connect()->{DbNames::IMAGES}->findOne([
-            'hash' => $hash
-        ]);
+        /** Check for a saved copy */
+        $isAlreadySaved = $this->findDuplicateByHash($hash);
 
-        if (!!$mongoResponse) {
-            // File already exist
-            return $mongoResponse;
+        if ($isAlreadySaved) {
+            return $isAlreadySaved;
         }
 
         /** Generate filename */
@@ -158,7 +155,7 @@ class Uploader
         $colorHex = sprintf("#%02x%02x%02x", $color['r'], $color['g'], $color['b']);
 
         $imageData = [
-            'author' => Methods::getRequestSourceIp(),
+            'author' => $this->getAuthor(),
             'filepath' => $path,
             'width' => $width,
             'height' => $height,
@@ -166,13 +163,42 @@ class Uploader
             'mime' => 'image/' . self::TARGET_EXT,
             'size' => $imageSize,
             'hash' => $hash,
-            'project-id' => $_POST['project-id']
+            'projectId' => $_POST['projectId']
         ];
 
         /** Save image data to DB */
         Mongo::connect()->{DbNames::IMAGES}->insertOne($imageData);
 
         return $imageData;
+    }
+
+    /**
+     * Return request source IP address
+     *
+     * @return string
+     */
+    protected function getAuthor() {
+        return Methods::getRequestSourceIp();
+    }
+
+    /**
+     * Try to find already saved image by hash
+     *
+     * @param string $hash
+     */
+    protected function findDuplicateByHash($hash)
+    {
+        /** Check for a hash existing */
+        $mongoResponse = Mongo::connect()->{DbNames::IMAGES}->findOne([
+            'hash' => $hash
+        ]);
+
+        if (!!$mongoResponse) {
+            /* File already exist */
+            return $mongoResponse;
+        }
+
+        return false;
     }
 
     /**

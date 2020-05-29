@@ -22,10 +22,10 @@ class Project
 
             /** Compose project's data */
             $projectData = array(
-                'name' => $_POST['name'],
-                'description' => $_POST['description'],
-                'email' => $_POST['email'],
-                'token' => $token,
+                'name' => (string) $_POST['name'],
+                'description' => (string) $_POST['description'],
+                'email' => (string) $_POST['email'],
+                'token' => (string) $token,
             );
 
             /** Save project's data to database */

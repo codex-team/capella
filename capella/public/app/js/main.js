@@ -12,7 +12,7 @@ const UploadScreen = require('./uploadScreen').default;
  */
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
-capella.projectForm = require('./project-form');
+capella.projectForm = require('./projectForm');
 capella.notificationToggler = require('./notificationToggler');
 capella.notifier = require('codex-notifier');
 

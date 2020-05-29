@@ -5,8 +5,13 @@ const ajax = require('@codexteam/ajax');
 /**
  * Simple form submittion helper
  */
-module.exports = (() => {
-  const showToken = (token) => {
+module.exports = (function () {
+  /**
+   * Clear a form element and create a response message with a token
+   *
+   * @param {string} token
+   */
+  const showToken = function (token) {
     const form = document.getElementById('projectForm');
     const message = document.createElement('DIV');
 
@@ -20,8 +25,12 @@ module.exports = (() => {
 
   /**
    * Send an AJAX request
+   *
+   * @param {string} data.name - project's name
+   * @param {string} data.description - usage description
+   * @param {string} data.email - contact email
    */
-  const sendForm = (data) => {
+  const sendForm = function (data) {
     ajax.post({
       url: '',
       data: data,
@@ -41,19 +50,27 @@ module.exports = (() => {
    * Check for a non-valid fields
    *
    * @todo create form validation
+   *
+   * @param {string} data.name - project's name
+   * @param {string} data.description - usage description
+   * @param {string} data.email - contact email
    */
-  const validateForm = (data) => {
+  const validateForm = function (data) {
     sendForm(data);
   };
 
   /**
-   * Get data from from fields directly
+   * Get data from form fields directly and validate it
    */
-  const getForm = () => {
+  const getForm = function () {
+    const nameField = document.getElementById('name');
+    const descriptionField = document.getElementById('description');
+    const emailField = document.getElementById('email');
+
     let data = {
-      name: document.getElementById('name') ? document.getElementById('name').value : '',
-      email: document.getElementById('email') ? document.getElementById('email').value : '',
-      description: document.getElementById('description') ? document.getElementById('description').value : '',
+      name: nameField ? nameField.value : '',
+      description: descriptionField ? descriptionField.value : '',
+      email: emailField ? emailField.value : '',
     };
 
     validateForm(data);
@@ -61,8 +78,9 @@ module.exports = (() => {
 
   /**
    * Init method
+   * Find button element and add event listener
    */
-  const init = () => {
+  const init = function () {
     const submitButton = document.getElementById('submitFormButton');
 
     if (submitButton) {
