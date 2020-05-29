@@ -122,7 +122,7 @@ class Form
             /**
              * Get ID as name without extension
              */
-            'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT), // Get ID as name without extension
+            'id' => basename($imageData['link'], '.' . Uploader::TARGET_EXT),
             'url' => $imageData['link'],
             'mime' => $imageData['mime'],
             'width' => $imageData['width'],
