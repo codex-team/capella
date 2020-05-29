@@ -9,10 +9,8 @@ Made with :heart: by [CodeX](https://codex.so)
 > :warning: **Warning**
 >
 > https://capella.pics is currently in beta.
-
-> **29 May 2020 update**
 > 
-> Capella 3.0 requires a project's token for image uploading. We are testing the service for a fast, stable and secure work.
+> Capella requires a project's token for image uploading. We are testing the service for a fast, stable and secure work.
 > 
 > You will be able to enroll your project to get a token later. Keep track of Capella's updates on https://github.com/codex-team/capella.
 
@@ -149,6 +147,45 @@ curl -X POST https://capella.pics/upload -F "file=@/path/to/image.png" -F "token
 # Upload image by link
 
 curl -X POST https://capella.pics/upload -d "link=https://path.to/image.png" -d "token=aaaa-bbbb-cccc-dddd"
+```
+
+#### Python
+
+```python
+# Upload file
+
+import requests
+import json
+
+files = {
+    'file': open('./image.png','rb')
+}
+
+data = {
+    'token': 'aaaa-bbbb-cccc-dddd'
+}
+
+r = requests.post('https://capella.pics/upload', files=files, data=data)
+response = json.loads(r.content.decode('utf-8'))
+
+print(response)
+```
+
+```python
+# Upload image by link
+
+import requests
+import json
+
+data = {
+    'link': 'https://path.to/image.png',
+    'token': 'aaaa-bbbb-cccc-dddd'
+}
+
+r = requests.post('https://capella.pics/upload', data=data)
+response = json.loads(r.content.decode('utf-8'))
+
+print(response)
 ```
 
 ## Getting image
