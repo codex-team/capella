@@ -45,9 +45,18 @@ class Uploader
     const UPLOAD_DIR = 'upload/';
 
     /**
-     * Check uploads dir
+     * Project's dentifier of image target
+     *
+     * @var string
      */
-    public function __construct()
+    var $projectId = '';
+
+    /**
+     * Check uploads dir, prepare project's ID
+     *
+     * @param string $projectId
+     */
+    public function __construct($projectId)
     {
         if (!file_exists(self::UPLOAD_DIR) || !is_writable(self::UPLOAD_DIR)) {
             $errorMessage = self::UPLOAD_DIR . ' directory should be writable';
@@ -62,7 +71,7 @@ class Uploader
             ]);
         }
 
-
+        $this->projectId = $projectId;
     }
 
     /**
@@ -163,7 +172,7 @@ class Uploader
             'mime' => 'image/' . self::TARGET_EXT,
             'size' => $imageSize,
             'hash' => $hash,
-            'projectId' => $_POST['projectId']
+            'projectId' => $this->projectId
         ];
 
         /** Save image data to DB */

@@ -23,13 +23,13 @@ class Form
             $this->checkRateLimits();
 
             /** Check project's token */
-            $_POST['projectId'] = $this->tryToFindProjectByToken();
+            $projectId = $this->tryToFindProjectByToken();
 
             /** Process form data */
             if (isset($_FILES['file'])) {
-                $this->uploadFile();
+                $this->uploadFile($projectId);
             } elseif (isset($_POST['link'])) {
-                $this->uploadLink();
+                $this->uploadLink($projectId);
             } else {
                 HTTP\Response::BadRequest();
 
@@ -48,8 +48,10 @@ class Form
 
     /**
      * Function processed uploading file
+     *
+     * @param string $projectId - source project for image
      */
-    protected function uploadFile()
+    protected function uploadFile($projectId)
     {
         /** This way we have $_FILES['files'] as a one file or array with files */
 
@@ -60,7 +62,7 @@ class Form
                 'message' => 'File is missing'
             ]);
         } else {
-            $uploader = new \Uploader();
+            $uploader = new \Uploader($projectId);
 
             try {
                 $imageData = $uploader->uploadFile($_FILES['file']);
@@ -78,8 +80,10 @@ class Form
 
     /**
      * Function processed uploading by link
+     *
+     * @param string $projectId - source project for image
      */
-    protected function uploadLink()
+    protected function uploadLink($projectId)
     {
         if (empty($_POST['link'])) {
             HTTP\Response::BadRequest();
@@ -88,7 +92,7 @@ class Form
                 'message' => 'Link is missing'
             ]);
         } else {
-            $uploader = new \Uploader();
+            $uploader = new \Uploader($projectId);
 
             try {
                 $imageData = $uploader->uploadLink((string) $_POST['link']);
