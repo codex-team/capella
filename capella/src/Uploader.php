@@ -114,10 +114,10 @@ class Uploader
         $hash = hash_file('sha256', $filepath);
 
         /** Check for a saved copy */
-        $isAlreadySaved = $this->findDuplicateByHash($hash);
+        $duplicateImageData = $this->findDuplicateByHash($hash);
 
-        if ($isAlreadySaved) {
-            return $isAlreadySaved;
+        if ($duplicateImageData) {
+            return $duplicateImageData;
         }
 
         /** Generate filename */
@@ -207,7 +207,7 @@ class Uploader
             return $mongoResponse;
         }
 
-        return false;
+        return null;
     }
 
     /**
