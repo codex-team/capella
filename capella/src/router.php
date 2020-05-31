@@ -24,7 +24,7 @@ switch ($alias) {
      * Show main page
      */
     case '':
-        require_once DOCROOT . "src/view/index.php";
+        require_once DOCROOT . "src/View/index.php";
         break;
 
     /**

@@ -39,7 +39,7 @@ class Project
             ]);
         } else {
             /** Render page */
-            require_once DOCROOT . "src/view/projectForm.php";
+            require_once DOCROOT . "src/View/projectForm.php";
         }
     }
 }
