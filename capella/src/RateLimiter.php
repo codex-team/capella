@@ -20,6 +20,7 @@ class RateLimiter
 {
     /**
      * Is RateLimiter enabled and Cache works correctly
+     *
      * @var bool
      */
     private $isEnabled;
@@ -27,14 +28,14 @@ class RateLimiter
     /**
      * Number of images allowed to be uploaded for time interval (cycle)
      *
-     * @var integer
+     * @var int
      */
     private $QUOTA;
 
     /**
      * Time interval defined as rate limiter cycle
      *
-     * @var integer
+     * @var int
      */
     private $CYCLE;
 
@@ -87,9 +88,10 @@ class RateLimiter
     /**
      * Check if client allowed to do an action
      *
-     * @param string $key - client identifier
+     * @param string   $key   - client identifier
      * @param int|null $quota - max number of images
      * @param int|null $cycle - time interval
+     *
      * @return bool|null - if request is allowed
      */
     public function check($key, $quota = null, $cycle = null)
@@ -110,11 +112,13 @@ class RateLimiter
 
         if (is_null($isCached)) {
             Cache::instance()->set($key, $defaultValue, $cycle);
+
             return $requestAllowed;
         }
 
         if (intval($isCached) < $quota) {
             Cache::instance()->increment($key);
+
             return $requestAllowed;
         }
 

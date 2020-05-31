@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\API;
 use App\DB\DbNames;
 use App\DB\Mongo;
-use App\Env;
 use App\HTTP;
 use App\Methods;
 use App\RateLimiter;
@@ -135,7 +134,8 @@ class Form
     /**
      * Check if client has allowed to upload image
      */
-    private function checkRateLimits() {
+    private function checkRateLimits()
+    {
         if (RateLimiter::instance()->isEnabled()) {
             $ip = Methods::getRequestSourceIp();
             $key = 'RATELIMITER_CLIENT_' . $ip;
@@ -157,7 +157,8 @@ class Form
      *
      * @return string project's _id from MongoDB
      */
-    private function tryToFindProjectIdByToken() {
+    private function tryToFindProjectIdByToken()
+    {
         $token = !empty($_POST['token']) ? (string) $_POST['token'] : '';
 
         if ($token) {

@@ -51,7 +51,7 @@ class Uploader
      *
      * @var string
      */
-    var $projectId = '';
+    public $projectId = '';
 
     /**
      * Check uploads dir, prepare project's ID
@@ -188,7 +188,8 @@ class Uploader
      *
      * @return string
      */
-    protected function getAuthor() {
+    protected function getAuthor()
+    {
         return Methods::getRequestSourceIp();
     }
 
