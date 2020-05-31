@@ -1,9 +1,9 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
-use HTTP;
-use Methods;
+use App\HTTP;
+use App\Methods;
 
 /**
  * Show Capella page with uploaded image

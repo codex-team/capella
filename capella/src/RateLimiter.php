@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 use Cache\Cache;
 
 /**

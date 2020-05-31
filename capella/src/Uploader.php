@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 use DB\DbNames;
 use DB\Mongo;
 

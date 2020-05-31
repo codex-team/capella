@@ -1,6 +1,6 @@
 <?php
 
-namespace API;
+namespace App\API;
 
 /**
  * Return data with right response headers

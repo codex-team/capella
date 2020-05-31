@@ -1,10 +1,10 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
-use API;
-use Cache\Cache;
-use HTTP;
+use App\API;
+use App\Cache\Cache;
+use App\HTTP;
 
 /**
  * Class Processing

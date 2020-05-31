@@ -1,15 +1,15 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
-use API;
-use DB\DbNames;
-use DB\Mongo;
-use Env;
-use HTTP;
-use Methods;
-use RateLimiter;
-use Uploader;
+use App\API;
+use App\DB\DbNames;
+use App\DB\Mongo;
+use App\Env;
+use App\HTTP;
+use App\Methods;
+use App\RateLimiter;
+use App\Uploader;
 
 /**
  * Class for processing uploading form or AJAX upload

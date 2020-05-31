@@ -1,6 +1,6 @@
 <?php
 
-namespace DB;
+namespace App\DB;
 
 /**
  * Class statically creates an instance of the mongo database.

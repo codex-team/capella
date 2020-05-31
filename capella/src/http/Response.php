@@ -1,6 +1,6 @@
 <?php
 
-namespace HTTP;
+namespace App\HTTP;
 
 /**
  * Set code and status headers for response

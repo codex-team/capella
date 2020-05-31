@@ -32,7 +32,7 @@ if (isset($_SERVER['HAWK_TOKEN'])) {
 /**
  * Autoload classes
  */
-require_once DOCROOT . 'src/autoload.php';
+#require_once DOCROOT . 'src/autoload.php';
 
 /**
  * Setup Capella access via GET param 'token'

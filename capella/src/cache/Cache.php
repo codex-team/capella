@@ -1,8 +1,8 @@
 <?php
 
-namespace Cache;
+namespace App\Cache;
 
-use Env;
+use App\Env;
 
 /**
  * @singleton
