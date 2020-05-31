@@ -2,6 +2,8 @@
 
 namespace App\API;
 
+use App\HTTP;
+
 /**
  * Return data with right response headers
  */
@@ -84,7 +86,7 @@ class Response
         }
 
         if ($cacheLifetime) {
-            \HTTP\Response::cache($cacheLifetime);
+            HTTP\Response::cache($cacheLifetime);
         }
 
         echo $blob;

@@ -19,10 +19,10 @@ class Image
             $imageId = Methods::imageNameToId($imageId);
 
             /** Check if image exist */
-            \Methods::getPathToImageSource($imageId);
+            Methods::getPathToImageSource($imageId);
 
             /** Create a link to the image */
-            $imageURL = \Methods::getImageUri($imageId);
+            $imageURL = Methods::getImageUri($imageId);
 
             /** Render page */
             require_once DOCROOT . "src/view/result.php";

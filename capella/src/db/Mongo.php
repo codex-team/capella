@@ -2,6 +2,8 @@
 
 namespace App\DB;
 
+use App\Env;
+
 /**
  * Class statically creates an instance of the mongo database.
  *
@@ -48,8 +50,8 @@ class Mongo
          * Check to make sure that we have an object.
          */
         if (!isset(self::$_connection)) {
-            $domain = \Env::get('MONGO_HOST') ?? 'mongo';
-            $port = \Env::get('MONGO_PORT') ?? 27017;
+            $domain = Env::get('MONGO_HOST') ?? 'mongo';
+            $port = Env::get('MONGO_PORT') ?? 27017;
 
             self::$_connection = new \MongoDB\Client(
                 "mongodb://{$domain}:{$port}", [],
@@ -67,11 +69,9 @@ class Mongo
          * Check to see if the database string is empty. If so return the object instance.
          */
         if (!empty($database) && is_string($database)) {
-            $database = \Env::get('MONGO_DBNAME') ?? $database;
+            $database = Env::get('MONGO_DBNAME') ?? $database;
 
-            $connectedDatabase = self::$_connection->$database;
-
-            return $connectedDatabase;
+            return self::$_connection->$database;
         }
 
         return self::$_connection;

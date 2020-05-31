@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Router
  */
@@ -27,14 +29,14 @@ switch ($alias) {
      * Show result page
      */
     case 'image':
-        new \Controller\Image($requestUri);
+        new Controller\Image($requestUri);
         break;
 
     /**
      * Uploader uri
      */
     case 'upload':
-        new \Controller\Form();
+        new Controller\Form();
         break;
 
     /**
@@ -42,19 +44,20 @@ switch ($alias) {
      */
     case 'project':
         if (Env::getBool('PROJECT_REGISTRATION_IS_AVAILABLE')) {
-            new \Controller\Project();
-            break;
+            new Controller\Project();
         } else {
             HTTP\Response::Forbidden();
+
             API\Response::text("Project registration is not available.");
         }
+        break;
 
     /**
      * Process uri
      */
     default:
         try {
-            $processing = new \Controller\Processing($requestUri);
+            $processing = new Controller\Processing($requestUri);
         } catch (\Exception $e) {
             \Hawk\HawkCatcher::catchException($e);
 
@@ -62,5 +65,4 @@ switch ($alias) {
 
             API\Response::text("Internal Server Error");
         }
-        break;
 }

@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\API;
 use App\Cache\Cache;
+use App\Dispatcher;
 use App\HTTP;
+use App\ImageProcessing;
+use App\Methods;
 
 /**
  * Class Processing
@@ -69,8 +72,6 @@ class Processing
                 API\Response::error([
                     'message' => $e->getMessage()
                 ]);
-
-                die();
             }
 
             /**
@@ -97,7 +98,7 @@ class Processing
      */
     protected function returnImage($requestUri)
     {
-        $dispatcher = new \Dispatcher($requestUri, self::FILTERS);
+        $dispatcher = new Dispatcher($requestUri, self::FILTERS);
         $imageId = $dispatcher->id;
         $filters = $dispatcher->parsedFilters;
 
@@ -105,7 +106,7 @@ class Processing
          * Try to get path to image by id
          */
         try {
-            $imageUrl = \Methods::getPathToImageSource($imageId);
+            $imageUrl = Methods::getPathToImageSource($imageId);
         } catch (\Exception $e) {
             /**
              * Return 404
@@ -114,7 +115,7 @@ class Processing
             die();
         }
 
-        $imageProcessing = new \ImageProcessing($imageUrl);
+        $imageProcessing = new ImageProcessing($imageUrl);
 
         foreach ($filters as $filter) {
             switch ($filter['filter']) {

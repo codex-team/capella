@@ -2,8 +2,8 @@
 
 namespace App;
 
-use DB\DbNames;
-use DB\Mongo;
+use App\DB\DbNames;
+use App\DB\Mongo;
 
 /**
  * Parent class, which describes acceptable extension,
@@ -66,9 +66,9 @@ class Uploader
             trigger_error($errorMessage, E_USER_ERROR);
             error_log($errorMessage);
 
-            \HTTP\Response::InternalServerError();
+            HTTP\Response::InternalServerError();
 
-            \API\Response::error([
+            API\Response::error([
                 'message' => 'Internal Server Error'
             ]);
         }
@@ -123,7 +123,7 @@ class Uploader
         }
 
         /** Generate filename */
-        $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
+        $path = Uploader::UPLOAD_DIR . Methods::generateId() . "." . self::TARGET_EXT;
 
         /** Save file to uploads dir */
         file_put_contents($path, file_get_contents($filepath));
@@ -137,11 +137,11 @@ class Uploader
         }
 
         /** Get uploaded image */
-        $image = new Imagick($path);
+        $image = new \Imagick($path);
 
         /** Add white background */
-        $image->setImageBackgroundColor(new ImagickPixel('white'));
-        $image = $image->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $image->setImageBackgroundColor(new \ImagickPixel('white'));
+        $image = $image->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
 
         /** Convert image to jpg */
         $image->setImageFormat(self::TARGET_EXT);
@@ -161,7 +161,7 @@ class Uploader
          * 2) get color of top left pixel
          * 3) convert color from rgb to hex
          */
-        $image->resizeImage(1, 1, Imagick::FILTER_GAUSSIAN, 1);
+        $image->resizeImage(1, 1, \Imagick::FILTER_GAUSSIAN, 1);
         $color = $image->getImagePixelColor(1, 1)->getColor();
         $colorHex = sprintf("#%02x%02x%02x", $color['r'], $color['g'], $color['b']);
 
@@ -235,7 +235,7 @@ class Uploader
         $label = explode('.', basename($imageData['filepath']))[0];
 
         /** Get image's URL by id */
-        $imageData['link'] = \Methods::getImageUri($label);
+        $imageData['link'] = Methods::getImageUri($label);
 
         return $imageData;
     }

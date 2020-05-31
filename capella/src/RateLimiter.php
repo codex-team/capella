@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Cache\Cache;
+use App\Cache\Cache;
 
 /**
  * @singleton
@@ -163,13 +163,13 @@ class RateLimiter
         $this->CYCLE = Env::getInt('RATE_LIMITER_CYCLE');
 
         if (!$this->QUOTA || !$this->CYCLE) {
-            throw new Exception('Rate limiter requires defined \'quota\' and \'cycle\' params. Check env file.');
+            throw new \Exception('Rate limiter requires defined \'quota\' and \'cycle\' params. Check env file.');
         }
 
         /** Check if Cache module set up correctly */
-        $cache = \Cache\Cache::instance();
+        $cache = Cache::instance();
         if (!$cache->isAlive()) {
-            throw new Exception('Rate limiter requires enabled cache. Check Memcache connection.');
+            throw new \Exception('Rate limiter requires enabled cache. Check Memcache connection.');
         }
 
         /** RateLimiter is ready to work */

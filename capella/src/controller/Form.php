@@ -61,7 +61,7 @@ class Form
                 'message' => 'File is missing'
             ]);
         } else {
-            $uploader = new \Uploader($projectId);
+            $uploader = new Uploader($projectId);
 
             try {
                 $imageData = $uploader->uploadFile($_FILES['file']);
@@ -91,7 +91,7 @@ class Form
                 'message' => 'Link is missing'
             ]);
         } else {
-            $uploader = new \Uploader($projectId);
+            $uploader = new Uploader($projectId);
 
             try {
                 $imageData = $uploader->uploadLink((string) $_POST['link']);

@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\API;
 use App\DB\DbNames;
 use App\DB\Mongo;
-use App\HTTP;
+use App\Http;
+use App\Methods;
 
 /**
  * Class for showing and processing project form
@@ -18,7 +19,7 @@ class Project
             /* @todo validate data */
 
             /** Generate project's token */
-            $token = \Methods::generateId();
+            $token = Methods::generateId();
 
             /** Compose project's data */
             $projectData = [
