@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\API;
 use App\DB\DbNames;
 use App\DB\Mongo;
-use App\Http;
+use App\HTTP;
 use App\Methods;
 
 /**

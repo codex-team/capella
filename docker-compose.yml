@@ -5,8 +5,8 @@ services:
         image: memcached:alpine
     mongo:
         image: mongo:4
-        ports:
-            - 27017:27017
+#        ports:
+#            - 27017:27017
     php:
         build: docker/php7.2-fpm
         links:
