@@ -1,6 +1,9 @@
 <?php
 
-namespace HTTP;
+namespace App\HTTP;
+
+use App\Methods;
+use App\RateLimiter;
 
 /**
  * Set code and status headers for response
@@ -13,7 +16,7 @@ class Response
         header("HTTP/1.1 $code $status");
         header("Status: $code $status");
 
-        $contentType = \Methods::isAjax() ? "application/json" : "text/html";
+        $contentType = Methods::isAjax() ? "application/json" : "text/html";
 
         header("Content-Type: $contentType");
     }
@@ -26,6 +29,11 @@ class Response
     public static function BadRequest()
     {
         self::response(400, 'Bad Request');
+    }
+
+    public static function Forbidden()
+    {
+        self::response(403, 'Forbidden');
     }
 
     public static function NotFound()
@@ -41,7 +49,7 @@ class Response
     public static function TooManyRequests($retryAfter = null)
     {
         if (!$retryAfter) {
-            $retryAfter = \RateLimiter::instance()->CYCLE();
+            $retryAfter = RateLimiter::instance()->CYCLE();
         }
 
         self::response(429, 'Too Many Requests');

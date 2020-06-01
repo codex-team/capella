@@ -1,12 +1,14 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
-use API;
-use RateLimiter;
-use HTTP;
-use Methods;
-use Uploader;
+use App\API;
+use App\DB\DbNames;
+use App\DB\Mongo;
+use App\HTTP;
+use App\Methods;
+use App\RateLimiter;
+use App\Uploader;
 
 /**
  * Class for processing uploading form or AJAX upload
@@ -19,11 +21,14 @@ class Form
             /** Middleware to reduce image upload intensity */
             $this->checkRateLimits();
 
+            /** Check project's token */
+            $projectId = $this->tryToFindProjectIdByToken();
+
             /** Process form data */
             if (isset($_FILES['file'])) {
-                $this->uploadFile();
+                $this->uploadFile($projectId);
             } elseif (isset($_POST['link'])) {
-                $this->uploadLink();
+                $this->uploadLink($projectId);
             } else {
                 HTTP\Response::BadRequest();
 
@@ -42,8 +47,10 @@ class Form
 
     /**
      * Function processed uploading file
+     *
+     * @param string $projectId - source project for image
      */
-    protected function uploadFile()
+    protected function uploadFile($projectId)
     {
         /** This way we have $_FILES['files'] as a one file or array with files */
 
@@ -54,7 +61,7 @@ class Form
                 'message' => 'File is missing'
             ]);
         } else {
-            $uploader = new \Uploader();
+            $uploader = new Uploader($projectId);
 
             try {
                 $imageData = $uploader->uploadFile($_FILES['file']);
@@ -72,8 +79,10 @@ class Form
 
     /**
      * Function processed uploading by link
+     *
+     * @param string $projectId - source project for image
      */
-    protected function uploadLink()
+    protected function uploadLink($projectId)
     {
         if (empty($_POST['link'])) {
             HTTP\Response::BadRequest();
@@ -82,10 +91,10 @@ class Form
                 'message' => 'Link is missing'
             ]);
         } else {
-            $uploader = new \Uploader();
+            $uploader = new Uploader($projectId);
 
             try {
-                $imageData = $uploader->uploadLink($_POST['link']);
+                $imageData = $uploader->uploadLink((string) $_POST['link']);
 
                 $this->returnImageData($imageData);
             } catch (\Exception $e) {
@@ -125,7 +134,8 @@ class Form
     /**
      * Check if client has allowed to upload image
      */
-    private function checkRateLimits() {
+    private function checkRateLimits()
+    {
         if (RateLimiter::instance()->isEnabled()) {
             $ip = Methods::getRequestSourceIp();
             $key = 'RATELIMITER_CLIENT_' . $ip;
@@ -140,5 +150,35 @@ class Form
                 ]);
             }
         }
+    }
+
+    /**
+     * Try to find project by given token
+     *
+     * @return string project's _id from MongoDB
+     */
+    private function tryToFindProjectIdByToken()
+    {
+        $token = !empty($_POST['token']) ? (string) $_POST['token'] : '';
+
+        if ($token) {
+            $mongoResponse = Mongo::connect()->{DbNames::PROJECTS}->findOne([
+                'token' => $token
+            ]);
+
+            if (!empty($mongoResponse['_id'])) {
+                /** Return project's id */
+                return $mongoResponse['_id'];
+            }
+        }
+
+        /**
+         * If project was not found by target token then show an error
+         */
+        HTTP\Response::Forbidden();
+
+        API\Response::error([
+            'message' => 'Project token is bad or missing'
+        ]);
     }
 }

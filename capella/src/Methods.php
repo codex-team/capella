@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class Methods
 {
     /**
@@ -39,6 +41,7 @@ class Methods
      *   -> 52df7fbf-ff1d-44e7-803a-e9f04d03d542
      *
      * @param string $name
+     *
      * @return string
      */
     public static function imageNameToId($name)
@@ -48,7 +51,7 @@ class Methods
         /**
          * Allow getting images with extension at the end of uri
          */
-        if (preg_match('/(?P<id>[\w-]+)\.'.$defaultExtension.'$/', $name, $matches)) {
+        if (preg_match('/(?P<id>[\w-]+)\.' . $defaultExtension . '$/', $name, $matches)) {
             return $matches['id'];
         }
 
@@ -70,7 +73,7 @@ class Methods
      */
     public static function getPathToImageSource($id)
     {
-        $imageUrl = 'upload/' . $id . '.' . \Uploader::TARGET_EXT;
+        $imageUrl = 'upload/' . $id . '.' . Uploader::TARGET_EXT;
 
         if (!file_exists($imageUrl)) {
             throw new \Exception('File does not exist');
@@ -129,10 +132,10 @@ class Methods
     /**
      * Get correct word for single or plural items
      *
-     * @param integer $num - number of items
-     * @param string $nominative - word for 1 item
+     * @param int    $num               - number of items
+     * @param string $nominative        - word for 1 item
      * @param string $genitive_singular - word for 4 items
-     * @param string $genitive_plural - word for 5 items
+     * @param string $genitive_plural   - word for 5 items
      *
      * @return string
      */

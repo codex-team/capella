@@ -1,12 +1,25 @@
 <?php
 
-namespace API;
+namespace App\API;
+
+use App\HTTP;
 
 /**
  * Return data with right response headers
  */
 class Response
 {
+    /**
+     * Return clear text data
+     *
+     * @param mixed $data
+     */
+    public static function text($data)
+    {
+        echo $data;
+        die();
+    }
+
     /**
      * Return json encoded data
      *
@@ -73,7 +86,7 @@ class Response
         }
 
         if ($cacheLifetime) {
-            \HTTP\Response::cache($cacheLifetime);
+            HTTP\Response::cache($cacheLifetime);
         }
 
         echo $blob;

@@ -1,12 +1,18 @@
 {
     "require": {
         "codex-team/hawk.php": "^1.0",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "mongodb/mongodb": "^1.6"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.10"
     },
     "scripts": {
         "csfix" : "vendor/bin/php-cs-fixer fix --verbose"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
     }
 }

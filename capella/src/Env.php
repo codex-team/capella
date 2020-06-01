@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Class Env for working with enviromental variables
  */

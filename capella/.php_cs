@@ -14,6 +14,7 @@ $rules = [
     'method_argument_space' => true,
     'method_separation' => true,
     'no_blank_lines_before_namespace' => false,
+    'no_break_comment' => false,
     'no_empty_statement' => true,
     'no_leading_import_slash' => true,
     'no_leading_namespace_whitespace' => true,

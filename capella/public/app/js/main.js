@@ -2,16 +2,17 @@
 
 let capella = {};
 
-let Uploader = require('./uploader').default;
-let Clipboard = require('./clipboard').default;
-let DNDFileUploader = require('./dragndrop').default;
-let UploadScreen = require('./uploadScreen').default;
+const Uploader = require('./uploader').default;
+const Clipboard = require('./clipboard').default;
+const DNDFileUploader = require('./dragndrop').default;
+const UploadScreen = require('./uploadScreen').default;
 
 /**
  * Require modules
  */
 capella.uploader = require('./uploader');
 capella.copyable = require('./copyable');
+capella.projectForm = require('./projectForm');
 capella.notificationToggler = require('./notificationToggler');
 capella.notifier = require('codex-notifier');
 
@@ -22,6 +23,7 @@ capella.dnd = new DNDFileUploader('.capella');
 
 capella.init = function () {
   capella.copyable.init();
+  capella.projectForm.init();
 };
 
 module.exports = capella;

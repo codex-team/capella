@@ -19,6 +19,9 @@ RUN apt-get install -y \
 RUN pecl install memcached
 RUN echo extension=memcached.so >> /usr/local/etc/php/conf.d/memcached.ini
 
+RUN pecl install mongodb
+RUN echo extension=mongodb.so >> /usr/local/etc/php/conf.d/mongodb.ini
+
 # Install Imagick
 RUN apt-get install -y \
     libmagickwand-dev imagemagick

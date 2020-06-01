@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Class ImageProcessing
  *
@@ -31,7 +33,7 @@ class ImageProcessing
      */
     public function __construct($path)
     {
-        $this->imagick = new Imagick();
+        $this->imagick = new \Imagick();
         $this->readImage($path);
 
         /** Fix image's orientation */
@@ -55,7 +57,7 @@ class ImageProcessing
      * @param int|null $x          - crop x
      * @param int|null $y          - crop y
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function cropImage($cropWidth, $cropHeight = null, $x = null, $y = null)
     {
@@ -97,7 +99,7 @@ class ImageProcessing
      * @param int $resizeWidth
      * @param int $resizeHeight
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function resizeImage($resizeWidth, $resizeHeight = 0)
     {
@@ -126,7 +128,7 @@ class ImageProcessing
      *
      * @param int $pixels
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function pixelizeImage($pixels)
     {
@@ -148,11 +150,12 @@ class ImageProcessing
     /**
      * Add a cover for target image
      *
-     * @param string $color - hex code of cover's color without hash symbol. Ex: eff2f5
-     * @param int $width - width of cover for image
-     * @param float $maxWidthRatio - max part of cover's width to stretch image
-     * @param int $margin - number pof pixels up and down image on cover
-     * @throws Exception|ImagickException
+     * @param string $color         - hex code of cover's color without hash symbol. Ex: eff2f5
+     * @param int    $width         - width of cover for image
+     * @param float  $maxWidthRatio - max part of cover's width to stretch image
+     * @param int    $margin        - number pof pixels up and down image on cover
+     *
+     * @throws \Exception|\ImagickException
      */
     public function addCover($color, $width = 1000, $maxWidthRatio = 0.6, $margin = 10)
     {
@@ -200,8 +203,8 @@ class ImageProcessing
         /**
          * Create a new image as a cover
          */
-        $cover = new Imagick();
-        $cover->newImage($width, $coverHeight, new ImagickPixel('#' . $color));
+        $cover = new \Imagick();
+        $cover->newImage($width, $coverHeight, new \ImagickPixel('#' . $color));
         $cover->setImageFormat('png');
 
         /**
@@ -215,7 +218,7 @@ class ImageProcessing
         /**
          * Compose cover and image
          */
-        $cover->compositeImage($this->imagick, Imagick::COMPOSITE_IN, $imagePosition['x'], $imagePosition['y']);
+        $cover->compositeImage($this->imagick, \Imagick::COMPOSITE_IN, $imagePosition['x'], $imagePosition['y']);
 
         /**
          * Save composed image as a processed image
@@ -266,7 +269,7 @@ class ImageProcessing
      *
      * @param string $path - local path to image
      *
-     * @throws Exception
+     * @throws \Exception
      */
     private function readImage($path)
     {
@@ -275,7 +278,7 @@ class ImageProcessing
         try {
             $readResult = @$this->imagick->readImage($path);
         } catch (\Exception $e) {
-            \HTTP\Response::NotFound();
+            HTTP\Response::NotFound();
 
             die();
         }
@@ -297,22 +300,22 @@ class ImageProcessing
 
         switch ($orientation) {
             /** rotate 180 degrees */
-            case imagick::ORIENTATION_BOTTOMRIGHT:
+            case \Imagick::ORIENTATION_BOTTOMRIGHT:
                 $this->imagick->rotateimage("#000", 180);
                 break;
 
             /** rotate 90 degrees CW */
-            case imagick::ORIENTATION_RIGHTTOP:
+            case \Imagick::ORIENTATION_RIGHTTOP:
                 $this->imagick->rotateimage("#000", 90);
                 break;
 
             /** rotate 90 degrees CCW */
-            case imagick::ORIENTATION_LEFTBOTTOM:
+            case \Imagick::ORIENTATION_LEFTBOTTOM:
                 $this->imagick->rotateimage("#000", -90);
                 break;
         }
 
         /** Save image's orientation */
-        $this->imagick->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+        $this->imagick->setImageOrientation(\Imagick::ORIENTATION_TOPLEFT);
     }
 }

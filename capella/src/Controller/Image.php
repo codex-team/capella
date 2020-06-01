@@ -1,9 +1,9 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
-use HTTP;
-use Methods;
+use App\HTTP;
+use App\Methods;
 
 /**
  * Show Capella page with uploaded image
@@ -19,13 +19,13 @@ class Image
             $imageId = Methods::imageNameToId($imageId);
 
             /** Check if image exist */
-            \Methods::getPathToImageSource($imageId);
+            Methods::getPathToImageSource($imageId);
 
             /** Create a link to the image */
-            $imageURL = \Methods::getImageUri($imageId);
+            $imageURL = Methods::getImageUri($imageId);
 
             /** Render page */
-            require_once DOCROOT . "src/view/result.php";
+            require_once DOCROOT . "src/View/result.php";
         } catch (\Exception $e) {
             HTTP\Response::NotFound();
 

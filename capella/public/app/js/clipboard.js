@@ -71,11 +71,11 @@ export default class Clipboard {
        */
       let regex = /^((http[s]?):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
 
+      document.getElementById('uploadLinkField').value = data;
+
       if (data.match(regex)) {
-        capella.uploader.upload({'link': data});
+        capella.uploader.uploadByUrl(data);
         return;
-      } else {
-        document.getElementById('uploadLinkField').value = data;
       }
     }
 

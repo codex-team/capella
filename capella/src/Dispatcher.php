@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Class UriDispatcher
  *
@@ -82,7 +84,7 @@ class Dispatcher
         /**
          * Find image id if image name was passed
          */
-        $this->id = \Methods::imageNameToId($this->id);
+        $this->id = Methods::imageNameToId($this->id);
 
         /** Slices filters and additional parameters list from pathParts */
         $this->rawFilters = array_slice($this->pathParts, 1);

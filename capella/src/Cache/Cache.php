@@ -1,8 +1,8 @@
 <?php
 
-namespace Cache;
+namespace App\Cache;
 
-use Env;
+use App\Env;
 
 /**
  * @singleton
@@ -11,7 +11,7 @@ use Env;
  * Requires php driver for Memcached
  *
  * @example get instance
- * $cache = \Cache\Cache::instance();
+ * $cache = App\Cache\Cache::instance();
  * @example set object
  * $cache->set($key, $data[, $exp]);
  * @example get object

@@ -1,5 +1,10 @@
 <?php
 
+namespace App;
+
+use App\DB\DbNames;
+use App\DB\Mongo;
+
 /**
  * Parent class, which describes acceptable extension,
  * file size and methods that check these parameters.
@@ -42,9 +47,18 @@ class Uploader
     const UPLOAD_DIR = 'upload/';
 
     /**
-     * Check uploads dir
+     * Project's dentifier of image target
+     *
+     * @var string
      */
-    public function __construct()
+    public $projectId = '';
+
+    /**
+     * Check uploads dir, prepare project's ID
+     *
+     * @param string $projectId
+     */
+    public function __construct($projectId)
     {
         if (!file_exists(self::UPLOAD_DIR) || !is_writable(self::UPLOAD_DIR)) {
             $errorMessage = self::UPLOAD_DIR . ' directory should be writable';
@@ -52,14 +66,14 @@ class Uploader
             trigger_error($errorMessage, E_USER_ERROR);
             error_log($errorMessage);
 
-            \HTTP\Response::InternalServerError();
+            HTTP\Response::InternalServerError();
 
-            \API\Response::error([
+            API\Response::error([
                 'message' => 'Internal Server Error'
             ]);
-
-            die();
         }
+
+        $this->projectId = $projectId;
     }
 
     /**
@@ -98,8 +112,18 @@ class Uploader
      */
     protected function saveFileToUploadDir($filepath)
     {
+        /** Get file hash */
+        $hash = hash_file('sha256', $filepath);
+
+        /** Check for a saved copy */
+        $duplicateImageData = $this->findDuplicateByHash($hash);
+
+        if ($duplicateImageData) {
+            return $duplicateImageData;
+        }
+
         /** Generate filename */
-        $path = Uploader::UPLOAD_DIR . \Methods::generateId() . "." . self::TARGET_EXT;
+        $path = Uploader::UPLOAD_DIR . Methods::generateId() . "." . self::TARGET_EXT;
 
         /** Save file to uploads dir */
         file_put_contents($path, file_get_contents($filepath));
@@ -113,11 +137,11 @@ class Uploader
         }
 
         /** Get uploaded image */
-        $image = new Imagick($path);
+        $image = new \Imagick($path);
 
         /** Add white background */
-        $image->setImageBackgroundColor(new ImagickPixel('white'));
-        $image = $image->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $image->setImageBackgroundColor(new \ImagickPixel('white'));
+        $image = $image->mergeImageLayers(\Imagick::LAYERMETHOD_FLATTEN);
 
         /** Convert image to jpg */
         $image->setImageFormat(self::TARGET_EXT);
@@ -137,20 +161,56 @@ class Uploader
          * 2) get color of top left pixel
          * 3) convert color from rgb to hex
          */
-        $image->resizeImage(1, 1, Imagick::FILTER_GAUSSIAN, 1);
+        $image->resizeImage(1, 1, \Imagick::FILTER_GAUSSIAN, 1);
         $color = $image->getImagePixelColor(1, 1)->getColor();
         $colorHex = sprintf("#%02x%02x%02x", $color['r'], $color['g'], $color['b']);
 
         $imageData = [
+            'author' => $this->getAuthor(),
             'filepath' => $path,
             'width' => $width,
             'height' => $height,
             'color' => $colorHex,
             'mime' => 'image/' . self::TARGET_EXT,
             'size' => $imageSize,
+            'hash' => $hash,
+            'projectId' => $this->projectId
         ];
 
+        /** Save image data to DB */
+        Mongo::connect()->{DbNames::IMAGES}->insertOne($imageData);
+
         return $imageData;
+    }
+
+    /**
+     * Return request source IP address
+     *
+     * @return string
+     */
+    protected function getAuthor()
+    {
+        return Methods::getRequestSourceIp();
+    }
+
+    /**
+     * Try to find already saved image by hash
+     *
+     * @param string $hash
+     */
+    protected function findDuplicateByHash($hash)
+    {
+        /** Check for a hash existing */
+        $mongoResponse = Mongo::connect()->{DbNames::IMAGES}->findOne([
+            'hash' => $hash
+        ]);
+
+        if (!!$mongoResponse) {
+            /* File already exist */
+            return $mongoResponse;
+        }
+
+        return null;
     }
 
     /**
@@ -175,7 +235,7 @@ class Uploader
         $label = explode('.', basename($imageData['filepath']))[0];
 
         /** Get image's URL by id */
-        $imageData['link'] = \Methods::getImageUri($label);
+        $imageData['link'] = Methods::getImageUri($label);
 
         return $imageData;
     }

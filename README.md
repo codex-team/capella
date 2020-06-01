@@ -6,11 +6,13 @@ Made with :heart: by [CodeX](https://codex.so)
 
 [![](docs/assets/drag-n-drop.gif)](https://capella.pics/image/0351d892-44ba-4c5f-9d34-0af0f9e33651)
 
-> :warning: Warning
+> :warning: **Warning**
 >
-> https://capella.pics is currently in beta. Uploading a large number of files is not supported.
->
-> At this time any client cannot upload more than **3 images per minute**. This limit can be extened by access tokens. You can get it for your project later.
+> https://capella.pics is currently in beta.
+> 
+> Capella requires a project's token for image uploading. We are testing the service for a fast, stable and secure work.
+> 
+> You will be able to enroll your project to get a token later. Keep track of Capella's updates on https://github.com/codex-team/capella.
 
 ## Content
 
@@ -19,7 +21,7 @@ Made with :heart: by [CodeX](https://codex.so)
 * [Upload API](#upload-api)
     * [Request](#request)
     * [Response](#response)
-    * [Examples](#examples)
+    * [Example](#example)
 * [Get image](#get-image)
     * [Filters](#filters)
 * [Development and deployment](#development-and-deployment)
@@ -33,7 +35,7 @@ Made with :heart: by [CodeX](https://codex.so)
 
 ### File requirements
 
-Maximum size for the file is `15MB`.
+Maximum size for the image file is `15MB`.
 
 Capella supports these types of images:
 
@@ -58,12 +60,10 @@ Please note that each uploaded file will be converted to JPG with a white backgr
 
 ### Request
 
-You can upload image file or send link to the image from your app by making a request to `https://capella.pics/upload`.
+You can upload image file or send link to the image from your app by making a `POST` request to `https://capella.pics/upload` with the following data:
 
-| Method | URI      | Data                      |
-|--------|----------|---------------------------|
-| `POST` | `upload` | file in `file` field      |
-| `POST` | `upload` | image url in `link` field |
+- file in `file` field or image url in `link` field
+- project's token in `token` field
 
 You will get a JSON response from server.
 
@@ -120,32 +120,33 @@ Each response will have at least `success` and `message` fields.
 
 #### List of messages for failed requests
 
-| Code      | Message                          |  Description                              |
-|-----------|----------------------------------|-------------------------------------------|
-| **`400`** | `File or link is missing`        | No expected data was found                |
-| **`400`** | `File is missing`                | Filename is missing                       |
-| **`400`** | `Link is missing`                | Field link is empty                       |
-| **`400`** | `Wrong source mime-type`         | No support file with this mime-type       |
-| **`400`** | `Source is too big`              | File size exceeds the limit               |
-| **`400`** | `Source is damaged`              | Source has no data, size or mime-type     |
-| **`400`** | `Can't get headers for this URL` | Wrong url was passed                      |
-| **`405`** | `Method not allowed`             | Request method is not POST                |
-| **`429`** | `Too Many Requests`              | Client has exceed plan limit. Retry later |
+| Code      | Message                           |  Description                              |
+|-----------|-----------------------------------|-------------------------------------------|
+| **`400`** | `File or link is missing`         | No expected data was found                |
+| **`400`** | `File is missing`                 | Filename is missing                       |
+| **`400`** | `Link is missing`                 | Field link is empty                       |
+| **`400`** | `Wrong source mime-type`          | No support file with this mime-type       |
+| **`400`** | `Source is too big`               | File size exceeds the limit               |
+| **`400`** | `Source is damaged`               | Source has no data, size or mime-type     |
+| **`400`** | `Can't get headers for this URL`  | Wrong url was passed                      |
+| **`403`** | `Project token is bad or missing` | Request method is not POST                |
+| **`405`** | `Method not allowed`              | Request method is not POST                |
+| **`429`** | `Too Many Requests`               | Client has exceed plan limit. Retry later |
 
-### Examples
+### Example
 
 #### CURL
 
 ```bash
 # Upload file
 
-curl -X POST https://capella.pics/upload -F "file=@/path/to/image.png"
+curl -X POST https://capella.pics/upload -F "file=@/path/to/image.png" -F "token=aaaa-bbbb-cccc-dddd"
 ```
 
 ```bash
 # Upload image by link
 
-curl -X POST https://capella.pics/upload -d "link=https://path.to/image.png"
+curl -X POST https://capella.pics/upload -d "link=https://path.to/image.png" -d "token=aaaa-bbbb-cccc-dddd"
 ```
 
 #### Python
@@ -160,8 +161,12 @@ files = {
     'file': open('./image.png','rb')
 }
 
-r = requests.post('https://capella.pics/upload', files=files)
-response = json.loads(r.content)
+data = {
+    'token': 'aaaa-bbbb-cccc-dddd'
+}
+
+r = requests.post('https://capella.pics/upload', files=files, data=data)
+response = json.loads(r.content.decode('utf-8'))
 
 print(response)
 ```
@@ -173,11 +178,12 @@ import requests
 import json
 
 data = {
-    'link': 'https://path.to/image.png'
+    'link': 'https://path.to/image.png',
+    'token': 'aaaa-bbbb-cccc-dddd'
 }
 
 r = requests.post('https://capella.pics/upload', data=data)
-response = json.loads(r.content)
+response = json.loads(r.content.decode('utf-8'))
 
 print(response)
 ```
@@ -320,3 +326,4 @@ Ask a question or report a bug on the [create issue page](https://github.com/cod
 Know how to improve Capella? [Fork it](https://github.com/codex-team/capella) and send pull request.
 
 You can also drop a few lines to [CodeX Team's email](mailto:team@codex.so).
+

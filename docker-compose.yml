@@ -3,10 +3,15 @@ version: '2'
 services:
     memcached:
         image: memcached:alpine
+    mongo:
+        image: mongo:4
+        ports:
+            - 27017:27017
     php:
         build: docker/php7.2-fpm
         links:
             - memcached
+            - mongo
         volumes:
             - ./capella:/var/www/capella
     nginx:
@@ -15,6 +20,5 @@ services:
             - 8081:80
         links:
             - php
-            - memcached
         volumes_from:
             - php
