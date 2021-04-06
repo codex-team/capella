@@ -1,6 +1,6 @@
 {
     "require": {
-        "codex-team/hawk.php": "^1.0",
+        "codex-team/hawk.php": "^2.0",
         "vlucas/phpdotenv": "^2.4",
         "mongodb/mongodb": "^1.6"
     },
