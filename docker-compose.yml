@@ -3,8 +3,10 @@ version: '2'
 services:
     memcached:
         image: memcached:alpine
+        restart: on-failure
     mongo:
         image: mongo:4
+        restart: on-failure
 #        ports:
 #            - 27017:27017
     php:
@@ -14,6 +16,7 @@ services:
             - mongo
         volumes:
             - ./capella:/var/www/capella
+        restart: on-failure
     nginx:
         build: docker/nginx
         ports:
@@ -22,3 +25,4 @@ services:
             - php
         volumes_from:
             - php
+        restart: on-failure

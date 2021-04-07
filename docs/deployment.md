@@ -50,6 +50,19 @@ Capella uses [Hawk](https://hawk.so) as error catching service. You can create a
 
 You're rock!
 
+6. To get an access token, uncomment the following line in the `.env` file.
+
+```
+#PROJECT_REGISTRATION_IS_AVAILABLE=True
+```
+
+Then open [http://localhost:8081/project](http://localhost:8081/project) and fill up the form.
+
+You will get an integration token.
+
+To use it in a browser, open the page `http://localhost:8081/?token=...` with token
+passed via get param. This token will be saved in cookies.
+
 ## Server environment
 
 Will be added soon :wink:

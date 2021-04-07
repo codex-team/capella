@@ -59,7 +59,7 @@ switch ($alias) {
         try {
             $processing = new Controller\Processing($requestUri);
         } catch (\Exception $e) {
-            \Hawk\HawkCatcher::catchException($e);
+            \Hawk\Catcher::get()->sendException($e);
 
             HTTP\Response::InternalServerError();
 
