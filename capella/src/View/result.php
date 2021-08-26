@@ -14,7 +14,7 @@
 
         <? $hawkToken = App\Env::get('HAWK_TOKEN') ?>
         <? if ($hawkToken): ?>
-        <script src="/public/build/hawk.bundle.js?v=<?= filemtime('public/build/hawk.bundle.js') ?>" onload="hawk.init('<?= $hawkToken ?>');" async></script>
+        <script src="/public/build/HawkCatcher.bundle.js?v=<?= filemtime('public/build/HawkCatcher.bundle.js') ?>" onload="new HawkCatcher('<?= $hawkToken ?>');" async></script>
         <? endif ?>
     </head>
     <body class="body--black">
