@@ -1,8 +1,4 @@
-FROM php:7.2-fpm
-
-MAINTAINER CodeX Team <github.com/codex-team>
-
-RUN echo "deb http://ftp.ru.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list
+FROM php:7.4-fpm
 
 RUN apt-get update
 RUN apt-get install -y \
@@ -31,6 +27,5 @@ RUN echo extension=imagick.so >> /usr/local/etc/php/conf.d/imagick.ini
 # Set timezone
 RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-RUN "date"
 
 WORKDIR /var/www/capella

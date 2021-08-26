@@ -1,1 +1,1 @@
-module.exports = require('hawk.javascript');
+module.exports = require('@hawk.so/javascript');

@@ -8,7 +8,7 @@ module.exports = {
    */
   entry: {
     capella: './public/app/entry.js',
-    hawk: './public/app/js/hawk.js'
+    HawkCatcher: './public/app/js/hawk.js'
   },
 
   /**

@@ -10,7 +10,7 @@ services:
 #        ports:
 #            - 27017:27017
     php:
-        build: docker/php7.2-fpm
+        build: docker/php
         links:
             - memcached
             - mongo
